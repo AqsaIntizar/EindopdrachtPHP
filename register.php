@@ -1,4 +1,15 @@
-<!DOCTYPE html>
+<?php
+require_once("classes/User.class.php");
+
+if(!empty($_POST)){
+    $user = new User();
+    $user->setFullname($_POST['fullname']);
+    $user->setUsername($_POST['username']);
+	$user->setEmail($_POST['email']);
+	$user->setPassword($_POST['password']);
+	$user->setPasswordConfirmation($_POST['password_confirmation']);
+}
+?><!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -9,7 +20,7 @@
     <form action="" method="post">
         
 		<div class="form__field">
-			<label for="email">Full name</label>
+			<label for="fullname">Full name</label>
 			<input type="text" id="full_name" name="fullname">
 		</div>
         <div class="form__field">
