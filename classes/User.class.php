@@ -1,5 +1,6 @@
 <?php
   require_once("Security.class.php");
+  require_once("Db.class.php");
 
     class User {
         private $firstname;
@@ -139,16 +140,17 @@
             $password = Security::hash($this->password);
   
               try{
-                  $conn = new PDO("mysql:host=localhost; dbname=includefood", "root", "root");
-                  var_dump($conn->errorCode());
-                  $statement = $conn->prepare("INSERT INTO users (firstname, lastname, username, email, password) values (:firstname, :lastname, :username, :email, :password)");
-                  $statement->bindParam(":email", $this->email);
-                  $statement->bindParam(":firstname", $this->firstname);
-                  $statement->bindParam(":lastname", $this->lastname);
-                  $statement->bindParam(":username", $this->username);
-                  $statement->bindParam(":password", $password);
-                  $result = $statement->execute();
-                  return $result;
+                
+                $conn = Db::getInstance();
+                var_dump($conn->errorCode());
+                $statement = $conn->prepare("INSERT INTO users (firstname, lastname, username, email, password) values (:firstname, :lastname, :username, :email, :password)");
+                $statement->bindParam(":email", $this->email);
+                $statement->bindParam(":firstname", $this->firstname);
+                $statement->bindParam(":lastname", $this->lastname);
+                $statement->bindParam(":username", $this->username);
+                $statement->bindParam(":password", $password);
+                $result = $statement->execute();
+                return $result;
               }catch(Throwable $t){
                   return false;
               }
