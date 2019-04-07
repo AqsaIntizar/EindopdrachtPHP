@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
 }
+/* start header */
 header{
     width: 100vw;
     height: 75px;
@@ -10,6 +11,7 @@ header{
     display: flex;
     flex-flow: row nowrap;
     justify-content: space-between;
+    position: fixed;
 }
 div.logo{
     width: 100px;
@@ -65,7 +67,25 @@ ul.navFlex li{
     display: block;
   }
   
-  .dropdown-content a:hover {background-color: #ddd;}
+.dropdown-content a:hover {background-color: #ddd;}
   
-  .dropdown:hover .dropdown-content {display: block;}
-  
+.dropdown:hover .dropdown-content {display: block;}
+/* end header */
+
+/* start settings */
+.settings{
+    width: 100vw;
+    min-height: 500px;
+    
+    padding-top: 85px;
+    padding-left: 50px;
+}
+.edit{
+    width: 75%;
+    margin: 20px auto;
+}
+hr{
+    margin-top: 20px;
+}
+
+/*end settings */

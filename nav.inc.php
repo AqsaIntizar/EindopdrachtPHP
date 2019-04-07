@@ -7,7 +7,7 @@
         <li><a href="#" class="navLink">Link 4</a></li>
         <li>
             <div class="dropdown">
-                <img src="https://fakeimg.pl/50x50/" class="dropbtn">
+                <img src="https://fakeimg.pl/50x50/?text=MyPic" class="dropbtn">
                 <div class="dropdown-content">
                     <a href="#">Instellingen</a>
                     <a href="#">Log out</a>
