@@ -1,111 +1,156 @@
 <?php
-require_once("Security.class.php");
-class User{
-    private $email;
-    private $fullname;
-    private $username;
-    private $password;
-    private $password_confirm;
+  require_once("Security.class.php");
 
-    
+    class User {
+        private $firstname;
+        private $lastname;
+        private $username;
+        private $email;
+        private $password;
+        private $passwordConfirmation;
 
-    /**
-     * Get the value of email
-     */ 
-    public function getEmail()
-    {
-        return $this->email;
+
+
+        /**
+         * Get the value of email
+         */
+        public function getEmail()
+        {
+                return $this->email;
+        }
+
+        /**
+         * Set the value of email
+         *
+         * @return  self
+         */
+        public function setEmail($email)
+        {
+                $this->email = $email;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of password
+         */
+        public function getPassword()
+        {
+                return $this->password;
+        }
+
+        /**
+         * Set the value of password
+         *
+         * @return  self
+         */
+        public function setPassword($password)
+        {
+                $this->password = $password;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of passwordConfirmation
+         */
+        public function getPasswordConfirmation()
+        {
+                return $this->passwordConfirmation;
+        }
+
+        /**
+         * Set the value of passwordConfirmation
+         *
+         * @return  self
+         */
+        public function setPasswordConfirmation($passwordConfirmation)
+        {
+                $this->passwordConfirmation = $passwordConfirmation;
+
+                return $this;
+        }
+
+
+        /**
+         * Get the value of firstname
+         */ 
+        public function getFirstname()
+        {
+                return $this->firstname;
+        }
+
+        /**
+         * Set the value of firstname
+         *
+         * @return  self
+         */ 
+        public function setFirstname($firstname)
+        {
+                $this->firstname = $firstname;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of lastname
+         */ 
+        public function getLastname()
+        {
+                return $this->lastname;
+        }
+
+        /**
+         * Set the value of lastname
+         *
+         * @return  self
+         */ 
+        public function setLastname($lastname)
+        {
+                $this->lastname = $lastname;
+
+                return $this;
+        }
+
+        /**
+         * Get the value of username
+         */ 
+        public function getUsername()
+        {
+                return $this->username;
+        }
+
+        /**
+         * Set the value of username
+         *
+         * @return  self
+         */ 
+        public function setUsername($username)
+        {
+                $this->username = $username;
+
+                return $this;
+        }
+        
+        /*
+        @return boolean - true if registration successful, false if unsuccessful
+        */
+        public function register(){
+            $password = Security::hash($this->password);
+  
+              try{
+                  $conn = new PDO("mysql:host=localhost; dbname=includefood", "root", "root");
+                  var_dump($conn->errorCode());
+                  $statement = $conn->prepare("INSERT INTO users (firstname, lastname, username, email, password) values (:firstname, :lastname, :username, :email, :password)");
+                  $statement->bindParam(":email", $this->email);
+                  $statement->bindParam(":firstname", $this->firstname);
+                  $statement->bindParam(":lastname", $this->lastname);
+                  $statement->bindParam(":username", $this->username);
+                  $statement->bindParam(":password", $password);
+                  $result = $statement->execute();
+                  return $result;
+              }catch(Throwable $t){
+                  return false;
+              }
+          }
     }
-
-    /**
-     * Set the value of email
-     *
-     * @return  self
-     */ 
-    public function setEmail($email)
-    {
-        $this->email = $email;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of fullname
-     */ 
-    public function getFullname()
-    {
-        return $this->fullname;
-    }
-
-    /**
-     * Set the value of fullname
-     *
-     * @return  self
-     */ 
-    public function setFullname($fullname)
-    {
-        $this->fullname = $fullname;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of username
-     */ 
-    public function getUsername()
-    {
-        return $this->username;
-    }
-
-    /**
-     * Set the value of username
-     *
-     * @return  self
-     */ 
-    public function setUsername($username)
-    {
-        $this->username = $username;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of password
-     */ 
-    public function getPassword()
-    {
-        return $this->password;
-    }
-
-    /**
-     * Set the value of password
-     *
-     * @return  self
-     */ 
-    public function setPassword($password)
-    {
-        $this->password = $password;
-
-        return $this;
-    }
-
-    /**
-     * Get the value of password_confirm
-     */ 
-    public function getPassword_confirm()
-    {
-        return $this->password_confirm;
-    }
-
-    /**
-     * Set the value of password_confirm
-     *
-     * @return  self
-     */ 
-    public function setPassword_confirm($password_confirm)
-    {
-        $this->password_confirm = $password_confirm;
-
-        return $this;
-    }
-}
