@@ -84,6 +84,11 @@ ul.navFlex li{
     width: 75%;
     margin: 20px auto;
 }
+.currentPic{
+    width: 340px;
+    height: 240px;
+    
+}
 hr{
     margin-top: 20px;
 }

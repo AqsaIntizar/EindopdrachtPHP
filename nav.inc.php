@@ -9,7 +9,7 @@
             <div class="dropdown">
                 <img src="https://fakeimg.pl/50x50/?text=MyPic" class="dropbtn">
                 <div class="dropdown-content">
-                    <a href="#">Instellingen</a>
+                    <a href="settings.php">Instellingen</a>
                     <a href="#">Log out</a>
                 </div>
             </div>
