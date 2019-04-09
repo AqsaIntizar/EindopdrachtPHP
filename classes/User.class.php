@@ -9,6 +9,7 @@
         private $email;
         private $password;
         private $passwordConfirmation;
+        private $description;
 
 
 
@@ -132,10 +133,29 @@
 
                 return $this;
         }
-        
+         /**
+         * Get the value of description
+         */ 
+        public function getDescription()
+        {
+                return $this->description;
+        }
+
+        /**
+         * Set the value of description
+         *
+         * @return  self
+         */ 
+
         /*
-        @return boolean - true if registration successful, false if unsuccessful
+        ./@return boolean - true if registration successful, false if unsuccessful
         */
+        public function setDescription($description)
+        {
+                $this->description = $description;
+
+                return $this;
+        }
         public function register(){
             $password = Security::hash($this->password);
   
@@ -155,4 +175,6 @@
                   return false;
               }
           }
+
+
     }
