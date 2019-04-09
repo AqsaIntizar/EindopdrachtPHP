@@ -9,7 +9,6 @@
         private $email;
         private $password;
         private $passwordConfirmation;
-        private $description;
 
 
 
@@ -174,7 +173,22 @@
               }catch(Throwable $t){
                   return false;
               }
-          }
+        }
+        public static function saveDiscription($userEmail){
+                //echo "test";
+                $myDiscr = $_POST['myDiscr'];
+
+                try{
+                $conn = Db::getInstance();
+                $stmntDisc = $conn->prepare("update users set description = :disc where email = :userEmail ");
+                $stmntDisc->bindParam(":disc", $myDiscr);
+                $stmntDisc->bindParam(":userEmail", $userEmail);
+                $result = $stmntDisc->execute();
+                return $result;
+                }catch(Throwable $t){
+                echo $t;
+                }
+        }
 
 
     }
