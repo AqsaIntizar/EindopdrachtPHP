@@ -46,33 +46,35 @@
     <div class="settings">
         <h1>Accountinstellingen</h1>
 
+        <!--Start ProfPic-->
         <div class="setProfPic">
             <div class="edit">
                 <h2>Chance profile picture</h2>
                 <img class="currentPic" src="<?php echo $result->img_dir; ?>">
+                <br><br>
                 <form action="" method="post" enctype="multipart/form-data">
                     <p>
                         File: <input type="file" name="imageFile">
                     </p>
+                    <br>
                     <input type="submit" name="uploadImage" value="Upload image">
                 </form>
-
-
-            <!--
-                <img src="https://fakeimg.pl/340x240/?text=MyPic">
-                <a href="#" class="modalTrggr">Bewerk</a>
-            -->
                 <hr>
             </div>
         </div>
-        <!--
-        <div class="setProfPic">
-            <div class="edit currentPic">
-                <img src="https://fakeimg.pl/340x240/?text=MyPic">
-                <a href="#" class="modalTrggr">Bewerk</a>
+         <!--End ProfPic-->
+          <!--Start Description-->
+        <div class="setDescr">
+            <div class="edit">
+                <h2>Chance your description</h2>
+                <form action="">
+                    <textarea name="myDiscr" id="myDiscr" cols="55" rows="10"></textarea>
+                    <br><br>
+                    <input type="submit" name="descrSave" value="Save description">
+                </form>
                 <hr>
             </div>
-        </div>-->
+        </div>
     </div>
 
 </body>
