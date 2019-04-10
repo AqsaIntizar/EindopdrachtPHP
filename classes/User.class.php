@@ -189,6 +189,31 @@
                 echo $t;
                 }
         }
-
+        public static function changePass($old, $new, $newComf, $userEmail){
+                $conn = Db::getInstance();
+                $stmntPass = $conn->prepare('select * from users where email = :userEmail');
+                $stmntPass->bindParam(":userEmail", $userEmail);
+                $stmntPass->execute();
+                $user = $stmntPass->fetch(PDO::FETCH_ASSOC);
+                
+                if( password_verify($old, $user['password']) ){
+                    echo "binnen";
+                    if( $new == $newComf ){
+                        echo "hetzelfde";
+                        $newPass = Security::hash($new);
+                        
+                        //$conn = Db::getInstance();
+                        $stmntPassCh = $conn->prepare('update users set `password` = :newPass where email = :userEmail');
+                        $stmntPassCh->bindParam(":newPass", $newPass);
+                        $stmntPassCh->bindParam(":userEmail", $userEmail);
+                        $resultPass = $stmntPassCh->execute();
+                        return $resultPass;
+                    }else{
+                        echo "niet hetzelfde";
+                    }
+                }else{
+                    echo "buiten";
+                }
+        }
 
     }

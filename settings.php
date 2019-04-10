@@ -27,6 +27,15 @@
         $result = User::saveDiscription($userEmail);
     }
 
+    if( isset($_POST['changePassword']) && !empty($_POST['oldPassword']) && !empty($_POST['newPassword']) && !empty($_POST['new_password_confirmation']) ){
+        $oldPass = $_POST['oldPassword'];
+        $newPass = $_POST['newPassword'];
+        $newPassComf = $_POST['new_password_confirmation'];
+        
+        $result = User::changePass($oldPass,$newPass,$newPassComf, $userEmail);
+
+    }
+
     $conn = Db::getInstance();
     $stmnt = $conn->prepare('select img_dir, description FROM `users` WHERE email = :userEmail');
     $stmnt->bindParam(":userEmail", $userEmail);
@@ -82,6 +91,29 @@
             </div>
         </div>
         <!--End Description-->
+
+        <!--Start Password-->
+        <div class="setDescr">
+            <div class="edit">
+                <h2>Chance your password</h2>
+                <form action="" method="post">
+
+                    <label for="oldPassword">Old Password</label>
+                    <input type="password" id="oldPassword" name="oldPassword">
+                    <br><br>
+                    <label for="newPassword">New Password</label>
+                    <input type="password" id="newPassword" name="newPassword">
+                    <br><br>
+                    <label for="new_password_confirmation">Confirm your new password</label>
+		            <input type="password" id="new_password_confirmation" name="new_password_confirmation">
+
+                    <br><br>
+                    <input type="submit" name="changePassword" value="Change Password">
+                </form>
+                <hr>
+            </div>
+        </div>
+        <!--End Password-->
     </div>
 
 </body>
