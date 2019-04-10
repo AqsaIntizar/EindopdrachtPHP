@@ -142,7 +142,7 @@
               try{
                 
                 $conn = Db::getInstance();
-                var_dump($conn->errorCode());
+                //var_dump($conn->errorCode());
                 $statement = $conn->prepare("INSERT INTO users (firstname, lastname, username, email, password) values (:firstname, :lastname, :username, :email, :password)");
                 $statement->bindParam(":email", $this->email);
                 $statement->bindParam(":firstname", $this->firstname);

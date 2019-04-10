@@ -1,4 +1,12 @@
-<!DOCTYPE html>
+<?php 
+
+    if (isset($_COOKIE['loggedin'])){
+        
+    } else{
+        header('Location: login.php');
+    }
+
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
