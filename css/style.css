@@ -94,3 +94,19 @@ hr{
 }
 
 /*end settings */
+
+/* Css for feed */
+div.feed {
+    padding-top: 100px;
+    display: grid;
+    grid-template-columns: 500px 500px 500px;
+    grid-template-rows: 500px 500px 500px;
+    grid-gap: 10px;
+    justify-content: center;
+    align-content: center;
+}
+
+/* for testing */
+/* div.post {
+    border: 1px solid blue;
+} */
