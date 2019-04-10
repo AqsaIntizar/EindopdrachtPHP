@@ -15,25 +15,25 @@
     <div class="addContent"><a href="newPost.php">Add some fresh content here</a></div>
     <!-- start lus -->
     <div class="post">
-    <img src="" alt="">
-    <p class="description"></p>
+    <img src="https://fakeimg.pl/400x400/?text=MyPic" alt="">
+    <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, consequatur. Debitis odio atque fuga quas animi repellat non. Debitis consequatur exercitationem expedita placeat qui corporis eaque dolores odit animi nemo?</p>
     </div>
     <!-- einde lus -->
     <!-- for testing grid -->
     <!-- <div class="post">
-    <img src="" alt="">
+    <img src="https://fakeimg.pl/400x400/?text=MyPic" alt="">
     <p class="description"></p>
     </div>
     <div class="post">
-    <img src="" alt="">
+    <img src="https://fakeimg.pl/400x400/?text=MyPic" alt="">
     <p class="description"></p>
     </div>
     <div class="post">
-    <img src="" alt="">
+    <img src="https://fakeimg.pl/400x400/?text=MyPic" alt="">
     <p class="description"></p>
     </div>
     <div class="post">
-    <img src="" alt="">
+    <img src="https://fakeimg.pl/400x400/?text=MyPic" alt="">
     <p class="description"></p>
     </div> -->
     </div>

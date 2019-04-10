@@ -106,7 +106,17 @@ div.feed {
     align-content: center;
 }
 
-/* for testing */
-/* div.post {
-    border: 1px solid blue;
-} */
+
+div.post {
+    /* for testing */
+    /* border: 1px solid blue; */
+    text-align: center;
+    padding: 50px;
+    padding-top: 10px;
+}
+
+div.addContent {
+    text-align: center;
+    margin-top: auto;
+    margin-bottom: auto;
+}
