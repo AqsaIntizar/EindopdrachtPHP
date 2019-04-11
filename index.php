@@ -1,4 +1,13 @@
-<!DOCTYPE html>
+<?php 
+    require_once("classes/Db.class.php");
+    require_once("classes/Post.class.php");
+
+    $conn = Db::getInstance();
+    $stmnt = $conn->prepare('select description, img_dir FROM `posts`');
+    $stmnt->execute();
+    $result= $stmnt->fetchAll(PDO::FETCH_ASSOC);
+
+?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -14,10 +23,12 @@
     <div class="feed">
     <div class="addContent"><a href="newPost.php">Add some fresh content here</a></div>
     <!-- start lus -->
+    <?php foreach($result as $r): ?>
     <div class="post">
-    <img src="https://fakeimg.pl/400x400/?text=MyPic" alt="">
-    <p class="description">Lorem ipsum dolor sit amet consectetur adipisicing elit. Id, consequatur. Debitis odio atque fuga quas animi repellat non. Debitis consequatur exercitationem expedita placeat qui corporis eaque dolores odit animi nemo?</p>
+    <img src="<?php echo $r['img_dir'] ?>" alt="">
+    <p class="description"><?php echo $r['description']?></p>
     </div>
+    <?php endforeach;?>
     <!-- einde lus -->
     <!-- for testing grid -->
     <!-- <div class="post">
