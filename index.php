@@ -1,8 +1,11 @@
 <?php 
 
-    if (isset($_COOKIE['loggedin'])){
-        
-    } else{
+    session_start();
+    //$userName = $_SESSION['UserName'];
+    if( isset($_SESSION['User']) ){
+        //logged in user
+    }else{
+        //no logged in user
         header('Location: login.php');
     }
 

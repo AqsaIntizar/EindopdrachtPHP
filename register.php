@@ -13,7 +13,7 @@ if(!empty($_POST)){
 	if($user->register()){
 		session_start();
 		$_SESSION['User'] = true;
-		$_SESSION['email'] = $user->getEmail();
+		$_SESSION['UserName'] = $user->getUsername();
 		header('Location: index.php');
 	}
 }

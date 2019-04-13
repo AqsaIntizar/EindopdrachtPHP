@@ -1,7 +1,8 @@
 <?php 
 require_once("classes/Db.class.php");
 $conn = Db::getInstance();
-$statement = $conn->prepare("select username from users where email =".$_SESSION['email']);
+$statement = $conn->prepare("select username from users where username = :userName");
+$statement->bindParam(":userName", $userName);
 $user = $statement->execute(); 
 ?><div class="logo"></div>
 <nav>

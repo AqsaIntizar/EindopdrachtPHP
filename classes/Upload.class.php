@@ -109,7 +109,7 @@
                 return $this;
         }
 
-        public function uploadImage(){
+        public function uploadImage($userName){
             if( $_SERVER['REQUEST_METHOD'] == "POST" ){
                 //request aanwezig, kijken of er files zijn om up te loaden
                 if( isset($_FILES['imageFile']) ){
@@ -120,11 +120,17 @@
                     if( move_uploaded_file($this->fileTempName, $this->targetDir.$this->fileName) ){
                         $fullPath = $this->targetDir.$this->fileName;
                         //connect db
-                        $conn = Db::getInstance();
-                        $stmnt = $conn->prepare('update users set img_dir = :dir where email = "wesleywijsen@hotmail.com"');
-                        $stmnt->bindParam(":dir", $fullPath);
-                        $result = $stmnt->execute();
-                        return $result;
+                        try{
+                                $conn = Db::getInstance();
+                                $stmnt = $conn->prepare('update users set img_dir = :dir where username = :userName');
+                                $stmnt->bindParam(":dir", $fullPath);
+                                $stmnt->bindParam(":userName", $userName);
+                                $result = $stmnt->execute();
+                                return $result;
+                        }catch(Throwable $t){
+                                return false;
+                        }
+                        
                     }else{
                         echo "file could not be uploaded";
                     }
