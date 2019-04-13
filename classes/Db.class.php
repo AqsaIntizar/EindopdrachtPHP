@@ -17,4 +17,7 @@
                 return self::$conn;
             }
         }
+        public static function disconnect(){
+            self::$conn = null;
+        }
     }
