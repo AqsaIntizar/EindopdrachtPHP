@@ -32,7 +32,12 @@
     //End save derscription
 
     //Start Change Email
+    if( isset($_POST['changeEmail']) && !empty($_POST['password']) && !empty($_POST['newEmail']) ){
+        $password = $_POST['password'];
+        $newEmail = $_POST['newEmail'];
 
+        $result = User::changeEmail($password,$newEmail,$userName);
+    }
     //End Change Email
 
     //Start password change

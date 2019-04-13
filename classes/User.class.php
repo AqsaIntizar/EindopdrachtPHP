@@ -215,5 +215,24 @@
                     echo "buiten";
                 }
         }
+        public static function changeEmail($passwordVer, $newEmail,$userName){
+                $conn = Db::getInstance();
+                $stmntEmail = $conn->prepare('select * from users where username = :userName');
+                $stmntEmail->bindParam(":userName", $userName);
+                $stmntEmail->execute();
+                $userMail = $stmntEmail->fetch(PDO::FETCH_ASSOC);
+
+                if( password_verify($passwordVer, $userMail['password']) ){
+                        echo "wachtwoord klopt";
+                        $stmntEmailCh = $conn->prepare('update users set `email` = :newEmail where username = :userName');
+                        $stmntEmailCh->bindParam(":newEmail", $newEmail);
+                        $stmntEmailCh->bindParam(":userName", $userName);
+                        $resultEmail = $stmntEmailCh->execute();
+                        return $resultEmail;
+
+                }else{
+                        echo "wachtwoord foutief";
+                }
+        }
 
     }
