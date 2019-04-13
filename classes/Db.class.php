@@ -5,7 +5,7 @@
         public static function getInstance(){
             if (self::$conn != null){
                 //connection found
-                echo "😂";
+                //echo "😂";
                 return self::$conn;
             } else{
                 //no connection found, create one!
@@ -13,7 +13,7 @@
                 
                 //var_dump($config);
                 self::$conn = new PDO('mysql:host=localhost;dbname=includefood;charset=utf8mb4', $config['db_user'], $config['db_password']);
-                echo "😎";
+                //echo "😎";
                 return self::$conn;
             }
         }

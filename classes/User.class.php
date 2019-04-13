@@ -179,60 +179,69 @@
                 $myDiscr = $_POST['myDiscr'];
 
                 try{
-                $conn = Db::getInstance();
-                $stmntDisc = $conn->prepare("update users set description = :disc where username = :userName ");
-                $stmntDisc->bindParam(":disc", $myDiscr);
-                $stmntDisc->bindParam(":userName", $userName);
-                $result = $stmntDisc->execute();
-                return $result;
+                        $conn = Db::getInstance();
+                        $stmntDisc = $conn->prepare("update users set description = :disc where username = :userName ");
+                        $stmntDisc->bindParam(":disc", $myDiscr);
+                        $stmntDisc->bindParam(":userName", $userName);
+                        $result = $stmntDisc->execute();
+                        return $result;
                 }catch(Throwable $t){
-                echo $t;
+                        echo $t;
                 }
         }
         public static function changePass($old, $new, $newComf,$userName){
-                $conn = Db::getInstance();
-                $stmntPass = $conn->prepare('select * from users where username = :userName');
-                $stmntPass->bindParam(":userName", $userName);
-                $stmntPass->execute();
-                $user = $stmntPass->fetch(PDO::FETCH_ASSOC);
-                
-                if( password_verify($old, $user['password']) ){
-                    echo "binnen";
-                    if( $new == $newComf ){
-                        echo "hetzelfde";
-                        $newPass = Security::hash($new);
+                try{
+                        $conn = Db::getInstance();
+                        $stmntPass = $conn->prepare('select * from users where username = :userName');
+                        $stmntPass->bindParam(":userName", $userName);
+                        $stmntPass->execute();
+                        $user = $stmntPass->fetch(PDO::FETCH_ASSOC);
                         
-                        //$conn = Db::getInstance();
-                        $stmntPassCh = $conn->prepare('update users set `password` = :newPass where username = :userName');
-                        $stmntPassCh->bindParam(":newPass", $newPass);
-                        $stmntPassCh->bindParam(":userName", $userName);
-                        $resultPass = $stmntPassCh->execute();
-                        return $resultPass;
-                    }else{
-                        echo "niet hetzelfde";
-                    }
-                }else{
-                    echo "buiten";
+                        if( password_verify($old, $user['password']) ){
+                            echo "binnen";
+                            if( $new == $newComf ){
+                                echo "hetzelfde";
+                                $newPass = Security::hash($new);
+                                
+                                //$conn = Db::getInstance();
+                                $stmntPassCh = $conn->prepare('update users set `password` = :newPass where username = :userName');
+                                $stmntPassCh->bindParam(":newPass", $newPass);
+                                $stmntPassCh->bindParam(":userName", $userName);
+                                $resultPass = $stmntPassCh->execute();
+                                return $resultPass;
+                            }else{
+                                echo "niet hetzelfde";
+                            }
+                        }else{
+                            echo "buiten";
+                        }  
+                }catch(Throwable $t){
+                        echo $t;
                 }
         }
         public static function changeEmail($passwordVer, $newEmail,$userName){
-                $conn = Db::getInstance();
-                $stmntEmail = $conn->prepare('select * from users where username = :userName');
-                $stmntEmail->bindParam(":userName", $userName);
-                $stmntEmail->execute();
-                $userMail = $stmntEmail->fetch(PDO::FETCH_ASSOC);
+                try{
+                        $conn = Db::getInstance();
+                        $stmntEmail = $conn->prepare('select * from users where username = :userName');
+                        $stmntEmail->bindParam(":userName", $userName);
+                        $stmntEmail->execute();
+                        $userMail = $stmntEmail->fetch(PDO::FETCH_ASSOC);
 
-                if( password_verify($passwordVer, $userMail['password']) ){
-                        echo "wachtwoord klopt";
-                        $stmntEmailCh = $conn->prepare('update users set `email` = :newEmail where username = :userName');
-                        $stmntEmailCh->bindParam(":newEmail", $newEmail);
-                        $stmntEmailCh->bindParam(":userName", $userName);
-                        $resultEmail = $stmntEmailCh->execute();
-                        return $resultEmail;
+                        if( password_verify($passwordVer, $userMail['password']) ){
+                                echo "wachtwoord klopt";
+                                $stmntEmailCh = $conn->prepare('update users set `email` = :newEmail where username = :userName');
+                                $stmntEmailCh->bindParam(":newEmail", $newEmail);
+                                $stmntEmailCh->bindParam(":userName", $userName);
+                                $resultEmail = $stmntEmailCh->execute();
+                                return $resultEmail;
 
-                }else{
-                        echo "wachtwoord foutief";
+                        }else{
+                                echo "wachtwoord foutief";
+                        }
+                }catch(Throwable $t){
+                        echo $t;
                 }
+                
         }
 
     }

@@ -7,10 +7,9 @@
     $userName = $_SESSION['UserName'];
     if( isset($_SESSION['User']) ){
         //logged in user
-        echo "😁";
     }else{
         //no logged in user
-        echo "😒";
+        
     }
     //Start uploading Profile pic
     if( isset($_POST['uploadImage']) ){
@@ -53,7 +52,7 @@
 
     //Start view current profile pic
     $conn = Db::getInstance();
-    $stmnt = $conn->prepare('select img_dir, description FROM `users` WHERE username = :username');
+    $stmnt = $conn->prepare('select img_dir, description, email  FROM `users` WHERE username = :username');
     $stmnt->bindParam(":username", $userName);
     $stmnt->execute();
     $result = $stmnt->fetch(PDO::FETCH_OBJ);
@@ -98,8 +97,8 @@
         <div class="setDescr">
             <div class="edit">
                 <h2>Chance your description</h2>
+                <p><?php echo $result->description; ?></p>
                 <form action="" method="post">
-                    <p><?php echo $result->description; ?></p>
                     <textarea name="myDiscr" id="myDiscr" cols="55" rows="10" ></textarea>
                     <br><br>
                     <input type="submit" name="descrSave" value="Save description">
@@ -113,6 +112,7 @@
         <div class="setEmail">
             <div class="edit">
                 <h2>Chance your email-address</h2>
+                <p>Your current email is: <?php echo $result->email; ?></p>
                 <form action="" method="post">
                     <label for="password">Your password</label>
                     <input type="password" id="password" name="password">

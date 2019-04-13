@@ -120,12 +120,17 @@
                     if( move_uploaded_file($this->fileTempName, $this->targetDir.$this->fileName) ){
                         $fullPath = $this->targetDir.$this->fileName;
                         //connect db
-                        $conn = Db::getInstance();
-                        $stmnt = $conn->prepare('update users set img_dir = :dir where username = :userName');
-                        $stmnt->bindParam(":dir", $fullPath);
-                        $stmnt->bindParam(":userName", $userName);
-                        $result = $stmnt->execute();
-                        return $result;
+                        try{
+                                $conn = Db::getInstance();
+                                $stmnt = $conn->prepare('update users set img_dir = :dir where username = :userName');
+                                $stmnt->bindParam(":dir", $fullPath);
+                                $stmnt->bindParam(":userName", $userName);
+                                $result = $stmnt->execute();
+                                return $result;
+                        }catch(Throwable $t){
+                                return false;
+                        }
+                        
                     }else{
                         echo "file could not be uploaded";
                     }
