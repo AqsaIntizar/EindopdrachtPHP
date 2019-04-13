@@ -174,25 +174,25 @@
                   return false;
               }
         }
-        public static function saveDiscription($userEmail){
+        public static function saveDiscription($userName){
                 //echo "test";
                 $myDiscr = $_POST['myDiscr'];
 
                 try{
                 $conn = Db::getInstance();
-                $stmntDisc = $conn->prepare("update users set description = :disc where email = :userEmail ");
+                $stmntDisc = $conn->prepare("update users set description = :disc where username = :userName ");
                 $stmntDisc->bindParam(":disc", $myDiscr);
-                $stmntDisc->bindParam(":userEmail", $userEmail);
+                $stmntDisc->bindParam(":userName", $userName);
                 $result = $stmntDisc->execute();
                 return $result;
                 }catch(Throwable $t){
                 echo $t;
                 }
         }
-        public static function changePass($old, $new, $newComf, $userEmail){
+        public static function changePass($old, $new, $newComf,$userName){
                 $conn = Db::getInstance();
-                $stmntPass = $conn->prepare('select * from users where email = :userEmail');
-                $stmntPass->bindParam(":userEmail", $userEmail);
+                $stmntPass = $conn->prepare('select * from users where username = :userName');
+                $stmntPass->bindParam(":userName", $userName);
                 $stmntPass->execute();
                 $user = $stmntPass->fetch(PDO::FETCH_ASSOC);
                 
@@ -203,9 +203,9 @@
                         $newPass = Security::hash($new);
                         
                         //$conn = Db::getInstance();
-                        $stmntPassCh = $conn->prepare('update users set `password` = :newPass where email = :userEmail');
+                        $stmntPassCh = $conn->prepare('update users set `password` = :newPass where username = :userName');
                         $stmntPassCh->bindParam(":newPass", $newPass);
-                        $stmntPassCh->bindParam(":userEmail", $userEmail);
+                        $stmntPassCh->bindParam(":userName", $userName);
                         $resultPass = $stmntPassCh->execute();
                         return $resultPass;
                     }else{

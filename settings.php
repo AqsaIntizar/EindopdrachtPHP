@@ -4,7 +4,7 @@
     require_once("classes/User.class.php");
 
     session_start();
-    $userEmail = $_SESSION['email'];
+    $userName = $_SESSION['UserName'];
     if( isset($_SESSION['User']) ){
         //logged in user
         echo "😁";
@@ -12,6 +12,7 @@
         //no logged in user
         echo "😒";
     }
+    //Start uploading Profile pic
     if( isset($_POST['uploadImage']) ){
         $upload = new Upload;
         $upload->setFileName($_FILES['imageFile']['name']);
@@ -20,28 +21,39 @@
         $upload->setFileSize($_FILES['imageFile']['size']);
         $upload->setTargetDir("images/profilePics/");
 
-        $result = $upload->uploadImage();
+        $result = $upload->uploadImage($userName);
     }
+    //End uploading Profile pic
 
+    //Start save derscription
     if( isset($_POST['descrSave']) && !empty($_POST['myDiscr']) ){
-        $result = User::saveDiscription($userEmail);
+        $result = User::saveDiscription($userName);
     }
+    //End save derscription
 
+    //Start Change Email
+
+    //End Change Email
+
+    //Start password change
     if( isset($_POST['changePassword']) && !empty($_POST['oldPassword']) && !empty($_POST['newPassword']) && !empty($_POST['new_password_confirmation']) ){
         $oldPass = $_POST['oldPassword'];
         $newPass = $_POST['newPassword'];
         $newPassComf = $_POST['new_password_confirmation'];
         
-        $result = User::changePass($oldPass,$newPass,$newPassComf, $userEmail);
+        $result = User::changePass($oldPass,$newPass,$newPassComf,$userName);
 
     }
+    //End password change
 
+    //Start view current profile pic
     $conn = Db::getInstance();
-    $stmnt = $conn->prepare('select img_dir, description FROM `users` WHERE email = :userEmail');
-    $stmnt->bindParam(":userEmail", $userEmail);
+    $stmnt = $conn->prepare('select img_dir, description FROM `users` WHERE username = :username');
+    $stmnt->bindParam(":username", $userName);
     $stmnt->execute();
     $result = $stmnt->fetch(PDO::FETCH_OBJ);
     //echo $result->img_dir;
+    //End view current profile pic
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -92,8 +104,25 @@
         </div>
         <!--End Description-->
 
+        <!--Start Email-->
+        <div class="setEmail">
+            <div class="edit">
+                <h2>Chance your email-address</h2>
+                <form action="" method="post">
+                    <label for="password">Your password</label>
+                    <input type="password" id="password" name="password">
+                    <br><br>
+                    <label for="email">Your new email-address</label>
+                    <input type="text" id="newEmail" name="newEmail">
+                    <input type="submit" name="changeEmail" value="Change Email">
+                </form>
+                <hr>
+            </div>
+        </div>
+        <!--End Email-->
+        
         <!--Start Password-->
-        <div class="setDescr">
+        <div class="setPassword">
             <div class="edit">
                 <h2>Chance your password</h2>
                 <form action="" method="post">

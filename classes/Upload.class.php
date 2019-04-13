@@ -109,7 +109,7 @@
                 return $this;
         }
 
-        public function uploadImage(){
+        public function uploadImage($userName){
             if( $_SERVER['REQUEST_METHOD'] == "POST" ){
                 //request aanwezig, kijken of er files zijn om up te loaden
                 if( isset($_FILES['imageFile']) ){
@@ -121,8 +121,9 @@
                         $fullPath = $this->targetDir.$this->fileName;
                         //connect db
                         $conn = Db::getInstance();
-                        $stmnt = $conn->prepare('update users set img_dir = :dir where email = "wesleywijsen@hotmail.com"');
+                        $stmnt = $conn->prepare('update users set img_dir = :dir where username = :userName');
                         $stmnt->bindParam(":dir", $fullPath);
+                        $stmnt->bindParam(":userName", $userName);
                         $result = $stmnt->execute();
                         return $result;
                     }else{
