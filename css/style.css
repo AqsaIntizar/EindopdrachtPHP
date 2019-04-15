@@ -104,15 +104,20 @@ div.feed {
     grid-gap: 10px;
     justify-content: center;
     align-content: center;
+    border: 1px solid red;
 }
 
 
 div.post {
     /* for testing */
-    /* border: 1px solid blue; */
+    border: 1px solid blue;
     text-align: center;
     padding: 50px;
     padding-top: 10px;
+    
+}
+.post img{
+    max-width: 100%;
 }
 
 div.addContent {

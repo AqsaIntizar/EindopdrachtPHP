@@ -22,12 +22,15 @@
     </header>
     <div class="feed">
     <div class="addContent"><a href="newPost.php">Add some fresh content here</a></div>
+    <?php $counter = 0; ?>
     <!-- start lus -->
     <?php foreach($result as $r): ?>
-    <div class="post">
+   
+    <div class="post" id="<?php echo $counter; ?>">
     <img src="<?php echo $r['img_dir'] ?>" alt="">
     <p class="description"><?php echo $r['description']?></p>
     </div>
+    <?php $counter++; ?>
     <?php endforeach;?>
     <!-- einde lus -->
     <!-- for testing grid -->
