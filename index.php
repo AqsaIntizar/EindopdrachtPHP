@@ -34,8 +34,8 @@
     <?php $counter++; ?>
     
     <?php endforeach;?>
-    <div class="fullView">
-        <span class="x">X</span>
+    <div class="fullView" id="full">
+        <span class="x" id="close">X</span>
         <img src="images/posts/Tekengebied_1-100.jpg" alt="">
     </div>
     <!-- einde lus -->
@@ -57,5 +57,19 @@
     <p class="description"></p>
     </div> -->
     </div>
+    <script>
+        document.getElementById("1").addEventListener("click", displayFull);
+        document.getElementById("close").addEventListener("click", close);
+
+        function displayFull() {
+            document.getElementById("full").style.display = "block";
+        }
+
+        function close() {
+            document.getElementById("full").style.display = "none";
+        }
+
+
+    </script>
 </body>
 </html>
