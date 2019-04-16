@@ -118,10 +118,39 @@ div.post {
 }
 .post img{
     max-width: 100%;
+    
 }
 
 div.addContent {
     text-align: center;
     margin-top: auto;
     margin-bottom: auto;
+}
+
+div.fullView {
+    border: 1px solid purple;
+    position: absolute;
+    z-index: 999;
+    background-color: red;
+    max-width: 90%;
+    max-height: 90%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+}
+
+div.fullView img {
+    max-width: 100%;
+    margin: auto;
+}
+
+.x {
+    position: absolute;
+    right: 1%;
+    top: 1%;
+    font-size: 2em;
+    z-index: 9999;
+    font-family: sans-serif;
+    cursor: pointer;
+
 }

@@ -30,8 +30,14 @@
     <img src="<?php echo $r['img_dir'] ?>" alt="">
     <p class="description"><?php echo $r['description']?></p>
     </div>
+    
     <?php $counter++; ?>
+    
     <?php endforeach;?>
+    <div class="fullView">
+        <span class="x">X</span>
+        <img src="images/posts/Tekengebied_1-100.jpg" alt="">
+    </div>
     <!-- einde lus -->
     <!-- for testing grid -->
     <!-- <div class="post">
