@@ -1,8 +1,5 @@
 <?php 
 require_once("classes/Db.class.php");
-$conn = Db::getInstance();
-$statement = $conn->prepare("select username from users where email =".$_SESSION['email']);
-$user = $statement->execute(); 
 ?><div class="logo"></div>
 <nav>
     <ul class="navFlex">
@@ -15,7 +12,7 @@ $user = $statement->execute();
                 <img src="https://fakeimg.pl/50x50/?text=MyPic" class="dropbtn">
                 <div class="dropdown-content">
                     <a href="settings.php">Instellingen</a>
-                    <a href="logout.php">Hi <?php echo $user ?>, log out?</a>
+                    <a href="logout.php">Hi <?php echo $_SESSION['UserName']; ?>, log out?</a>
                 </div>
             </div>
         </li>

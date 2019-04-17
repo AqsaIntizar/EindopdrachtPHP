@@ -3,7 +3,7 @@ require_once("classes/Db.class.php");
 
 if(!empty($_POST)){
     $conn = Db::getInstance();
-    $username = $_POST['username'];
+    $username = htmlspecialchars($_POST['username']);
     $password = $_POST['password'];
 
     $statement = $conn->prepare("select * from users where username = :username");
@@ -12,7 +12,10 @@ if(!empty($_POST)){
     $user = $statement->fetch(PDO::FETCH_ASSOC);
 
 	if(password_verify($password, $user['password'])){
-        setcookie("loggedin", $user['password'], time() +60*60*24*30);
+        //setcookie("loggedin", $user['password'], time() +60*60*24*30);
+        session_start();
+        $_SESSION['User'] = true;
+        $_SESSION['UserName'] = $username;
         header('Location: index.php');
 	} else{
         $errorLogin = true;
