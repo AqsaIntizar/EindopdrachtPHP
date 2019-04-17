@@ -1,19 +1,14 @@
-<<<<<<< HEAD
 <?php 
-
+    require_once("classes/Db.class.php");
+    require_once("classes/Post.class.php");
+      
     if (isset($_COOKIE['loggedin'])){
         
     } else{
         header('Location: login.php');
     }
 
-?><!DOCTYPE html>
-||||||| merged common ancestors
-<!DOCTYPE html>
-=======
-<?php 
-    require_once("classes/Db.class.php");
-    require_once("classes/Post.class.php");
+  
 
     $conn = Db::getInstance();
     $stmnt = $conn->prepare('select description, img_dir FROM `posts`');
@@ -21,7 +16,6 @@
     $result= $stmnt->fetchAll(PDO::FETCH_ASSOC);
 
 ?><!DOCTYPE html>
->>>>>>> samlinck
 <html lang="en">
 <head>
     <meta charset="UTF-8">
