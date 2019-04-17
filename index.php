@@ -15,6 +15,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
     <title>includeFood - Home</title>
+    <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
@@ -30,14 +31,15 @@
     <img src="<?php echo $r['img_dir'] ?>" alt="">
     <p class="description"><?php echo $r['description']?></p>
     </div>
+
+    <div class="fullView" id="full-<?= $counter; ?>">
+        <span class="x">X</span>
+        <img src="<?php echo $r['img_dir'] ?>" alt="">
+    </div>
     
     <?php $counter++; ?>
-    
     <?php endforeach;?>
-    <div class="fullView" id="full">
-        <span class="x" id="close">X</span>
-        <img src="images/posts/Tekengebied_1-100.jpg" alt="">
-    </div>
+    
     <!-- einde lus -->
     <!-- for testing grid -->
     <!-- <div class="post">
@@ -58,16 +60,17 @@
     </div> -->
     </div>
     <script>
-        document.getElementById("1").addEventListener("click", displayFull);
-        document.getElementById("close").addEventListener("click", close);
+        // document.getElementById("1").addEventListener("click", displayFull);
+        // document.getElementById("close").addEventListener("click", close);
 
-        function displayFull() {
-            document.getElementById("full").style.display = "block";
-        }
+       $('.post').on('click', function(){
+            const bigImg = $(this).attr('id');
+            $('#full-' + bigImg).fadeIn();
+       });
 
-        function close() {
-            document.getElementById("full").style.display = "none";
-        }
+       $('.x').on('click', function(){
+           $('.fullView').fadeOut();
+       });
 
 
     </script>

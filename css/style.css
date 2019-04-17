@@ -129,7 +129,7 @@ div.addContent {
 
 div.fullView {
     border: 1px solid purple;
-    position: absolute;
+    position: fixed;
     z-index: 999;
     background-color: red;
     max-width: 90%;
