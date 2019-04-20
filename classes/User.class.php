@@ -176,7 +176,7 @@
         }
         public static function saveDiscription($userName){
                 //echo "test";
-                $myDiscr = $_POST['myDiscr'];
+                $myDiscr = htmlspecialchars($_POST['myDiscr'], ENT_QUOTES);
 
                 try{
                         $conn = Db::getInstance();
@@ -198,9 +198,9 @@
                         $user = $stmntPass->fetch(PDO::FETCH_ASSOC);
                         
                         if( password_verify($old, $user['password']) ){
-                            echo "binnen";
+                            //echo "binnen";
                             if( $new == $newComf ){
-                                echo "hetzelfde";
+                                //echo "hetzelfde";
                                 $newPass = Security::hash($new);
                                 
                                 //$conn = Db::getInstance();
@@ -210,10 +210,12 @@
                                 $resultPass = $stmntPassCh->execute();
                                 return $resultPass;
                             }else{
-                                echo "niet hetzelfde";
+                                //echo "Wachtwoorden komen niet overeen";
+
                             }
                         }else{
-                            echo "buiten";
+                            //echo "Foutief wachtwoord";
+
                         }  
                 }catch(Throwable $t){
                         echo $t;
@@ -228,7 +230,7 @@
                         $userMail = $stmntEmail->fetch(PDO::FETCH_ASSOC);
 
                         if( password_verify($passwordVer, $userMail['password']) ){
-                                echo "wachtwoord klopt";
+                                //echo "wachtwoord klopt";
                                 $stmntEmailCh = $conn->prepare('update users set `email` = :newEmail where username = :userName');
                                 $stmntEmailCh->bindParam(":newEmail", $newEmail);
                                 $stmntEmailCh->bindParam(":userName", $userName);
@@ -236,7 +238,8 @@
                                 return $resultEmail;
 
                         }else{
-                                echo "wachtwoord foutief";
+                                //echo "wachtwoord foutief";
+                                $error = true;
                         }
                 }catch(Throwable $t){
                         echo $t;
