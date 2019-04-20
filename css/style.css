@@ -106,15 +106,21 @@ div.feed {
     grid-gap: 10px;
     justify-content: center;
     align-content: center;
+    border: 1px solid red;
 }
 
 
 div.post {
     /* for testing */
-    /* border: 1px solid blue; */
+    border: 1px solid blue;
     text-align: center;
     padding: 50px;
     padding-top: 10px;
+    
+}
+.post img{
+    max-width: 100%;
+    
 }
 
 div.addContent {
@@ -123,3 +129,31 @@ div.addContent {
     margin-bottom: auto;
 }
 
+div.fullView {
+    border: 1px solid purple;
+    position: fixed;
+    z-index: 999;
+    background-color: red;
+    max-width: 90%;
+    max-height: 90%;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: none;
+}
+
+div.fullView img {
+    max-width: 100%;
+    margin: auto;
+}
+
+.x {
+    position: absolute;
+    right: 1%;
+    top: 1%;
+    font-size: 2em;
+    z-index: 9999;
+    font-family: sans-serif;
+    cursor: pointer;
+
+}
