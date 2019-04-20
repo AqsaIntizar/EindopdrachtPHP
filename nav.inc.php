@@ -3,7 +3,7 @@ require_once("classes/Db.class.php");
 ?><div class="logo"></div>
 <nav>
     <ul class="navFlex">
-        <li><a href="#" class="navLink">Link 1</a></li>
+        <li><a href="index.php" class="navLink">Home</a></li>
         <li><a href="#" class="navLink">Link 2</a></li>
         <li><a href="#" class="navLink">Link 3</a></li>
         <li><a href="#" class="navLink">Link 4</a></li>
