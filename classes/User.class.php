@@ -176,7 +176,7 @@
         }
         public static function saveDiscription($userName){
                 //echo "test";
-                $myDiscr = $_POST['myDiscr'];
+                $myDiscr = htmlspecialchars($_POST['myDiscr'], ENT_QUOTES);
 
                 try{
                         $conn = Db::getInstance();

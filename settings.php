@@ -33,7 +33,7 @@
     //Start Change Email
     if( isset($_POST['changeEmail']) && !empty($_POST['password']) && !empty($_POST['newEmail']) ){
         $password = $_POST['password'];
-        $newEmail = $_POST['newEmail'];
+        $newEmail = htmlspecialchars($_POST['newEmail'], ENT_QUOTES);
 
         $result = User::changeEmail($password,$newEmail,$userName);
     }
