@@ -1,5 +1,6 @@
 <?php
-require_once("classes/Db.class.php");
+//require_once("classes/Db.class.php");
+require_once("bootstrap.php");
 
 if(!empty($_POST)){
     $conn = Db::getInstance();

@@ -1,9 +1,10 @@
 <?php
-    require_once("classes/Db.class.php");
-    require_once("classes/Upload.class.php");
-    require_once("classes/User.class.php");
+    //require_once("classes/Db.class.php");
+    //require_once("classes/Upload.class.php");
+    //require_once("classes/User.class.php");
 
-    session_start();
+    //session_start();
+    require_once("bootstrap.php");
     $userName = $_SESSION['UserName'];
     if( isset($_SESSION['User']) ){
         //logged in user

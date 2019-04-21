@@ -1,8 +1,9 @@
 <?php
-    require_once("classes/Db.class.php");
-    require_once("classes/Post.class.php");
+    //require_once("classes/Db.class.php");
+    //require_once("classes/Post.class.php");
 
-    session_start();
+    //session_start();
+    require_once("bootstrap.php");
     if( isset($_SESSION['User']) ){
         //logged in user
         echo "😁";

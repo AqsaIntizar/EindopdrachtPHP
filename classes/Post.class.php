@@ -1,9 +1,7 @@
 <?php
-    require_once("Db.class.php");
+    //require_once("Db.class.php");
+    require_once("bootstrap.php");
 
-    session_start();
-    
-    
         class Post {
             private $description;
             private $fileName;

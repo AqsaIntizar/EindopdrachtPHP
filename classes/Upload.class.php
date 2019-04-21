@@ -1,5 +1,6 @@
 <?php
-    require_once("Db.class.php");
+    //require_once("Db.class.php");
+    require_once("bootstrap.php");
 
     class Upload{
         private $fileName;

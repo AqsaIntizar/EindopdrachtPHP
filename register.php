@@ -1,5 +1,6 @@
 <?php
-require_once("classes/User.class.php");
+//require_once("classes/User.class.php");
+require_once("bootstrap.php");
 
 if(!empty($_POST)){
 	$user = new User();

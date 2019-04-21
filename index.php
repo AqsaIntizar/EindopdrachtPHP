@@ -1,12 +1,12 @@
 <?php 
-    require_once("classes/Db.class.php");
-    require_once("classes/Post.class.php");
-      
-
-    session_start();
+    //require_once("classes/Db.class.php");
+    //require_once("classes/Post.class.php");
+    require_once("bootstrap.php");
+    
     //$userName = $_SESSION['UserName'];
     if( isset($_SESSION['User']) ){
         //logged in user
+        echo "😎";
     }else{
         //no logged in user
         header('Location: login.php');
