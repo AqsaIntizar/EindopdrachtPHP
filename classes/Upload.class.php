@@ -2,7 +2,7 @@
     //require_once("Db.class.php");
     require_once("bootstrap.php");
 
-    class Upload{
+    class Upload implements iUpload{
         private $fileName;
         private $fileType;
         private $fileTempName;

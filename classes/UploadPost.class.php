@@ -2,13 +2,13 @@
     //require_once("Db.class.php");
     require_once("bootstrap.php");
 
-        class Post {
+        class UploadPost extends Upload{
             private $description;
-            private $fileName;
-            private $fileType;
-            private $fileTempName;
-            private $fileSize;
-            private $targetDir;
+            //private $fileName;
+            //private $fileType;
+            //private $fileTempName;
+            //private $fileSize;
+            //private $targetDir;
             
             /**
              * Get the value of description

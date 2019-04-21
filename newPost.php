@@ -15,7 +15,7 @@
     if( isset($_POST['uploadImage']) ){
         //echo "test ";
         //echo $_SERVER['REQUEST_METHOD'] . " ";
-        $post = new Post;
+        $post = new UploadPost;
         $post->setFileName($_FILES['imageFile']['name']);
         $post->setFileType($_FILES['imageFile']['type']);
         $post->setFileTempName($_FILES['imageFile']['tmp_name']);
