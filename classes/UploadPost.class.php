@@ -4,6 +4,7 @@
 
         class UploadPost extends Upload{
             private $description;
+            private $userId;
             //private $fileName;
             //private $fileType;
             //private $fileTempName;
@@ -129,6 +130,26 @@
 
                         return $this;
             }
+            
+            /**
+             * Get the value of userId
+             */ 
+            public function getUserId()
+            {
+                        return $this->userId;
+            }
+
+            /**
+             * Set the value of userId
+             *
+             * @return  self
+             */ 
+            public function setUserId($userId)
+            {
+                        $this->userId = $userId;
+
+                        return $this;
+            }
        
 
             public function uploadPost() {
@@ -144,9 +165,10 @@
                             $fullPath = $this->targetDir.$this->fileName;
                             //connect db
                             $conn = Db::getInstance();
-                            $stmnt = $conn->prepare('INSERT INTO `posts`(`description`, `img_dir`, `user_id`) VALUES (:desc,:dir,5)');
+                            $stmnt = $conn->prepare('INSERT INTO `posts`(`description`, `img_dir`, `user_id`) VALUES (:desc,:dir,:userId)');
                             $stmnt->bindParam(":dir", $fullPath);
                             $stmnt->bindParam(":desc", $this->description);
+                            $stmnt->bindParam(":userId", $this->userId);
                             print_r($stmnt);
                             $result = $stmnt->execute();
                             

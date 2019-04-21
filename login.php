@@ -11,12 +11,14 @@ if(!empty($_POST)){
     $statement->bindParam(":username", $username);
     $statement->execute();
     $user = $statement->fetch(PDO::FETCH_ASSOC);
+    
 
 	if(password_verify($password, $user['password'])){
         //setcookie("loggedin", $user['password'], time() +60*60*24*30);
         session_start();
         $_SESSION['User'] = true;
         $_SESSION['UserName'] = $username;
+        $_SESSION['Id'] = $user['id'];
         header('Location: index.php');
 	} else{
         $errorLogin = true;

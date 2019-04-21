@@ -23,6 +23,7 @@
         $post->setTargetDir("images/posts/");
 
         $post->setDescription($_POST['description']);
+        $post->setUserId($_SESSION['Id']);
 
         $result = $post->uploadPost();
 

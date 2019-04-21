@@ -7,6 +7,7 @@
     if( isset($_SESSION['User']) ){
         //logged in user
         echo "😎";
+        //echo $_SESSION['Id'];
     }else{
         //no logged in user
         header('Location: login.php');
