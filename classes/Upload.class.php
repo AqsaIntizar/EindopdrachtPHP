@@ -192,13 +192,14 @@
                     
                     if( move_uploaded_file($this->fileTempName, $this->targetDir.$this->fileName) ){
                         $fullPath = $this->targetDir.$this->fileName;
+                        $myPostDiscr = htmlspecialchars($this->description, ENT_QUOTES);
                         //connect db
                         try{
                                 $conn = Db::getInstance();
                                 $stmnt = $conn->prepare('insert posts (`user_id`,`post_img_dir`,`post_description`) VALUES (:userId, :dir,:descr)');
                                 $stmnt->bindParam(":userId", $this->userId);
                                 $stmnt->bindParam(":dir", $fullPath);
-                                $stmnt->bindParam(":descr", $this->description);
+                                $stmnt->bindParam(":descr", $myPostDiscr);
                                 $result = $stmnt->execute();
                                 return $result;
                         }catch(Throwable $t){

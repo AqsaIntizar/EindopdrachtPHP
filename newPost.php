@@ -16,18 +16,23 @@
     if( isset($_POST['uploadPost']) ){
         //echo "test ";
         //echo $_SERVER['REQUEST_METHOD'] . " ";
-        $post = new Upload;
-        $post->setFileName($_FILES['imageFile']['name']);
-        $post->setFileType($_FILES['imageFile']['type']);
-        $post->setFileTempName($_FILES['imageFile']['tmp_name']);
-        $post->setFileSize($_FILES['imageFile']['size']);
-        $post->setTargetDir("images/posts/");
+        if( !empty($_POST['description']) ){
+            $post = new Upload;
+            $post->setFileName($_FILES['imageFile']['name']);
+            $post->setFileType($_FILES['imageFile']['type']);
+            $post->setFileTempName($_FILES['imageFile']['tmp_name']);
+            $post->setFileSize($_FILES['imageFile']['size']);
+            $post->setTargetDir("images/posts/");
 
-        $post->setDescription($_POST['description']);
-        $post->setUserId($_SESSION['Id']);
+            $post->setDescription($_POST['description']);
+            $post->setUserId($_SESSION['Id']);
 
-        $result = $post->uploadPost($userName);
-        header('Location: index.php');
+            $result = $post->uploadPost($userName);
+            header('Location: index.php');
+        }else{
+            $newPostError = true;
+        }
+        
     }
 
 
@@ -47,6 +52,13 @@
             <p>
                 File: <input type="file" name="imageFile">
             </p>
+            <?php if( isset($newPostError ) ): ?>
+                <div class="form__error">
+                    <p>
+                        Sorry, you need to fill in the description.
+                    </p>
+                </div>
+            <?php endif; ?>
             <label for="description">Add a description</label>
             <input type="text" id="description" name="description">
         <input type="submit" name="uploadPost" value="Upload post">
