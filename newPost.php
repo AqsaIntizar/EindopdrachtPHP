@@ -10,12 +10,13 @@
     }else{
         //no logged in user
         echo "😒";
+        header('Location: login.php');
     }
-
-    if( isset($_POST['uploadImage']) ){
+    $userName = $_SESSION['UserName'];
+    if( isset($_POST['uploadPost']) ){
         //echo "test ";
         //echo $_SERVER['REQUEST_METHOD'] . " ";
-        $post = new UploadPost;
+        $post = new Upload;
         $post->setFileName($_FILES['imageFile']['name']);
         $post->setFileType($_FILES['imageFile']['type']);
         $post->setFileTempName($_FILES['imageFile']['tmp_name']);
@@ -25,8 +26,8 @@
         $post->setDescription($_POST['description']);
         $post->setUserId($_SESSION['Id']);
 
-        $result = $post->uploadPost();
-
+        $result = $post->uploadPost($userName);
+        header('Location: index.php');
     }
 
 
@@ -48,7 +49,7 @@
             </p>
             <label for="description">Add a description</label>
             <input type="text" id="description" name="description">
-        <input type="submit" name="uploadImage" value="Upload image">
+        <input type="submit" name="uploadPost" value="Upload post">
         </form>
     </div>
 </body>

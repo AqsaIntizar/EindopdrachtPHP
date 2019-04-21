@@ -5,13 +5,14 @@
 
     //session_start();
     require_once("bootstrap.php");
-    $userName = $_SESSION['UserName'];
+    
     if( isset($_SESSION['User']) ){
         //logged in user
     }else{
         //no logged in user
         header('Location: login.php');
     }
+    $userName = $_SESSION['UserName'];
     //Start uploading Profile pic
     if( isset($_POST['uploadImage']) ){
         $upload = new Upload;
@@ -21,7 +22,7 @@
         $upload->setFileSize($_FILES['imageFile']['size']);
         $upload->setTargetDir("images/profilePics/");
 
-        $result = $upload->uploadImage($userName);
+        $result = $upload->uploadProfPic($userName);
     }
     //End uploading Profile pic
 
