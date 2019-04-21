@@ -6,8 +6,7 @@
     //$userName = $_SESSION['UserName'];
     if( isset($_SESSION['User']) ){
         //logged in user
-        echo "😎";
-        //echo $_SESSION['Id'];
+        //echo "😎";
     }else{
         //no logged in user
         header('Location: login.php');
@@ -16,7 +15,7 @@
   
 
     $conn = Db::getInstance();
-    $stmnt = $conn->prepare('select description, img_dir FROM `posts`');
+    $stmnt = $conn->prepare('select user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id');
     $stmnt->execute();
     $result= $stmnt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -41,8 +40,9 @@
     <?php foreach($result as $r): ?>
    
     <div class="post" id="<?php echo $counter; ?>">
-    <img src="<?php echo $r['img_dir'] ?>" alt="">
-    <p class="description"><?php echo $r['description']?></p>
+    <img src="<?php echo $r['post_img_dir'] ?>" alt="">
+    <p class="description"><?php echo $r['post_description']?></p>
+    <p><strong><?php echo $r['username'] ?></strong></p>
     </div>
 
     <div class="fullView" id="full-<?= $counter; ?>">

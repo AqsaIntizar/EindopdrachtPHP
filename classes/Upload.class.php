@@ -195,7 +195,7 @@
                         //connect db
                         try{
                                 $conn = Db::getInstance();
-                                $stmnt = $conn->prepare('insert posts (`user_id`,`img_dir`,`description`) VALUES (:userId, :dir,:descr)');
+                                $stmnt = $conn->prepare('insert posts (`user_id`,`post_img_dir`,`post_description`) VALUES (:userId, :dir,:descr)');
                                 $stmnt->bindParam(":userId", $this->userId);
                                 $stmnt->bindParam(":dir", $fullPath);
                                 $stmnt->bindParam(":descr", $this->description);

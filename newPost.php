@@ -6,10 +6,10 @@
     require_once("bootstrap.php");
     if( isset($_SESSION['User']) ){
         //logged in user
-        echo "😁";
+        //echo "😁";
     }else{
         //no logged in user
-        echo "😒";
+        //echo "😒";
         header('Location: login.php');
     }
     $userName = $_SESSION['UserName'];
