@@ -159,9 +159,9 @@ div.fullView img {
 }
 
 @media screen and (max-width: 1500px) {
-    body {
+    /* body {
       background-color: red;
-    }
+    } */
 
     div.feed {
         grid-template-columns: 500px 500px;
@@ -171,9 +171,9 @@ div.fullView img {
   }
 
   @media screen and (max-width: 800px) {
-    body {
+    /* body {
       background-color: green;
-    }
+    } */
 
     div.feed {
         grid-template-columns: 500px;
@@ -183,9 +183,9 @@ div.fullView img {
   }
 
 @media screen and (max-width: 500px) {
-    body {
+    /* body {
       background-color: olive;
-    }
+    } */
 
     div.feed {
         grid-template-columns: 350px;
