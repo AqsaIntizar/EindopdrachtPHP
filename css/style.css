@@ -170,7 +170,7 @@ div.fullView img {
     }
   }
 
-  @media screen and (max-width: 800px) {
+  @media screen and (max-width: 1000px) {
     /* body {
       background-color: green;
     } */
