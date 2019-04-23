@@ -2,7 +2,7 @@
     //require_once("classes/Db.class.php");
     //require_once("classes/Post.class.php");
     require_once("bootstrap.php");
-    
+   
     //$userName = $_SESSION['UserName'];
     if( isset($_SESSION['User']) ){
         //logged in user
@@ -47,7 +47,7 @@
 
     <div class="fullView" id="full-<?= $counter; ?>">
         <span class="x">X</span>
-        <img src="<?php echo $r['img_dir'] ?>" alt="">
+        <img src="<?php echo $r['post_img_dir'] ?>" alt="">
     </div>
     
     <?php $counter++; ?>

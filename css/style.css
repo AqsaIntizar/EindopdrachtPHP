@@ -97,7 +97,7 @@ hr{
 
 /*end settings */
 
-/* Css for feed */
+/* Start css for feed */
 div.feed {
     padding-top: 100px;
     display: grid;
@@ -157,3 +157,5 @@ div.fullView img {
     cursor: pointer;
 
 }
+
+/* end css for feed */
