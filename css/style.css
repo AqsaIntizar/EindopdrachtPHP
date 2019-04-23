@@ -158,4 +158,43 @@ div.fullView img {
 
 }
 
+@media screen and (max-width: 1500px) {
+    body {
+      background-color: red;
+    }
+
+    div.feed {
+        grid-template-columns: 500px 500px;
+        grid-template-rows: 500px 500px;
+        
+    }
+  }
+
+  @media screen and (max-width: 800px) {
+    body {
+      background-color: green;
+    }
+
+    div.feed {
+        grid-template-columns: 500px;
+        grid-template-rows: 500px;
+        
+    }
+  }
+
+@media screen and (max-width: 500px) {
+    body {
+      background-color: olive;
+    }
+
+    div.feed {
+        grid-template-columns: 350px;
+        grid-template-rows: 350px;
+        
+    }
+  }
+
+
+
+  
 /* end css for feed */
