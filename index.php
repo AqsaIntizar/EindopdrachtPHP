@@ -27,7 +27,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
     <title>includeFood - Home</title>
-    <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+    
 </head>
 <body>
     <header>
@@ -40,9 +40,14 @@
     <?php foreach($result as $r): ?>
    
     <div class="post" id="<?php echo $counter; ?>">
-    <img src="<?php echo $r['post_img_dir'] ?>" alt="">
-    <p class="description"><?php echo $r['post_description']?></p>
-    <p><strong><?php echo $r['username'] ?></strong></p>
+        <img class="postImg" src="<?php echo $r['post_img_dir'] ?>" alt="">
+        <p class="description"><?php echo $r['post_description']?></p>
+        <p><strong><?php echo $r['username'] ?></strong></p>
+        
+        <form method="post" action="">
+            <input type="text" placeholder="Comment Here" id="comment" name="comment"/>
+            <input type="submit" value="Post comment" id="btnSub" />
+        </form>
     </div>
 
     <div class="fullView" id="full-<?= $counter; ?>">
@@ -72,12 +77,13 @@
     <p class="description"></p>
     </div> -->
     </div>
+    <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
     <script>
         // document.getElementById("1").addEventListener("click", displayFull);
         // document.getElementById("close").addEventListener("click", close);
 
-       $('.post').on('click', function(){
-            const bigImg = $(this).attr('id');
+       $('.postImg').on('click', function(){
+            const bigImg = $(this).parent().attr('id');
             $('#full-' + bigImg).fadeIn();
        });
 
