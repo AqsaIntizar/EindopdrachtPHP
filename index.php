@@ -13,14 +13,25 @@
     }
 
     if( !empty($_POST) ){
-        echo $_POST['comment'];
+        //echo $_POST['comment'];
+        try{
+            $comment = new Comment();
+            $comment->setText($_POST['comment']);
+            var_dump($comment->saveComment());
+        }catch(Throwable $t){
+            throw $t;
+        }
+        
+        
     }
-  
+    
 
     $conn = Db::getInstance();
     $stmnt = $conn->prepare('select user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id');
     $stmnt->execute();
     $result= $stmnt->fetchAll(PDO::FETCH_ASSOC);
+
+    $comments = Comment::getAll();
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -53,9 +64,9 @@
 
             <ul class="comments">
                 <?php 
-                    //foreach($comments as $c){
-                        //echo "<li>".$c->getText()."</li>";
-                    //}
+                    foreach($comments as $c){
+                        echo "<li>".$c->getText()."</li>";
+                    }
                 ?>
             </ul>
         </form>
