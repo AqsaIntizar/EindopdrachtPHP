@@ -12,6 +12,9 @@
         header('Location: login.php');
     }
 
+    if( !empty($_POST) ){
+        echo $_POST['comment'];
+    }
   
 
     $conn = Db::getInstance();
@@ -47,6 +50,14 @@
         <form method="post" action="">
             <input type="text" placeholder="Comment Here" id="comment" name="comment"/>
             <input type="submit" value="Post comment" id="btnSub" />
+
+            <ul class="comments">
+                <?php 
+                    //foreach($comments as $c){
+                        //echo "<li>".$c->getText()."</li>";
+                    //}
+                ?>
+            </ul>
         </form>
     </div>
 
