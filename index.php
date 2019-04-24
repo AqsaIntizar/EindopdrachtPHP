@@ -21,8 +21,6 @@
         }catch(Throwable $t){
             throw $t;
         }
-        
-        
     }
     
 
@@ -112,8 +110,28 @@
        $('.x').on('click', function(){
            $('.fullView').fadeOut();
        });
-
-
+    </script>
+    <script>
+        $("#btnSub").on("click", function(e){
+            let text = $("#comment").val();
+            //console.log(text);
+            $.ajax({
+                method: "POST",
+                url: "ajax/save_comment.php",
+                data: { text: text },
+                dataType: 'json'
+            })
+            .done( function( res ){
+                if(res.status == "succes"){
+                    let li = `<li style="display:none;">${text}</li>`;
+                    console.log(`${text}`);
+                    $(".comments").append(li);
+                    $("#comment").val("").focus();
+                    $(".comments li").last().slideDown(100);
+                }
+            });
+            e.preventDefault();
+        })
     </script>
 </body>
 </html>
