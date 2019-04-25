@@ -12,14 +12,18 @@
         header('Location: login.php');
     }
 
-  
+    $loading = 3;
 
     $conn = Db::getInstance();
     $stmnt = $conn->prepare('select user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id LIMIT 3');
     $stmnt->execute();
     $result= $stmnt->fetchAll(PDO::FETCH_ASSOC);
 
-    $stmnt2 = $conn->prepare('select user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id LIMIT 3 OFFSET 3');
+    
+
+    // $stmnt2 = $conn->prepare('select user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id LIMIT 3 OFFSET '.$loading);
+    $stmnt2 = $conn->prepare('select user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id LIMIT 3 OFFSET :loading');
+    $stmnt2->bindValue(':loading', $loading, PDO::PARAM_INT);
     $stmnt2->execute();
     $result2= $stmnt2->fetchAll(PDO::FETCH_ASSOC);
 
@@ -91,6 +95,8 @@
        //Load button
        $('.load').on('click', function(){
             $('.more').fadeIn();
+            <?php $loading = $loading + 3; echo $loading; ?>
+            
        });
 
     </script>
