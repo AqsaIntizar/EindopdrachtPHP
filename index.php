@@ -78,6 +78,7 @@
     
     </div>
     <script>
+        //full view
         $('.post').on('click', function(){
             const bigImg = $(this).attr('id');
             $('#full-' + bigImg).fadeIn();
@@ -87,6 +88,7 @@
            $('.fullView').fadeOut();
        });
 
+       //Load button
        $('.load').on('click', function(){
             $('.more').fadeIn();
        });
