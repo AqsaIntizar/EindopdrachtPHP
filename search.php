@@ -15,7 +15,9 @@
   
 
     $conn = Db::getInstance();
-    $stmnt = $conn->prepare('select user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id');
+    $search = '%' . $_GET["q"] . '%';
+    $stmnt = $conn->prepare("SELECT * FROM posts WHERE post_description LIKE :hashtag");
+    $stmnt->bindParam(":hashtag", $search);
     $stmnt->execute();
     $result= $stmnt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -34,7 +36,6 @@
         <?php require_once("nav.inc.php"); ?>
     </header>
     <div class="feed">
-    <div class="addContent"><a href="newPost.php">Add some fresh content here</a></div>
     <?php $counter = 0; ?>
     <!-- start lus -->
     <?php foreach($result as $r): ?>
@@ -55,30 +56,10 @@
     
     <?php $counter++; ?>
     <?php endforeach;?>
-    
-    <!-- einde lus -->
-    <!-- for testing grid -->
-    <!-- <div class="post">
-    <img src="https://fakeimg.pl/400x400/?text=MyPic" alt="">
-    <p class="description"></p>
-    </div>
-    <div class="post">
-    <img src="https://fakeimg.pl/400x400/?text=MyPic" alt="">
-    <p class="description"></p>
-    </div>
-    <div class="post">
-    <img src="https://fakeimg.pl/400x400/?text=MyPic" alt="">
-    <p class="description"></p>
-    </div>
-    <div class="post">
-    <img src="https://fakeimg.pl/400x400/?text=MyPic" alt="">
-    <p class="description"></p>
-    </div> -->
+
     </div>
     <script>
-        // document.getElementById("1").addEventListener("click", displayFull);
-        // document.getElementById("close").addEventListener("click", close);
-
+    
        $('.post').on('click', function(){
             const bigImg = $(this).attr('id');
             $('#full-' + bigImg).fadeIn();
