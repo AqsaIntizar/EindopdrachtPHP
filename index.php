@@ -15,9 +15,13 @@
   
 
     $conn = Db::getInstance();
-    $stmnt = $conn->prepare('select user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id');
+    $stmnt = $conn->prepare('select user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id LIMIT 3');
     $stmnt->execute();
     $result= $stmnt->fetchAll(PDO::FETCH_ASSOC);
+
+    $stmnt2 = $conn->prepare('select user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id LIMIT 3 OFFSET 3');
+    $stmnt2->execute();
+    $result2= $stmnt2->fetchAll(PDO::FETCH_ASSOC);
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -52,31 +56,29 @@
     
     <?php $counter++; ?>
     <?php endforeach;?>
+
+    <?php foreach($result2 as $r2): ?>
+   
+    <div class="post more" id="<?php echo $counter; ?>">
+    <img src="<?php echo $r2['post_img_dir'] ?>" alt="">
+    <p class="description"><?php echo $r2['post_description']?></p>
+    <p><strong><?php echo $r2['username'] ?></strong></p>
+    </div>
+
+    <div class="fullView" id="full-<?= $counter; ?>">
+        <span class="x">X</span>
+        <img src="<?php echo $r2['post_img_dir'] ?>" alt="">
+    </div>
     
-    <!-- einde lus -->
-    <!-- for testing grid -->
-    <!-- <div class="post">
-    <img src="https://fakeimg.pl/400x400/?text=MyPic" alt="">
-    <p class="description"></p>
-    </div>
-    <div class="post">
-    <img src="https://fakeimg.pl/400x400/?text=MyPic" alt="">
-    <p class="description"></p>
-    </div>
-    <div class="post">
-    <img src="https://fakeimg.pl/400x400/?text=MyPic" alt="">
-    <p class="description"></p>
-    </div>
-    <div class="post">
-    <img src="https://fakeimg.pl/400x400/?text=MyPic" alt="">
-    <p class="description"></p>
-    </div> -->
+    <?php $counter++; ?>
+    <?php endforeach;?>
+
+    <button class="load">Load More</button>
+    
+    
     </div>
     <script>
-        // document.getElementById("1").addEventListener("click", displayFull);
-        // document.getElementById("close").addEventListener("click", close);
-
-       $('.post').on('click', function(){
+        $('.post').on('click', function(){
             const bigImg = $(this).attr('id');
             $('#full-' + bigImg).fadeIn();
        });
@@ -85,6 +87,9 @@
            $('.fullView').fadeOut();
        });
 
+       $('.load').on('click', function(){
+            $('.more').fadeIn();
+       });
 
     </script>
 </body>
