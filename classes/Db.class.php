@@ -1,23 +1,25 @@
 <?php
-    abstract class Db{
+    abstract class Db {
         private static $conn;
 
-        public static function getInstance(){
-            if (self::$conn != null){
-                //connection found
-                //echo "😂";
-                return self::$conn;
-            } else{
-                //no connection found, create one!
-                $config = parse_ini_file("config/config.ini");
-                
-                //var_dump($config);
-                self::$conn = new PDO('mysql:host=localhost;dbname=includefood;charset=utf8mb4', $config['db_user'], $config['db_password']);
-                //echo "😎";
+        private static function getConfig(){
+            // get the config file
+            return parse_ini_file(__DIR__ . "/../config/config.ini");
+        }
+
+        public static function getInstance() {
+            if (self::$conn != null) {
                 return self::$conn;
             }
-        }
-        public static function disconnect(){
-            self::$conn = null;
+
+            $config = self::getConfig();
+            $host = $config['db_servername'];
+            $database = $config['db_name'];
+            $user = $config['db_user'];
+            $password = $config['db_password'];
+
+            self::$conn = new PDO('mysql:host='.$host.';dbname='.$database.';charset=utf8mb4', $user, $password);
+            self::$conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+            return self::$conn;
         }
     }

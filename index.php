@@ -114,7 +114,6 @@
     <script>
         $("#btnSub").on("click", function(e){
             let text = $("#comment").val();
-            //console.log(text);
             $.ajax({
                 method: "POST",
                 url: "ajax/save_comment.php",
@@ -123,8 +122,7 @@
             })
             .done( function( res ){
                 if(res.status == "succes"){
-                    let li = `<li style="display:none;">${text}</li>`;
-                    console.log(`${text}`);
+                    let li = `<li>${text}</li>`;
                     $(".comments").append(li);
                     $("#comment").val("").focus();
                     $(".comments li").last().slideDown(100);
