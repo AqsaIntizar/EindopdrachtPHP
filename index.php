@@ -1,23 +1,21 @@
 <?php 
-    //require_once("classes/Db.class.php");
-    //require_once("classes/Post.class.php");
+
     require_once("bootstrap.php");
+    
    
-    //$userName = $_SESSION['UserName'];
+
     if( isset($_SESSION['User']) ){
-        //logged in user
-        //echo "😎";
-    }else{
-        //no logged in user
+
+    }
+    else{
+
         header('Location: login.php');
     }
 
+    $posts = Post::getAll();
   
 
-    $conn = Db::getInstance();
-    $stmnt = $conn->prepare('select user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id');
-    $stmnt->execute();
-    $result= $stmnt->fetchAll(PDO::FETCH_ASSOC);
+   
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -36,13 +34,14 @@
     <div class="feed">
     <div class="addContent"><a href="newPost.php">Add some fresh content here</a></div>
     <?php $counter = 0; ?>
-    <!-- start lus -->
-    <?php foreach($result as $r): ?>
+    
+    <?php foreach($posts as $post): ?>
    
     <div class="post" id="<?php echo $counter; ?>">
-    <img src="<?php echo $r['post_img_dir'] ?>" alt="">
-    <p class="description"><?php echo $r['post_description']?></p>
-    <p><strong><?php echo $r['username'] ?></strong></p>
+    <img src="<?php echo $post->post_img_dir ?>" alt="">
+    <p class="description"><?php echo $post->post_description?></p>
+    <p><strong><?php echo $post->username ?></strong></p>
+    <div><a href="#" data-id="<?php echo $post->id ?>" class="like">Like</a> <span class='likes'><?php echo $post->getLikes(); ?></span> people like this </div>
     </div>
 
     <div class="fullView" id="full-<?= $counter; ?>">
@@ -52,29 +51,10 @@
     
     <?php $counter++; ?>
     <?php endforeach;?>
-    
-    <!-- einde lus -->
-    <!-- for testing grid -->
-    <!-- <div class="post">
-    <img src="https://fakeimg.pl/400x400/?text=MyPic" alt="">
-    <p class="description"></p>
-    </div>
-    <div class="post">
-    <img src="https://fakeimg.pl/400x400/?text=MyPic" alt="">
-    <p class="description"></p>
-    </div>
-    <div class="post">
-    <img src="https://fakeimg.pl/400x400/?text=MyPic" alt="">
-    <p class="description"></p>
-    </div>
-    <div class="post">
-    <img src="https://fakeimg.pl/400x400/?text=MyPic" alt="">
-    <p class="description"></p>
-    </div> -->
+
     </div>
     <script>
-        // document.getElementById("1").addEventListener("click", displayFull);
-        // document.getElementById("close").addEventListener("click", close);
+       
 
        $('.post').on('click', function(){
             const bigImg = $(this).attr('id');
@@ -87,5 +67,37 @@
 
 
     </script>
+    <script
+  src="https://code.jquery.com/jquery-3.3.1.min.js"
+  integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+  crossorigin="anonymous"></script>
+
+	<script>
+		$("a.like").on("click", function(e){
+			var postId = $(this).data("id");
+
+			var link = $(this);
+
+			$.ajax({
+				method: "POST",
+			  url: "ajax/like.php",
+			  data: { postId: postId },
+				dataType: 'json'
+			})
+		  .done(function(res) {
+		    
+			if(res.status == "succes"){
+				var likes = link.next().html();
+				likes++;
+				link.next().html(likes);
+				console.log(likes);
+			}
+
+		  });
+
+			e.preventDefault();
+		});
+	</script>
+
 </body>
 </html>
