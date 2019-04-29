@@ -12,20 +12,26 @@
         header('Location: login.php');
     }
 
-    $loading = 3;
+    if(!isset($_GET['showitems'])){
+        $itemCount = 3;
+    } else {
+        $itemCount = $_GET['showitems'];
+    }
+    // $itemCount = $_GET['showitems'] ?  : 3;
 
     $conn = Db::getInstance();
-    $stmnt = $conn->prepare('select user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id LIMIT 3');
+    $stmnt = $conn->prepare('select user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id LIMIT  :itemCount');
+    $stmnt->bindValue(':itemCount', $itemCount, PDO::PARAM_INT);
     $stmnt->execute();
     $result= $stmnt->fetchAll(PDO::FETCH_ASSOC);
 
     
 
-    // $stmnt2 = $conn->prepare('select user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id LIMIT 3 OFFSET '.$loading);
-    $stmnt2 = $conn->prepare('select user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id LIMIT 3 OFFSET :loading');
-    $stmnt2->bindValue(':loading', $loading, PDO::PARAM_INT);
-    $stmnt2->execute();
-    $result2= $stmnt2->fetchAll(PDO::FETCH_ASSOC);
+    // // $stmnt2 = $conn->prepare('select user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id LIMIT 3 OFFSET '.$loading);
+    // $stmnt2 = $conn->prepare('select user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id LIMIT :itemCount');
+    // $stmnt2->bindValue(':itemCount', $itemCount, PDO::PARAM_INT);
+    // $stmnt2->execute();
+    // $result2= $stmnt2->fetchAll(PDO::FETCH_ASSOC);
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -61,23 +67,8 @@
     <?php $counter++; ?>
     <?php endforeach;?>
 
-    <?php foreach($result2 as $r2): ?>
-   
-    <div class="post more" id="<?php echo $counter; ?>">
-    <img src="<?php echo $r2['post_img_dir'] ?>" alt="">
-    <p class="description"><?php echo $r2['post_description']?></p>
-    <p><strong><?php echo $r2['username'] ?></strong></p>
-    </div>
 
-    <div class="fullView" id="full-<?= $counter; ?>">
-        <span class="x">X</span>
-        <img src="<?php echo $r2['post_img_dir'] ?>" alt="">
-    </div>
-    
-    <?php $counter++; ?>
-    <?php endforeach;?>
-
-    <button class="load">Load More</button>
+    <a href="index.php?showitems=<?php echo $counter + 3; ?>' class="load">Load More</a>
     
     
     </div>
@@ -92,12 +83,7 @@
            $('.fullView').fadeOut();
        });
 
-       //Load button
-       $('.load').on('click', function(){
-            $('.more').fadeIn();
-            <?php $loading = $loading + 3; echo $loading; ?>
-            
-       });
+       
 
     </script>
 </body>
