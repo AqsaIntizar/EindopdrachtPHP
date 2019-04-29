@@ -17,22 +17,13 @@
     } else {
         $itemCount = $_GET['showitems'];
     }
-    // $itemCount = $_GET['showitems'] ?  : 3;
+    
 
     $conn = Db::getInstance();
     $stmnt = $conn->prepare('select user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id LIMIT  :itemCount');
     $stmnt->bindValue(':itemCount', $itemCount, PDO::PARAM_INT);
     $stmnt->execute();
     $result= $stmnt->fetchAll(PDO::FETCH_ASSOC);
-
-    
-
-    // // $stmnt2 = $conn->prepare('select user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id LIMIT 3 OFFSET '.$loading);
-    // $stmnt2 = $conn->prepare('select user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id LIMIT :itemCount');
-    // $stmnt2->bindValue(':itemCount', $itemCount, PDO::PARAM_INT);
-    // $stmnt2->execute();
-    // $result2= $stmnt2->fetchAll(PDO::FETCH_ASSOC);
-
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
