@@ -1,6 +1,29 @@
 <?php
 class Comment{
+    private $postId;
     private $text;
+    private $userId;
+
+    
+    /**
+     * Get the value of postId
+     */ 
+    public function getPostId()
+    {
+        return $this->postId;
+    }
+
+    /**
+     * Set the value of postId
+     *
+     * @return  self
+     */ 
+    public function setPostId($postId)
+    {
+        $this->postId = $postId;
+
+        return $this;
+    }
 
     /**
      * Get the value of text
@@ -22,17 +45,45 @@ class Comment{
         return $this;
     }
 
-    public static function getAll(){
+        /**
+     * Get the value of userId
+     */ 
+    public function getUserId()
+    {
+        return $this->userId;
+    }
+
+    /**
+     * Set the value of userId
+     *
+     * @return  self
+     */ 
+    public function setUserId($userId)
+    {
+        $this->userId = $userId;
+
+        return $this;
+    }
+
+    public function getAll($id){
         $conn = Db::getInstance();
-        $result = $conn->query("select * from comments order by id asc");
+        $stmnt = $conn->prepare("select * from comments where post_id = :postId order by id asc");
+        $stmnt->bindValue(":postId", $id);
+        $stmnt->execute();
+        $result = $stmnt->fetchAll();
+
+        //var_dump($result);
 
         // fetch all records from db and return as object
-        return $result->fetchAll(PDO::FETCH_CLASS, __CLASS__);
+        return $result;
     }
     public function saveComment(){
         $conn = Db::getInstance();
-        $stmnt = $conn->prepare("insert into comments (post_id, user_id, text) values (1,11, :comment)");
+        $stmnt = $conn->prepare("insert into comments (post_id, user_id, text) values (:postId, :userId, :comment)");
         $stmnt->bindValue(":comment", $this->getText());
+        $stmnt->bindValue(":postId", $this->getPostId());
+        $stmnt->bindValue("userId", $this->getUserId());
         return $stmnt->execute();
     }
+
 }

@@ -2,10 +2,14 @@
     require_once('../bootstrap.php');
     
     if( !empty($_POST) ){
-        $text = $_POST['text'];
+        $postId = $_POST['postId'];
+        $text = htmlspecialchars($_POST['text'], ENT_QUOTES);
+        $userId = $_SESSION['Id'];
         try{
             $c = new Comment();
+            $c->setPostId($postId);
             $c->setText($text);
+            $c->setUserId($userId);
             $c->saveComment();
 
             $result = [ 

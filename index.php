@@ -27,7 +27,8 @@
     $stmnt->execute();
     $result= $stmnt->fetchAll(PDO::FETCH_ASSOC);
 
-    $comments = Comment::getAll();
+    
+    //$comments = Comment::getAll($r['id']);
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -45,36 +46,40 @@
     </header>
     <div class="feed">
     <div class="addContent"><a href="newPost.php">Add some fresh content here</a></div>
-    <?php //$counter = 0; ?>
+    
     <!-- start lus -->
     <?php foreach($result as $r): ?>
    
-    <div class="post" id="<?php echo $r['id']; ?>">
+    <div class="post" id="<?php echo $r['id']; ?>" data-id="<?php echo $r['id']; ?>">
     
         <img class="postImg" src="<?php echo $r['post_img_dir'] ?>" alt="">
         <p class="description"><?php echo $r['post_description']?></p>
         <p><strong><?php echo $r['username'] ?></strong></p>
         
         <form method="post" action="">
-            <input type="text" placeholder="Comment Here" id="comment" name="comment"/>
-            <input type="submit" value="Post comment" id="btnSub" />
+            <input type="text" placeholder="Comment Here" class="comment" name="comment"/>
+            <input type="submit" value="Post comment" class="btnSub" />
 
             <ul class="comments">
                 <?php 
-                    foreach($comments as $c){
-                        echo "<li>".$c->getText()."</li>";
+                    //echo $r['id'];
+                    $comments = Comment::getAll($r['id']);
+                    if( is_array($comments) || is_object($comments) ){
+                        foreach($comments as $c){
+                            echo "<li>".$c['text']."</li>";
+                        }
                     }
+                    
                 ?>
             </ul>
         </form>
     </div>
 
-    <div class="fullView" id="full-<?php echo $r['id']; ?>">
+    <div class="fullView" id="full-<?php echo $r['id']; ?>" data-full-id="full-<?php echo $r['id']; ?>">
         <span class="x">X</span>
         <img src="<?php echo $r['post_img_dir'] ?>" alt="">
     </div>
     
-    <?php //$counter++; ?>
     <?php endforeach;?>
     
     <!-- einde lus -->
@@ -95,21 +100,27 @@
        });
     </script>
     <script>
-        $("#btnSub").on("click", function(e){
-            let text = $("#comment").val();
+        $(".btnSub").on("click", function(e){
+            let that = $(this);
+            let text = $(this).siblings(".comment").val();
+            let currentForm = $(this).parent();
+            let postId = currentForm.parent().data("id");
+            console.log(postId);
             $.ajax({
                 method: "POST",
                 url: "ajax/save_comment.php",
-                data: { text: text },
+                data: { 
+                    postId: postId,
+                    text: text },
                 dataType: 'json'
             })
             .done( function( res ){
                 if(res.status == "success"){
                     //console.log("hier");
                     let li = `<li style="display: hidden;">${text}</li>`;
-                    $(".comments").append(li);
-                    $("#comment").val("").focus();
-                    $(".comments li").last().slideDown(100);
+                    that.siblings(".comments").append(li);
+                    that.siblings(".comment").val("").focus();
+                    //that.siblings(".comments").find("li").last().slideDown(100);
                 }
             });
             e.preventDefault();
