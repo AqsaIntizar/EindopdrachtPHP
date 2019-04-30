@@ -65,7 +65,7 @@ class Comment{
         return $this;
     }
 
-    public function getAll($id){
+    public static function getAll($id){
         $conn = Db::getInstance();
         $stmnt = $conn->prepare("select * from comments where post_id = :postId order by id asc");
         $stmnt->bindValue(":postId", $id);
