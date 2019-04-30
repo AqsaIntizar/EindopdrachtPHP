@@ -158,6 +158,10 @@ div.fullView img {
 
 }
 
+div.more {
+    display: none;
+}
+
 @media screen and (max-width: 1500px) {
     /* body {
       background-color: red;

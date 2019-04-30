@@ -22,13 +22,26 @@
     // }
     
 
-    $conn = Db::getInstance();
-    $stmnt = $conn->prepare('select posts.id ,user_id, post_img_dir,post_description, username from posts, users where posts.user_id = users.id');
-    $stmnt->execute();
-    $result= $stmnt->fetchAll(PDO::FETCH_ASSOC);
+    // $conn = Db::getInstance();
+    // $stmnt = $conn->prepare('select posts.id ,user_id, post_img_dir,post_description, username from posts, users where posts.user_id = users.id');
+    // $stmnt->execute();
+    // $result= $stmnt->fetchAll(PDO::FETCH_ASSOC);
 
     
-    //$comments = Comment::getAll($r['id']);
+    // $comments = Comment::getAll($r['id']);
+
+    if(!isset($_GET['showitems'])){
+        $itemCount = 3;
+    } else {
+        $itemCount = $_GET['showitems'];
+    }
+    
+
+    $conn = Db::getInstance();
+    $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id LIMIT  :itemCount');
+    $stmnt->bindValue(':itemCount', $itemCount, PDO::PARAM_INT);
+    $stmnt->execute();
+    $result= $stmnt->fetchAll(PDO::FETCH_ASSOC);
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -46,7 +59,7 @@
     </header>
     <div class="feed">
     <div class="addContent"><a href="newPost.php">Add some fresh content here</a></div>
-    
+    <?php $counter = 0; ?>
     <!-- start lus -->
     <?php foreach($result as $r): ?>
    
@@ -79,25 +92,33 @@
         <span class="x">X</span>
         <img src="<?php echo $r['post_img_dir'] ?>" alt="">
     </div>
-    
+    <?php $counter++; ?>
     <?php endforeach;?>
+
+
+    <a href="index.php?showitems=<?php echo $counter + 3; ?>' class="load">Load More</a>
+    
     
     <!-- einde lus -->
 
-    </div>
+    
     <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
     <script>
         // document.getElementById("1").addEventListener("click", displayFull);
         // document.getElementById("close").addEventListener("click", close);
 
-       $('.postImg').on('click', function(){
-            const bigImg = $(this).parent().attr('id');
-            $('#full-' + bigImg).fadeIn();
-       });
+            $('.postImg').on('click', function(){
+                    const bigImg = $(this).parent().attr('id');
+                //full view
+                $('.post').on('click', function(){
+                    const bigImg = $(this).attr('id');
+                    $('#full-' + bigImg).fadeIn();
+            });
 
-       $('.x').on('click', function(){
-           $('.fullView').fadeOut();
-       });
+            $('.x').on('click', function(){
+                $('.fullView').fadeOut();
+            });
+        })
     </script>
     <script>
         $(".btnSub").on("click", function(e){
@@ -125,6 +146,9 @@
             });
             e.preventDefault();
         })
+
+       
+
     </script>
 </body>
 </html>
