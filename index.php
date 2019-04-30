@@ -1,6 +1,4 @@
 <?php 
-    //require_once("classes/Db.class.php");
-    //require_once("classes/Post.class.php");
     require_once("bootstrap.php");
    
     //$userName = $_SESSION['UserName'];
@@ -12,20 +10,20 @@
         header('Location: login.php');
     }
 
-    if( !empty($_POST) ){
-        //echo $_POST['comment'];
-        try{
-            $comment = new Comment();
-            $comment->setText($_POST['comment']);
-            var_dump($comment->saveComment());
-        }catch(Throwable $t){
-            throw $t;
-        }
-    }
+    // if( !empty($_POST) ){
+    //     //echo $_POST['comment'];
+    //     try{
+    //         $comment = new Comment();
+    //         $comment->setText($_POST['comment']);
+    //         var_dump($comment->saveComment());
+    //     }catch(Throwable $t){
+    //         throw $t;
+    //     }
+    // }
     
 
     $conn = Db::getInstance();
-    $stmnt = $conn->prepare('select user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id');
+    $stmnt = $conn->prepare('select posts.id ,user_id, post_img_dir,post_description, username from posts, users where posts.user_id = users.id');
     $stmnt->execute();
     $result= $stmnt->fetchAll(PDO::FETCH_ASSOC);
 
@@ -47,11 +45,12 @@
     </header>
     <div class="feed">
     <div class="addContent"><a href="newPost.php">Add some fresh content here</a></div>
-    <?php $counter = 0; ?>
+    <?php //$counter = 0; ?>
     <!-- start lus -->
     <?php foreach($result as $r): ?>
    
-    <div class="post" id="<?php echo $counter; ?>">
+    <div class="post" id="<?php echo $r['id']; ?>">
+    
         <img class="postImg" src="<?php echo $r['post_img_dir'] ?>" alt="">
         <p class="description"><?php echo $r['post_description']?></p>
         <p><strong><?php echo $r['username'] ?></strong></p>
@@ -70,32 +69,16 @@
         </form>
     </div>
 
-    <div class="fullView" id="full-<?= $counter; ?>">
+    <div class="fullView" id="full-<?php echo $r['id']; ?>">
         <span class="x">X</span>
         <img src="<?php echo $r['post_img_dir'] ?>" alt="">
     </div>
     
-    <?php $counter++; ?>
+    <?php //$counter++; ?>
     <?php endforeach;?>
     
     <!-- einde lus -->
-    <!-- for testing grid -->
-    <!-- <div class="post">
-    <img src="https://fakeimg.pl/400x400/?text=MyPic" alt="">
-    <p class="description"></p>
-    </div>
-    <div class="post">
-    <img src="https://fakeimg.pl/400x400/?text=MyPic" alt="">
-    <p class="description"></p>
-    </div>
-    <div class="post">
-    <img src="https://fakeimg.pl/400x400/?text=MyPic" alt="">
-    <p class="description"></p>
-    </div>
-    <div class="post">
-    <img src="https://fakeimg.pl/400x400/?text=MyPic" alt="">
-    <p class="description"></p>
-    </div> -->
+
     </div>
     <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
     <script>
@@ -121,8 +104,9 @@
                 dataType: 'json'
             })
             .done( function( res ){
-                if(res.status == "succes"){
-                    let li = `<li>${text}</li>`;
+                if(res.status == "success"){
+                    //console.log("hier");
+                    let li = `<li style="display: hidden;">${text}</li>`;
                     $(".comments").append(li);
                     $("#comment").val("").focus();
                     $(".comments li").last().slideDown(100);

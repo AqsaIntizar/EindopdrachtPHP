@@ -9,7 +9,7 @@
             $c->saveComment();
 
             $result = [ 
-                "status" => "succes",
+                "status" => "success",
                 "message" => "Comment was saved"
             ];
         }catch(Throwable $t){
