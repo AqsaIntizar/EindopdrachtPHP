@@ -1,25 +1,38 @@
 <?php
-//require_once("classes/User.class.php");
-require_once("bootstrap.php");
+	include_once("classes/User.class.php");
+	require_once("bootstrap.php");
+    include_once("helpers/Security.class.php");
+    
+    if( !empty($_POST) ){
+        try
+        {
+            $security = new Security();
+            $security->password = $_POST['password'];
+            $security->passwordConfirmation = $_POST['password_confirmation'];
 
-if(!empty($_POST)){
-	$user = new User();
-	$user->setEmail($_POST['email']);
-	$user->setFirstname($_POST['firstname']);
-	$user->setLastname($_POST['lastname']);
-	$user->setUsername($_POST['username']);
-	$user->setPassword($_POST['password']);
-	$user->setPasswordConfirmation($_POST['password_confirmation']);
+            if( $security->passwordsAreSecure() ){
+                $user = new User();        
+                $user->setEmail( $_POST['email'] );
+				$user->setPassword( $_POST['password'] );
+				$user->setUsername( $_POST['username'] );
+				$user->setFirstname( $_POST['firstname'] );
+				$user->setLastname( $_POST['lastname'] );
+				if( $user->register() ) {
+					$user->login();
+				}
+			}
+			else {
+				$error = "Your passwords are not secure or do not match.";
+			}
+        }
+        catch(Exception $e) {
+			$error = $e->getMessage();
+        }
 
-	if($user->register()){
-		session_start();
-		$_SESSION['User'] = true;
-		$_SESSION['UserName'] = $user->getUsername();
-		header('Location: index.php');
-	}
-}
+    }
+?>
 
-?><!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -29,6 +42,13 @@ if(!empty($_POST)){
 <body>
 	<form action="" method="post">
 		<h2>Sign up for an account</h2>
+		<?php if(isset($error)): ?>
+				<div class="form__error">
+					<p>
+						💩 <?php echo $error; ?>
+					</p>
+				</div>
+                <?php endif; ?>
 				
 		<label for="firstanme">Firstname</label>
 		<input type="text" id="firstname" name="firstname">
