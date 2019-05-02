@@ -36,7 +36,7 @@
     
         <img class="postImg" src="<?php echo $r['post_img_dir']; ?>" alt="">
         <p class="description"><?php  $hashtag = $r['post_description'];
-    $linked_string = preg_replace("/#([^\s]+)/", "<a href=\"search.php?q=$1\">#$1</a>", $hashtag);
+    $linked_string = preg_replace("/#([^\s]+)/", "<a href=\"search.php?searchResult=$1\">#$1</a>", $hashtag);
     echo $linked_string ?></p>
         <p><strong><?php echo $r['username']; ?></strong></p>
         

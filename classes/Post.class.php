@@ -5,7 +5,7 @@ class Post
 	public static function getAll(){
 
         if(!isset($_GET['showitems'])){
-            $itemCount = 5;
+            $itemCount = 20;
         } else {
             $itemCount = (int)$_GET['showitems'];
             //echo $itemCount;
@@ -15,6 +15,25 @@ class Post
         $conn = Db::getInstance();
         $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id ORDER BY id DESC LIMIT :itemCount');
         $stmnt->bindValue(':itemCount', $itemCount, PDO::PARAM_INT);
+        $stmnt->execute();
+        return $result= $stmnt->fetchAll(PDO::FETCH_ASSOC);
+    }
+
+    public function getSearchResults(){
+        
+        if(!isset($_GET['showitems'])){
+            $itemCount = 20;
+        } else {
+            $itemCount = (int)$_GET['showitems'];
+            //echo $itemCount;
+        }
+       
+        $search = '%' . $_GET["searchResult"] . '%';
+
+        $conn = Db::getInstance();
+        $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id AND post_description LIKE :hashtag ORDER BY id DESC LIMIT :itemCount ');
+        $stmnt->bindValue(':itemCount', $itemCount, PDO::PARAM_INT);
+        $stmnt->bindParam(":hashtag", $search);
         $stmnt->execute();
         return $result= $stmnt->fetchAll(PDO::FETCH_ASSOC);
     }
