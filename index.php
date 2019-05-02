@@ -10,35 +10,7 @@
         header('Location: login.php');
     }
 
-    // if( !empty($_POST) ){
-    //     //echo $_POST['comment'];
-    //     try{
-    //         $comment = new Comment();
-    //         $comment->setText($_POST['comment']);
-    //         var_dump($comment->saveComment());
-    //     }catch(Throwable $t){
-    //         throw $t;
-    //     }
-    // }
-
-    // $conn = Db::getInstance();
-    // $stmnt = $conn->prepare('select posts.id ,user_id, post_img_dir,post_description, username from posts, users where posts.user_id = users.id');
-    // $stmnt->execute();
-    // $result= $stmnt->fetchAll(PDO::FETCH_ASSOC);
-
-    // $comments = Comment::getAll($r['id']);
-
-    if (!isset($_GET['showitems'])) {
-        $itemCount = 3;
-    } else {
-        $itemCount = $_GET['showitems'];
-    }
-
-    $conn = Db::getInstance();
-    $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id ORDER BY id DESC LIMIT :itemCount');
-    $stmnt->bindValue(':itemCount', $itemCount, PDO::PARAM_INT);
-    $stmnt->execute();
-    $result = $stmnt->fetchAll(PDO::FETCH_ASSOC);
+    $result = Post::getAll();
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -63,7 +35,9 @@
     <div class="post" id="<?php echo $r['id']; ?>" data-id="<?php echo $r['id']; ?>">
     
         <img class="postImg" src="<?php echo $r['post_img_dir']; ?>" alt="">
-        <p class="description"><?php echo $r['post_description']; ?></p>
+        <p class="description"><?php  $hashtag = $r['post_description'];
+    $linked_string = preg_replace("/#([^\s]+)/", "<a href=\"search.php?q=$1\">#$1</a>", $hashtag);
+    echo $linked_string ?></p>
         <p><strong><?php echo $r['username']; ?></strong></p>
         
         <form method="post" action="">
