@@ -70,6 +70,7 @@
     $stmnt->bindValue(':itemCount', $itemCount, PDO::PARAM_INT);
     $stmnt->execute();
     $result = $stmnt->fetchAll(PDO::FETCH_ASSOC);
+    $result = Post::getAll();
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -114,6 +115,17 @@
         <span class="likes_count"><?php echo $row['likes']; ?> likes</span>
     </div>
     <form method="post" action="">
+    <?php foreach ($result as $r): ?>
+   
+    <div class="post" id="<?php echo $r['id']; ?>" data-id="<?php echo $r['id']; ?>">
+    
+        <img class="postImg" src="<?php echo $r['post_img_dir']; ?>" alt="">
+        <p class="description"><?php  $hashtag = $r['post_description'];
+    $linked_string = preg_replace("/#([^\s]+)/", "<a href=\"search.php?q=$1\">#$1</a>", $hashtag);
+    echo $linked_string ?></p>
+        <p><strong><?php echo $r['username']; ?></strong></p>
+        
+        <form method="post" action="">
             <input type="text" placeholder="Comment Here" class="comment" name="comment"/>
             <input type="submit" value="Post comment" class="btnSub" />
 
