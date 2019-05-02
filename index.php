@@ -35,35 +35,38 @@
     } else {
         $itemCount = $_GET['showitems'];
     }
+   
     $con = mysqli_connect('localhost', 'root', 'root', 'includefood');
 
-	if (isset($_POST['liked'])) {
-		$postid = $_POST['postid'];
-		$result = mysqli_query($con, "SELECT * FROM posts WHERE id=$postid");
-		$row = mysqli_fetch_array($result);
-		$n = $row['likes'];
+    if (isset($_POST['liked'])) {
+        $postid = $_POST['postid'];
+        $result = mysqli_query($con, "SELECT * FROM posts WHERE id=$postid");
+        $row = mysqli_fetch_array($result);
+        $n = $row['likes'];
 
-		mysqli_query($con, "INSERT INTO likes (userid, postid) VALUES (1, $postid)");
-		mysqli_query($con, "UPDATE posts SET likes=$n+1 WHERE id=$postid");
+        mysqli_query($con, "INSERT INTO likes (userid, postid) VALUES (1, $postid)");
+        mysqli_query($con, "UPDATE posts SET likes=$n+1 WHERE id=$postid");
 
-		echo $n+1;
-		exit();
-	}
-	if (isset($_POST['unliked'])) {
-		$postid = $_POST['postid'];
-		$result = mysqli_query($con, "SELECT * FROM posts WHERE id=$postid");
-		$row = mysqli_fetch_array($result);
-		$n = $row['likes'];
+        echo $n+1;
+        exit();
+    }
+    if (isset($_POST['unliked'])) {
+        $postid = $_POST['postid'];
+        $result = mysqli_query($con, "SELECT * FROM posts WHERE id=$postid");
+        $row = mysqli_fetch_array($result);
+        $n = $row['likes'];
 
-		mysqli_query($con, "DELETE FROM likes WHERE postid=$postid AND userid=1");
-		mysqli_query($con, "UPDATE posts SET likes=$n-1 WHERE id=$postid");
-		
-		echo $n-1;
-		exit();
-	}
+        mysqli_query($con, "DELETE FROM likes WHERE postid=$postid AND userid=1");
+        mysqli_query($con, "UPDATE posts SET likes=$n-1 WHERE id=$postid");
+        
+        echo $n-1;
+        exit();
+    }
 
-	// Retrieve posts from the database
-	$posts = mysqli_query($con, "select posts.id, user_id, post_img_dir,post_description,username, likes from posts, users where posts.user_id = users.id");
+    // Retrieve posts from the database
+    $posts = mysqli_query($con, "select posts.id, user_id, post_img_dir,post_description,username, likes from posts, users where posts.user_id = users.id");
+
+
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -89,7 +92,6 @@
         <img class="postImg" src="<?php echo $row['post_img_dir'] ?>" alt="">
         <p class="description"><?php echo $row['post_description']?></p>
         <p><strong><?php echo $row['username'] ?></strong></p>
-
 
     <div style="padding: 2px; margin-top: 5px;">
     <?php 
@@ -131,60 +133,15 @@
 <?php } ?>
 
 
+
+
     <a href='index.php?showitems=<?php echo $counter + 3; ?>' class="load">Load More</a>
     
     
     <!-- einde lus -->
 
- <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=
-    " crossorigin="anonymous"></script>
-<script>
-	$(document).ready(function(){
-		// when the user clicks on like
-		$('.like').on('click', function(){
-			var postid = $(this).data('id');
-			    $post = $(this);
-
-			$.ajax({
-				url: 'index.php',
-				type: 'post',
-				data: {
-					'liked': 1,
-					'postid': postid
-				},
-				success: function(response){
-					$post.parent().find('span.likes_count').text(response + " likes");
-					$post.addClass('hide');
-					$post.siblings().removeClass('hide');
-				}
-			});
-		});
-
-		// when the user clicks on unlike
-		$('.unlike').on('click', function(){
-			var postid = $(this).data('id');
-		    $post = $(this);
-
-			$.ajax({
-				url: 'index.php',
-				type: 'post',
-				data: {
-					'unliked': 1,
-					'postid': postid
-				},
-				success: function(response){
-					$post.parent().find('span.likes_count').text(response + " likes");
-					$post.addClass('hide');
-					$post.siblings().removeClass('hide');
-				}
-			});
-		});
-	});
-</script>
-</body>
-</html>
-    <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=
-    " crossorigin="anonymous"></script>
+    
+    <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
     <script>
         // document.getElementById("1").addEventListener("click", displayFull);
         // document.getElementById("close").addEventListener("click", close);
