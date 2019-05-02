@@ -76,7 +76,7 @@
                     $comments = Comment::getAll($r['id']);
                     if (is_array($comments) || is_object($comments)) {
                         foreach ($comments as $c) {
-                            echo '<li>'.$c['text'].'</li>';
+                            echo '<li>'.htmlspecialchars($c['text'], ENT_QUOTES).'</li>';
                         }
                     }
 
