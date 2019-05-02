@@ -51,7 +51,7 @@ ul.navFlex li{
     position: relative;
     display: inline-block;
   }
-  
+ 
 .dropdown-content {
     display: none;
     position: absolute;
@@ -160,6 +160,10 @@ div.fullView img {
 
 div.more {
     display: none;
+}
+   /* likes*/
+.hide{
+    display:none;
 }
 
 @media screen and (max-width: 1500px) {
