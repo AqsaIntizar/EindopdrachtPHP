@@ -139,6 +139,29 @@
     
     
     <!-- einde lus -->
+    <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=
+    " crossorigin="anonymous"></script>
+<script>
+    $(document).ready(function(){
+        // when the user clicks on like
+        $('.like').on('click', function(){
+            var postid = $(this).data('id');
+                $post = $(this);
+
+            $.ajax({
+                url: 'index.php',
+                type: 'post',
+                data: {
+                    'liked': 1,
+                    'postid': postid
+                },
+                success: function(response){
+                    $post.parent().find('span.likes_count').text(response + " likes");
+                    $post.addClass('hide');
+                    $post.siblings().removeClass('hide');
+                }
+            });
+        });
 
     
     <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
