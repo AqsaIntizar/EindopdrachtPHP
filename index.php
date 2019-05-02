@@ -35,7 +35,7 @@
     }
 
     $conn = Db::getInstance();
-    $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id LIMIT  :itemCount');
+    $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id ORDER BY id DESC LIMIT :itemCount');
     $stmnt->bindValue(':itemCount', $itemCount, PDO::PARAM_INT);
     $stmnt->execute();
     $result = $stmnt->fetchAll(PDO::FETCH_ASSOC);
