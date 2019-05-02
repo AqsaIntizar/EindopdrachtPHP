@@ -87,7 +87,7 @@
         <?php require_once 'nav.inc.php'; ?>
     </header>
     <div class="feed">
-    <div class="addContent"><a href="newPost.php">Add some fresh content here</a></div>
+        <div class="addContent"><a href="newPost.php">Add some fresh content here</a></div>
     <?php $counter = 0; ?>
     <!-- start lus -->
     <?php while ($row = mysqli_fetch_array($posts)) { ?>
@@ -114,6 +114,7 @@
 
         <span class="likes_count"><?php echo $row['likes']; ?> likes</span>
     </div>
+    <?php } ?>
     <form method="post" action="">
     <?php foreach ($result as $r): ?>
    
@@ -121,8 +122,8 @@
     
         <img class="postImg" src="<?php echo $r['post_img_dir']; ?>" alt="">
         <p class="description"><?php  $hashtag = $r['post_description'];
-    $linked_string = preg_replace("/#([^\s]+)/", "<a href=\"search.php?q=$1\">#$1</a>", $hashtag);
-    echo $linked_string ?></p>
+        $linked_string = preg_replace("/#([^\s]+)/", "<a href=\"search.php?q=$1\">#$1</a>", $hashtag);
+        echo $linked_string ?></p>
         <p><strong><?php echo $r['username']; ?></strong></p>
         
         <form method="post" action="">
@@ -143,9 +144,13 @@
             </ul>
         </form>
 
-</div>
-
-<?php } ?>
+    </div>
+    <div class="fullView" id="full-<?php echo $r['id']; ?>" data-full-id="full-<?php echo $r['id']; ?>">
+        <span class="x">X</span>
+        <img src="<?php echo $r['post_img_dir']; ?>" alt="">
+    </div>
+    <?php ++$counter; ?>
+    <?php endforeach; ?>
 
 
 
@@ -154,50 +159,49 @@
     
     
     <!-- einde lus -->
-    <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=
-    " crossorigin="anonymous"></script>
-<script>
-    $(document).ready(function(){
-        // when the user clicks on like
-        $('.like').on('click', function(){
-            var postid = $(this).data('id');
-                $post = $(this);
+    <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+        <script>
+            $(document).ready(function(){
+                // when the user clicks on like
+                $('.like').on('click', function(){
+                    var postid = $(this).data('id');
+                        $post = $(this);
 
-            $.ajax({
-                url: 'index.php',
-                type: 'post',
-                data: {
-                    'liked': 1,
-                    'postid': postid
-                },
-                success: function(response){
-                    $post.parent().find('span.likes_count').text(response + " likes");
-                    $post.addClass('hide');
-                    $post.siblings().removeClass('hide');
-                }
-            });
-        });
-        // when the user clicks on unlike
-        $('.unlike').on('click', function(){
-            var postid = $(this).data('id');
-            $post = $(this);
+                    $.ajax({
+                        url: 'index.php',
+                        type: 'post',
+                        data: {
+                            'liked': 1,
+                            'postid': postid
+                        },
+                        success: function(response){
+                            $post.parent().find('span.likes_count').text(response + " likes");
+                            $post.addClass('hide');
+                            $post.siblings().removeClass('hide');
+                        }
+                    });
+                });
+                // when the user clicks on unlike
+                $('.unlike').on('click', function(){
+                    var postid = $(this).data('id');
+                    $post = $(this);
 
-            $.ajax({
-                url: 'index.php',
-                type: 'post',
-                data: {
-                    'unliked': 1,
-                    'postid': postid
-                },
-                success: function(response){
-                    $post.parent().find('span.likes_count').text(response + " likes");
-                    $post.addClass('hide');
-                    $post.siblings().removeClass('hide');
-                }
+                    $.ajax({
+                        url: 'index.php',
+                        type: 'post',
+                        data: {
+                            'unliked': 1,
+                            'postid': postid
+                        },
+                        success: function(response){
+                            $post.parent().find('span.likes_count').text(response + " likes");
+                            $post.addClass('hide');
+                            $post.siblings().removeClass('hide');
+                        }
+                    });
+                });
             });
-        });
-    });
-</script>
+        </script>
 
 
     
