@@ -1,27 +1,30 @@
 <?php
-    require_once('../bootstrap.php');
-    
-    if( !empty($_POST) ){
+    require_once '../bootstrap.php';
+
+    if (!empty($_POST)) {
         $postId = $_POST['postId'];
-        $text = htmlspecialchars($_POST['text'], ENT_QUOTES);
+        $text = $_POST['text'];
         $userId = $_SESSION['Id'];
-        try{
+        try {
             $c = new Comment();
             $c->setPostId($postId);
             $c->setText($text);
             $c->setUserId($userId);
             $c->saveComment();
 
-            $result = [ 
-                "status" => "success",
-                "message" => "Comment was saved"
+            $result = [
+                'status' => 'success',
+                'message' => 'Comment was saved',
+                'data' => [
+                    'comment' => htmlspecialchars($text, ENT_QUOTES),
+                ],
             ];
-        }catch(Throwable $t){
-            echo "iets";
+        } catch (Throwable $t) {
+            echo 'iets';
             //error
-            $result = [ 
-                "status" => "error",
-                "message" => $t->getMessage()
+            $result = [
+                'status' => 'error',
+                'message' => $t->getMessage(),
             ];
         }
         echo json_encode($result);
