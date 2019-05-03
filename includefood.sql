@@ -11,6 +11,20 @@
 /*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
 /*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
 
+
+-- Databasestructuur van includefood wordt geschreven
+CREATE DATABASE IF NOT EXISTS `includefood` /*!40100 DEFAULT CHARACTER SET latin1 */;
+USE `includefood`;
+
+-- Structuur van  tabel includefood.comments wordt geschreven
+CREATE TABLE IF NOT EXISTS `comments` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `post_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `text` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=72 DEFAULT CHARSET=utf8;
+
 -- Dumpen data van tabel includefood.comments: ~24 rows (ongeveer)
 /*!40000 ALTER TABLE `comments` DISABLE KEYS */;
 INSERT INTO `comments` (`id`, `post_id`, `user_id`, `text`) VALUES
@@ -40,9 +54,27 @@ INSERT INTO `comments` (`id`, `post_id`, `user_id`, `text`) VALUES
 	(71, 2, 13, 'yeeet');
 /*!40000 ALTER TABLE `comments` ENABLE KEYS */;
 
+-- Structuur van  tabel includefood.likes wordt geschreven
+CREATE TABLE IF NOT EXISTS `likes` (
+  `id` int(11) unsigned NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) DEFAULT NULL,
+  `post_id` int(11) DEFAULT NULL,
+  `date_created` datetime DEFAULT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
+
 -- Dumpen data van tabel includefood.likes: ~0 rows (ongeveer)
 /*!40000 ALTER TABLE `likes` DISABLE KEYS */;
 /*!40000 ALTER TABLE `likes` ENABLE KEYS */;
+
+-- Structuur van  tabel includefood.posts wordt geschreven
+CREATE TABLE IF NOT EXISTS `posts` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `user_id` int(11) NOT NULL,
+  `post_img_dir` varchar(255) CHARACTER SET utf8mb4 NOT NULL,
+  `post_description` text CHARACTER SET utf8mb4 NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=30 DEFAULT CHARSET=utf8;
 
 -- Dumpen data van tabel includefood.posts: ~28 rows (ongeveer)
 /*!40000 ALTER TABLE `posts` DISABLE KEYS */;
@@ -76,6 +108,19 @@ INSERT INTO `posts` (`id`, `user_id`, `post_img_dir`, `post_description`) VALUES
 	(28, 14, 'images/posts/four_horsemen.png', '#food'),
 	(29, 14, 'images/posts/four_horsemen.png', '#food');
 /*!40000 ALTER TABLE `posts` ENABLE KEYS */;
+
+-- Structuur van  tabel includefood.users wordt geschreven
+CREATE TABLE IF NOT EXISTS `users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `firstname` varchar(255) NOT NULL,
+  `lastname` varchar(255) NOT NULL,
+  `username` varchar(255) NOT NULL,
+  `email` varchar(255) NOT NULL,
+  `password` varchar(255) NOT NULL,
+  `img_dir` varchar(255) NOT NULL,
+  `description` text NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8mb4;
 
 -- Dumpen data van tabel includefood.users: ~14 rows (ongeveer)
 /*!40000 ALTER TABLE `users` DISABLE KEYS */;
