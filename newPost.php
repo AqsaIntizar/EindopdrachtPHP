@@ -26,6 +26,8 @@
 
             $post->setDescription($_POST['description']);
             $post->setUserId($_SESSION['Id']);
+            date_default_timezone_set("Europe/Brussels"); //set timezone for correct date
+            $post->setDateTime(date('Y-m-d H:i:s'));
 
             $result = $post->uploadPost($userName);
             header('Location: index.php');

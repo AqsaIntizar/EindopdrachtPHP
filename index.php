@@ -35,10 +35,16 @@
     <div class="post" id="<?php echo $r['id']; ?>" data-id="<?php echo $r['id']; ?>">
     
         <img class="postImg" src="<?php echo $r['post_img_dir']; ?>" alt="">
-        <p class="description"><?php  $hashtag = $r['post_description'];
-    $linked_string = preg_replace("/#([^\s]+)/", "<a href=\"search.php?searchResult=$1\">#$1</a>", $hashtag);
-    echo $linked_string ?></p>
+        <p class="description">
+            <?php  
+                $hashtag = $r['post_description'];
+                $linked_string = preg_replace("/#([^\s]+)/", "<a href=\"search.php?searchResult=$1\">#$1</a>", $hashtag);
+                echo $linked_string 
+            ?>
+        </p>
+        <p><strong><?php echo Post::timeAgo($r['date_created']); ?></strong></p>
         <p><strong><?php echo $r['username']; ?></strong></p>
+        
         
         <form method="post" action="">
             <input type="text" placeholder="Comment Here" class="comment" name="comment"/>
@@ -122,5 +128,6 @@
        
 
     </script>
+    
 </body>
 </html>
