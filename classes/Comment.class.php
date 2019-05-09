@@ -1,23 +1,24 @@
 <?php
-class Comment{
+
+class Comment
+{
     private $postId;
     private $text;
     private $userId;
 
-    
     /**
-     * Get the value of postId
-     */ 
+     * Get the value of postId.
+     */
     public function getPostId()
     {
         return $this->postId;
     }
 
     /**
-     * Set the value of postId
+     * Set the value of postId.
      *
-     * @return  self
-     */ 
+     * @return self
+     */
     public function setPostId($postId)
     {
         $this->postId = $postId;
@@ -26,18 +27,18 @@ class Comment{
     }
 
     /**
-     * Get the value of text
-     */ 
+     * Get the value of text.
+     */
     public function getText()
     {
         return $this->text;
     }
 
     /**
-     * Set the value of text
+     * Set the value of text.
      *
-     * @return  self
-     */ 
+     * @return self
+     */
     public function setText($text)
     {
         $this->text = $text;
@@ -45,19 +46,19 @@ class Comment{
         return $this;
     }
 
-        /**
-     * Get the value of userId
-     */ 
+    /**
+     * Get the value of userId.
+     */
     public function getUserId()
     {
         return $this->userId;
     }
 
     /**
-     * Set the value of userId
+     * Set the value of userId.
      *
-     * @return  self
-     */ 
+     * @return self
+     */
     public function setUserId($userId)
     {
         $this->userId = $userId;
@@ -65,10 +66,11 @@ class Comment{
         return $this;
     }
 
-    public static function getAll($id){
+    public static function getAll($id)
+    {
         $conn = Db::getInstance();
-        $stmnt = $conn->prepare("select * from comments where post_id = :postId order by id asc");
-        $stmnt->bindValue(":postId", $id);
+        $stmnt = $conn->prepare('select * from comments where post_id = :postId order by id asc');
+        $stmnt->bindValue(':postId', $id);
         $stmnt->execute();
         $result = $stmnt->fetchAll();
 
@@ -77,13 +79,15 @@ class Comment{
         // fetch all records from db and return as object
         return $result;
     }
-    public function saveComment(){
+
+    public function saveComment()
+    {
         $conn = Db::getInstance();
-        $stmnt = $conn->prepare("insert into comments (post_id, user_id, text) values (:postId, :userId, :comment)");
-        $stmnt->bindValue(":comment", $this->getText());
-        $stmnt->bindValue(":postId", $this->getPostId());
-        $stmnt->bindValue("userId", $this->getUserId());
+        $stmnt = $conn->prepare('insert into comments (post_id, user_id, text) values (:postId, :userId, :comment)');
+        $stmnt->bindValue(':comment', $this->getText());
+        $stmnt->bindValue(':postId', $this->getPostId());
+        $stmnt->bindValue('userId', $this->getUserId());
+
         return $stmnt->execute();
     }
-
 }

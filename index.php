@@ -36,14 +36,15 @@
     
         <img class="postImg" src="<?php echo $r['post_img_dir']; ?>" alt="">
         <p class="description">
-            <?php  
+            <?php
                 $hashtag = $r['post_description'];
-                $linked_string = preg_replace("/#([^\s]+)/", "<a href=\"search.php?searchResult=$1\">#$1</a>", $hashtag);
-                echo $linked_string 
+                $linked_string = preg_replace("/#([^\s]+)/", '<a href="search.php?searchResult=$1">#$1</a>', $hashtag);
+                echo $linked_string;
             ?>
         </p>
         <p><strong><?php echo Post::timeAgo($r['date_created']); ?></strong></p>
-        <p><strong><?php echo $r['username']; ?></strong></p>
+        <a href="profileDetails.php?id=<?php echo $r['user_id']; ?>" class="post__item"><span class="infoBlock"><strong><?php echo $r['username']; ?></strong></span></a>
+        <!--<p><strong><a href="#"><?php //echo $r['username'];?></a> </strong></p>-->
         
         
         <form method="post" action="">
