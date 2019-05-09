@@ -17,7 +17,6 @@ class Post
         $stmnt->execute();
         return $result= $stmnt->fetchAll(PDO::FETCH_ASSOC);
     }
-<<<<<<< HEAD
 
     public static function getMore() {
         $conn = Db::getInstance();
@@ -26,8 +25,6 @@ class Post
         $stmnt->execute();
         return $result= $stmnt->fetchAll(PDO::FETCH_ASSOC);
     }
-||||||| merged common ancestors
-=======
 
     public static function getSearchResults(){
         
@@ -139,5 +136,4 @@ class Post
             }
         }
     }
->>>>>>> 35a5f066df2f1b3f302b92bde9e0e88374cfd9d6
 }
