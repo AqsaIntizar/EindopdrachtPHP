@@ -171,9 +171,34 @@ div.more {
 .sideNav{
     width: 25%;
 }
+.upperSide, .underSide{
+    width: 100%;
+    padding-bottom: 20px;
+    display: grid;
+    justify-content: center;
+    text-align: center;
+}
+
+.userPic{
+    width: 200px;
+    height: 200px;
+    border-radius: 50%;
+    background-size: cover;
+    margin: 0 auto;
+    margin-bottom: 20px;
+}
+.info--name{
+    margin-bottom: 20px;
+}
+hr{
+    width: 80%;
+    margin: 0 auto;
+}
+
 .content--details{
     width: 75%;
 }
+
 
 /* end profile details */
 

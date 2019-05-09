@@ -1,9 +1,10 @@
 <?php
   //require_once("Security.class.php");
   //require_once("Db.class.php");
-  require_once("bootstrap.php");
+  require_once 'bootstrap.php';
 
-    class User {
+    class User
+    {
         private $firstname;
         private $lastname;
         private $username;
@@ -11,274 +12,293 @@
         private $password;
         private $passwordConfirmation;
 
-
-
         /**
-         * Get the value of email
+         * Get the value of email.
          */
         public function getEmail()
         {
-                return $this->email;
+            return $this->email;
         }
 
         /**
-         * Set the value of email
+         * Set the value of email.
          *
-         * @return  self
+         * @return self
          */
         public function setEmail($email)
         {
-            if( empty($email) ){
-                throw new Exception("Email cannot be empty.");
+            if (empty($email)) {
+                throw new Exception('Email cannot be empty.');
             }
 
             // todo: valid email ? -> filter_var()
 
             $this->email = $email;
+
             return $this;
         }
 
         /**
-         * Get the value of password
+         * Get the value of password.
          */
         public function getPassword()
         {
-                return $this->password;
+            return $this->password;
         }
 
         /**
-         * Set the value of password
+         * Set the value of password.
          *
-         * @return  self
+         * @return self
          */
         public function setPassword($password)
         {
-                $this->password = $password;
+            $this->password = $password;
 
-                return $this;
+            return $this;
         }
 
         /**
-         * Get the value of passwordConfirmation
+         * Get the value of passwordConfirmation.
          */
         public function getPasswordConfirmation()
         {
-                return $this->passwordConfirmation;
+            return $this->passwordConfirmation;
         }
 
         /**
-         * Set the value of passwordConfirmation
+         * Set the value of passwordConfirmation.
          *
-         * @return  self
+         * @return self
          */
         public function setPasswordConfirmation($passwordConfirmation)
         {
-                $this->passwordConfirmation = $passwordConfirmation;
+            $this->passwordConfirmation = $passwordConfirmation;
 
-                return $this;
+            return $this;
         }
 
-
         /**
-         * Get the value of firstname
-         */ 
+         * Get the value of firstname.
+         */
         public function getFirstname()
         {
-                return $this->firstname;
+            return $this->firstname;
         }
 
         /**
-         * Set the value of firstname
+         * Set the value of firstname.
          *
-         * @return  self
-         */ 
+         * @return self
+         */
         public function setFirstname($firstname)
         {
-                $this->firstname = $firstname;
+            $this->firstname = $firstname;
 
-                return $this;
+            return $this;
         }
 
         /**
-         * Get the value of lastname
-         */ 
+         * Get the value of lastname.
+         */
         public function getLastname()
         {
-                return $this->lastname;
+            return $this->lastname;
         }
 
         /**
-         * Set the value of lastname
+         * Set the value of lastname.
          *
-         * @return  self
-         */ 
+         * @return self
+         */
         public function setLastname($lastname)
         {
-                $this->lastname = $lastname;
+            $this->lastname = $lastname;
 
-                return $this;
+            return $this;
         }
 
         /**
-         * Get the value of username
-         */ 
+         * Get the value of username.
+         */
         public function getUsername()
         {
-                return $this->username;
+            return $this->username;
         }
 
         /**
-         * Set the value of username
+         * Set the value of username.
          *
-         * @return  self
-         */ 
+         * @return self
+         */
         public function setUsername($username)
         {
-                $this->username = $username;
+            $this->username = $username;
 
-                return $this;
-        }
-         /**
-         * Get the value of description
-         */ 
-        public function getDescription()
-        {
-                return $this->description;
+            return $this;
         }
 
         /**
-         * Set the value of description
+         * Get the value of description.
+         */
+        public function getDescription()
+        {
+            return $this->description;
+        }
+
+        /**
+         * Set the value of description.
          *
-         * @return  self
-         */ 
+         * @return self
+         */
 
         /*
         ./@return boolean - true if registration successful, false if unsuccessful
         */
         public function setDescription($description)
         {
-                $this->description = $description;
+            $this->description = $description;
 
-                return $this;
+            return $this;
         }
-        public function register(){
-  
-              try{
-                
+
+        public function register()
+        {
+            try {
                 $conn = Db::getInstance();
                 //var_dump($conn->errorCode());
-                $statement = $conn->prepare("INSERT INTO users (firstname, lastname, username, email, password) values (:firstname, :lastname, :username, :email, :password)");
-                $statement->bindParam(":email", $this->email);
-                $statement->bindParam(":firstname", $this->firstname);
-                $statement->bindParam(":lastname", $this->lastname);
-                $statement->bindParam(":username", $this->username);
+                $statement = $conn->prepare('INSERT INTO users (firstname, lastname, username, email, password) values (:firstname, :lastname, :username, :email, :password)');
+                $statement->bindParam(':email', $this->email);
+                $statement->bindParam(':firstname', $this->firstname);
+                $statement->bindParam(':lastname', $this->lastname);
+                $statement->bindParam(':username', $this->username);
                 $hash = password_hash($this->password, PASSWORD_BCRYPT);
-                $statement->bindParam(":password", $hash);
+                $statement->bindParam(':password', $hash);
                 $result = $statement->execute();
+
                 return $result;
-              }catch(Throwable $t){
-                  return false;
-              }
-        }
-        public function login() {
-                if(!isset($_SESSION)) { 
-                    session_start(); 
-                } 
-                $_SESSION['username'] = $this->email;
-                header('Location: index.php');
+            } catch (Throwable $t) {
+                return false;
             }
-        public static function findByEmail($email){
+        }
+
+        public function login()
+        {
+            if (!isset($_SESSION)) {
+                session_start();
+            }
+            $_SESSION['username'] = $this->email;
+            header('Location: index.php');
+        }
+
+        public static function findByEmail($email)
+        {
+            $conn = Db::getInstance();
+            $statement = $conn->prepare('select * from users where email = :email limit 1');
+            $statement->bindValue(':email', $email);
+            $statement->execute();
+
+            return $statement->fetch(PDO::FETCH_ASSOC);
+        }
+
+        /* Check if a user exists based on a give email address */
+        public static function isAccountAvailable($email)
+        {
+            $u = self::findByEmail($email);
+
+            // PDO returns false if no records are found so let's check for that
+            if ($u == false) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+
+        public static function saveDiscription($userName)
+        {
+            //echo "test";
+            $myDiscr = htmlspecialchars($_POST['myDiscr'], ENT_QUOTES);
+
+            try {
                 $conn = Db::getInstance();
-                $statement = $conn->prepare("select * from users where email = :email limit 1");
-                $statement->bindValue(":email", $email);
-                $statement->execute();
-                return $statement->fetch(PDO::FETCH_ASSOC);
+                $stmntDisc = $conn->prepare('update users set description = :disc where username = :userName ');
+                $stmntDisc->bindParam(':disc', $myDiscr);
+                $stmntDisc->bindParam(':userName', $userName);
+                $result = $stmntDisc->execute();
+
+                return $result;
+            } catch (Throwable $t) {
+                echo $t;
             }
-    
-            /* Check if a user exists based on a give email address */
-            public static function isAccountAvailable($email){
-                $u = self::findByEmail($email);
-                
-                // PDO returns false if no records are found so let's check for that
-                if($u == false){
-                    return true;
+        }
+
+        public static function changePass($old, $new, $newComf, $userName)
+        {
+            try {
+                $conn = Db::getInstance();
+                $stmntPass = $conn->prepare('select * from users where username = :userName');
+                $stmntPass->bindParam(':userName', $userName);
+                $stmntPass->execute();
+                $user = $stmntPass->fetch(PDO::FETCH_ASSOC);
+
+                if (password_verify($old, $user['password'])) {
+                    //echo "binnen";
+                    if ($new == $newComf) {
+                        //echo "hetzelfde";
+                        $newPass = Security::hash($new);
+
+                        //$conn = Db::getInstance();
+                        $stmntPassCh = $conn->prepare('update users set `password` = :newPass where username = :userName');
+                        $stmntPassCh->bindParam(':newPass', $newPass);
+                        $stmntPassCh->bindParam(':userName', $userName);
+                        $resultPass = $stmntPassCh->execute();
+
+                        return $resultPass;
+                    } else {
+                        //echo "Wachtwoorden komen niet overeen";
+                    }
                 } else {
-                    return false;
+                    //echo "Foutief wachtwoord";
                 }
+            } catch (Throwable $t) {
+                echo $t;
             }
-    
-        
-        public static function saveDiscription($userName){
-                //echo "test";
-                $myDiscr = htmlspecialchars($_POST['myDiscr'], ENT_QUOTES);
-
-                try{
-                        $conn = Db::getInstance();
-                        $stmntDisc = $conn->prepare("update users set description = :disc where username = :userName ");
-                        $stmntDisc->bindParam(":disc", $myDiscr);
-                        $stmntDisc->bindParam(":userName", $userName);
-                        $result = $stmntDisc->execute();
-                        return $result;
-                }catch(Throwable $t){
-                        echo $t;
-                }
-        }
-        public static function changePass($old, $new, $newComf,$userName){
-                try{
-                        $conn = Db::getInstance();
-                        $stmntPass = $conn->prepare('select * from users where username = :userName');
-                        $stmntPass->bindParam(":userName", $userName);
-                        $stmntPass->execute();
-                        $user = $stmntPass->fetch(PDO::FETCH_ASSOC);
-                        
-                        if( password_verify($old, $user['password']) ){
-                            //echo "binnen";
-                            if( $new == $newComf ){
-                                //echo "hetzelfde";
-                                $newPass = Security::hash($new);
-                                
-                                //$conn = Db::getInstance();
-                                $stmntPassCh = $conn->prepare('update users set `password` = :newPass where username = :userName');
-                                $stmntPassCh->bindParam(":newPass", $newPass);
-                                $stmntPassCh->bindParam(":userName", $userName);
-                                $resultPass = $stmntPassCh->execute();
-                                return $resultPass;
-                            }else{
-                                //echo "Wachtwoorden komen niet overeen";
-
-                            }
-                        }else{
-                            //echo "Foutief wachtwoord";
-
-                        }  
-                }catch(Throwable $t){
-                        echo $t;
-                }
-        }
-        public static function changeEmail($passwordVer, $newEmail,$userName){
-                try{
-                        $conn = Db::getInstance();
-                        $stmntEmail = $conn->prepare('select * from users where username = :userName');
-                        $stmntEmail->bindParam(":userName", $userName);
-                        $stmntEmail->execute();
-                        $userMail = $stmntEmail->fetch(PDO::FETCH_ASSOC);
-
-                        if( password_verify($passwordVer, $userMail['password']) ){
-                                //echo "wachtwoord klopt";
-                                $stmntEmailCh = $conn->prepare('update users set `email` = :newEmail where username = :userName');
-                                $stmntEmailCh->bindParam(":newEmail", $newEmail);
-                                $stmntEmailCh->bindParam(":userName", $userName);
-                                $resultEmail = $stmntEmailCh->execute();
-                                return $resultEmail;
-
-                        }else{
-                                //echo "wachtwoord foutief";
-                                $error = true;
-                        }
-                }catch(Throwable $t){
-                        echo $t;
-                }
-                
         }
 
+        public static function changeEmail($passwordVer, $newEmail, $userName)
+        {
+            try {
+                $conn = Db::getInstance();
+                $stmntEmail = $conn->prepare('select * from users where username = :userName');
+                $stmntEmail->bindParam(':userName', $userName);
+                $stmntEmail->execute();
+                $userMail = $stmntEmail->fetch(PDO::FETCH_ASSOC);
+
+                if (password_verify($passwordVer, $userMail['password'])) {
+                    //echo "wachtwoord klopt";
+                    $stmntEmailCh = $conn->prepare('update users set `email` = :newEmail where username = :userName');
+                    $stmntEmailCh->bindParam(':newEmail', $newEmail);
+                    $stmntEmailCh->bindParam(':userName', $userName);
+                    $resultEmail = $stmntEmailCh->execute();
+
+                    return $resultEmail;
+                } else {
+                    //echo "wachtwoord foutief";
+                    $error = true;
+                }
+            } catch (Throwable $t) {
+                echo $t;
+            }
+        }
+
+        public static function getProfile($id)
+        {
+            $conn = Db::getInstance();
+            $stmnt = $conn->prepare('select * from users where id = :id');
+            $stmnt->bindValue(':id', $id);
+            $stmnt->execute();
+            $user = $stmnt->fetch(PDO::FETCH_ASSOC);
+
+            return $user;
+        }
     }

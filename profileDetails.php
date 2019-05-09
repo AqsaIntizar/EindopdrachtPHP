@@ -11,6 +11,7 @@
     }
     $id = $_GET['id'];
     $result = Post::getAllById($id);
+    $posFollow = User::getProfile($id);
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -27,12 +28,19 @@
     </header>
     <div class="container details">
         <div class="sideNav">
-            <img src="" alt="Profile Picture">
-            <span class="name">naam</span>
-            <a href="#">Follow</a>
+            <div class="upperSide">
+                <img src="<?php echo $posFollow['img_dir']; ?>" class="userPic" alt="Profile Picture">
+                <h3 class="info info--name"><?php echo $posFollow['username']; ?></h3>
+                <a href="#">Follow</a>
+            </div>
             <hr>
-            <a href="#">Posts</a>
-            <a href="#">Info</a>
+            <div class="underSide">
+                <!-- <a href="#">Posts</a>
+                <a href="#">Info</a> -->
+                <p><strong>Beschrijving: </strong></p>
+                <h5 class="description"><?php echo $posFollow['description']; ?></h5>
+            </div>
+            
         </div>
         <div class="content--details">
 
