@@ -5,7 +5,7 @@ class Post
 	public static function getAll(){
 
         if(!isset($_GET['showitems'])){
-            $itemCount = 20;
+            $itemCount = 3;
         } else {
             $itemCount = (int)$_GET['showitems'];
             //echo $itemCount;
@@ -29,7 +29,7 @@ class Post
     public static function getSearchResults(){
         
         if(!isset($_GET['showitems'])){
-            $itemCount = 20;
+            $itemCount = 3;
         } else {
             $itemCount = (int)$_GET['showitems'];
             //echo $itemCount;
