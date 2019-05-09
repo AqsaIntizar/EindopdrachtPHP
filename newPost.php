@@ -14,7 +14,7 @@
     }
     $userName = $_SESSION['UserName'];
     if( isset($_POST['uploadPost']) ){
-        //echo "test ";
+        
         //echo $_SERVER['REQUEST_METHOD'] . " ";
         if( !empty($_POST['description']) ){
             $post = new Upload;
@@ -23,7 +23,6 @@
             $post->setFileTempName($_FILES['imageFile']['tmp_name']);
             $post->setFileSize($_FILES['imageFile']['size']);
             $post->setTargetDir("images/posts/");
-
             $post->setDescription($_POST['description']);
             $post->setUserId($_SESSION['Id']);
             date_default_timezone_set("Europe/Brussels"); //set timezone for correct date
