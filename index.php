@@ -39,11 +39,13 @@
         <p><strong><?php echo $r['username']; ?></strong></p>
 
         <!-- start Likes -->
-        <div class="likes">
-            <input type="button" value="Like" id="like_<?php echo $r['id']; ?>" class="like"/>
-            <input type="button" value="Unlike" id="unlike_<?php echo $r['id']; ?>" class="unlike" style="display: none; "/>
 
-            <?php  $likes = Like::getLikes($r['id']); ?>
+        <div class="likes">
+
+            <input type="button" value="Like" id="like_<?php echo $r['id']; ?>" class="like" />
+            <input type="button" value="Unlike" id="unlike_<?php echo $r['id']; ?>" class="unlike" style="display: none;"/> 
+
+            <?php $likes = Like::getLikes($r['id']); ?>
             <span id="likes_<?php echo $r['id']; ?>"><?php echo $likes->cntLikes; ?></span> <span>mensen hebben dit geliked</span>
         </div>
         <!-- end Likes -->
