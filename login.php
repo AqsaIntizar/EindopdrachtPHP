@@ -2,24 +2,12 @@
     require_once 'bootstrap/bootstrap.php';
 
     if (!empty($_POST)) {
-        $conn = Db::getInstance();
-        $username = htmlspecialchars($_POST['username']);
-        $password = $_POST['password'];
-
-        $statement = $conn->prepare('select * from users where username = :username');
-        $statement->bindParam(':username', $username);
-        $statement->execute();
-        $user = $statement->fetch(PDO::FETCH_ASSOC);
-
-        if (password_verify($password, $user['password'])) {
-            //setcookie("loggedin", $user['password'], time() +60*60*24*30);
-            session_start();
-            $_SESSION['User'] = true;
-            $_SESSION['UserName'] = $username;
-            $_SESSION['Id'] = $user['id'];
+        $user = new User();
+        $user->setUsername($_POST['username']);
+        $user->setPassword($_POST['password']);
+        if ($user->login()) {
             header('Location: index.php');
         } else {
-            $errorLogin = true;
         }
     }
 

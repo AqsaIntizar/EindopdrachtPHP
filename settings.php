@@ -1,7 +1,7 @@
 <?php
     require_once 'bootstrap/bootstrap.php';
 
-    if (isset($_SESSION['User'])) {
+    if (isset($_SESSION['user'])) {
         //logged in user
     } else {
         //no logged in user

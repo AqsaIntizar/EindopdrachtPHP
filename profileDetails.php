@@ -2,7 +2,7 @@
     require_once 'bootstrap/bootstrap.php';
 
     //$userName = $_SESSION['UserName'];
-    if (isset($_SESSION['User'])) {
+    if (isset($_SESSION['user'])) {
         //logged in user
         //echo "😎";
     } else {
@@ -31,7 +31,19 @@
             <div class="upperSide">
                 <img src="images/profilePics/<?php echo $posFollow['img_dir']; ?>" class="userPic" alt="Profile Picture">
                 <h3 class="info info--name"><?php echo $posFollow['username']; ?></h3>
-                <a href="#">Follow</a>
+
+                <!-- start Likes -->
+
+                <div class="likes">
+
+                    <input type="button" value="Follow" id="follow_<?php echo $posFollow['id']; ?>" class="follow" />
+                    <input type="button" value="Unfollow" id="unfollow_<?php echo $posFollow['id']; ?>" class="unfollow" style="display: none;"/> 
+
+                    <?php // $likes = Like::getLikes($r['id']);?>
+                    <br>
+                    <span id="likes_<?php //echo $r['id'];?>"><?php // echo $likes->cntLikes;?></span> <span>mensen volgen deze persoon.</span>
+                </div>
+<!-- end Likes -->
             </div>
             <hr>
             <div class="underSide">
@@ -88,5 +100,51 @@
             <a href="index.php?showitems=<?php echo $counter + 3; ?>" class="load">Load More</a>
         </div>
     </div>
+    <script>
+        $(".follow, .unfollow").click(function(e){
+            let id = this.id;                           // Getting Button id
+            let split_id = id.split("_");               // split id on _
+            let text = split_id[0];                     // first part of splitted id = text
+            let followsId = split_id[1];                   // second part = postid
+            let currentLikeCnt = $("#likes_" + postId); 
+            let likeAmount = currentLikeCnt.html();     // amount of current likes
+            // Setting type
+            var type = 0;
+            if(text == "like"){
+                type = 1;
+                console.log(type)
+            }else{
+                type = 0;
+                console.log(type)
+            }
+            // AJAX Request
+            $.ajax({
+                method: "POST",
+                url: "ajax/save_follow.php",
+                data: {
+                    followsId: followsId,
+                    type: type
+                },
+                dataType: 'json'
+                
+            })
+            .done( function ( res ){
+                if (res.status == "success"){
+                    //change the buttons
+                    $("#" + id).siblings().css("display", "inline-block");
+                    $("#" + id).css("display", "none");
+                    //if the button was like, likeAmount +1 else -1
+                    if( text == "like"){
+                        likeAmount++;
+                        currentLikeCnt.html(likeAmount);
+                    }else{
+                        likeAmount--;
+                        currentLikeCnt.html(likeAmount);
+                    }
+                }
+            });
+            e.preventDefault();
+        })
+    </script>
 </body>
 </html>

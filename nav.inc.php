@@ -13,7 +13,7 @@
                 <img src="https://fakeimg.pl/50x50/?text=MyPic" class="dropbtn">
                 <div class="dropdown-content">
                     <a href="settings.php">Instellingen</a>
-                    <a href="logout.php">Hi <?php echo $_SESSION['UserName']; ?>, log out?</a>
+                    <a href="logout.php">Hi <?php echo $_SESSION['user']['username']; ?>, log out?</a>
                 </div>
             </div>
         </li>

@@ -1,7 +1,4 @@
 <?php
-    // include_once 'classes/User.class.php';
-    // require_once 'bootstrap.php';
-    // include_once 'helpers/Security.class.php';
     require_once 'bootstrap/bootstrap.php';
 
     if (!empty($_POST)) {
@@ -18,7 +15,7 @@
                 $user->setFirstname($_POST['firstname']);
                 $user->setLastname($_POST['lastname']);
                 if ($user->register()) {
-                    $user->login();
+                    header('Location: index.php');
                 }
             } else {
                 $error = 'Your passwords are not secure or do not match.';

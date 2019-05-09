@@ -170,7 +170,10 @@
                 $statement->bindParam(':username', $this->username);
                 $hash = password_hash($this->password, PASSWORD_BCRYPT);
                 $statement->bindParam(':password', $hash);
+
                 $result = $statement->execute();
+
+                self::setDetails();
 
                 return $result;
             } catch (Throwable $t) {
@@ -178,13 +181,56 @@
             }
         }
 
+        // public function login()
+        // {
+        //     if (!isset($_SESSION)) {
+        //         session_start();
+        //     }
+        //     $_SESSION['username'] = $this->email;
+        //     header('Location: index.php');
+        // }
         public function login()
         {
-            if (!isset($_SESSION)) {
-                session_start();
+            $conn = Db::getInstance();
+            $username = htmlspecialchars($_POST['username']);
+            $password = $_POST['password'];
+
+            $statement = $conn->prepare('select * from users where username = :username');
+            $statement->bindParam(':username', $username);
+            $statement->execute();
+            $user = $statement->fetch(PDO::FETCH_ASSOC);
+
+            if (password_verify($this->password, $user['password'])) {
+                // als wachtwoorden overeen komen -> alles van user ophalen uit db en in session steken
+                self::setDetails();
+
+                return true;
+            } else {
+                $errorLogin = true;
+
+                return false;
             }
-            $_SESSION['username'] = $this->email;
-            header('Location: index.php');
+        }
+
+        private function setDetails()
+        {
+            // Getting database connection in class DB
+            $conn = Db::getInstance();
+            // Query for getting the user
+            $statement = $conn->prepare('SELECT * FROM users WHERE username = :username');
+            $statement->bindParam(':username', $this->username);
+            $statement->execute();
+            $user = $statement->fetch(PDO::FETCH_ASSOC);
+
+            $userDetails = [
+                'id' => $user['id'],
+                'firstname' => $user['firstname'],
+                'lastname' => $user['lastname'],
+                'email' => $user['email'],
+                'username' => $user['username'],
+                'img_dir' => $user['img_dir'],
+            ];
+            $_SESSION['user'] = $userDetails;
         }
 
         public static function findByEmail($email)
