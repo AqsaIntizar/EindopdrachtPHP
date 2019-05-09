@@ -8,6 +8,9 @@ require_once("bootstrap.php");
         <li><a href="#" class="navLink">Link 2</a></li>
         <li><a href="#" class="navLink">Link 3</a></li>
         <li><a href="#" class="navLink">Link 4</a></li>
+        <form action="search.php" method="get">
+            <input type="text" name="searchResult" placeholder="Search...">
+        </form>
         <li>
             <div class="dropdown">
                 <img src="https://fakeimg.pl/50x50/?text=MyPic" class="dropbtn">

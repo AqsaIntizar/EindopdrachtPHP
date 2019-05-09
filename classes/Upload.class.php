@@ -11,6 +11,7 @@
 
         private $description;
         private $userId;
+        private $dateTime;
         
 
         /**
@@ -153,6 +154,26 @@
 
             return $this;
         }
+        
+        /**
+         * Get the value of dateTime
+         */ 
+        public function getDateTime()
+        {
+                return $this->dateTime;
+        }
+
+        /**
+         * Set the value of dateTime
+         *
+         * @return  self
+         */ 
+        public function setDateTime($dateTime)
+        {
+                $this->dateTime = $dateTime;
+
+                return $this;
+        }
        
         public function uploadProfPic($userName)
         {
@@ -205,6 +226,7 @@
                         
                         $myPostDiscr = htmlspecialchars($this->description, ENT_QUOTES);
                         //connect db
+<<<<<<< HEAD
                         try {
                             $conn = Db::getInstance();
                             $stmnt = $conn->prepare('insert posts (`user_id`,`post_img_dir`,`post_description`) VALUES (:userId, :dir,:descr)');
@@ -215,6 +237,30 @@
                             return $result;
                         } catch (Throwable $t) {
                             return false;
+||||||| merged common ancestors
+                        try{
+                                $conn = Db::getInstance();
+                                $stmnt = $conn->prepare('insert posts (`user_id`,`post_img_dir`,`post_description`) VALUES (:userId, :dir,:descr)');
+                                $stmnt->bindParam(":userId", $this->userId);
+                                $stmnt->bindParam(":dir", $fullPath);
+                                $stmnt->bindParam(":descr", $myPostDiscr);
+                                $result = $stmnt->execute();
+                                return $result;
+                        }catch(Throwable $t){
+                                return false;
+=======
+                        try{
+                                $conn = Db::getInstance();
+                                $stmnt = $conn->prepare('insert posts (`user_id`,`post_img_dir`,`post_description`,`date_created`) VALUES (:userId, :dir,:descr, :time)');
+                                $stmnt->bindParam(":userId", $this->userId);
+                                $stmnt->bindParam(":dir", $fullPath);
+                                $stmnt->bindParam(":descr", $myPostDiscr);
+                                $stmnt->bindParam(":time", $this->dateTime);
+                                $result = $stmnt->execute();
+                                return $result;
+                        }catch(Throwable $t){
+                                return false;
+>>>>>>> 35a5f066df2f1b3f302b92bde9e0e88374cfd9d6
                         }
                     } else {
                         echo "file could not be uploaded";

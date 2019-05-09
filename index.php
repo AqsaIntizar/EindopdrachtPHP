@@ -34,11 +34,29 @@
    
     <div class="post" id="<?php echo $r['id']; ?>" data-id="<?php echo $r['id']; ?>">
     
+<<<<<<< HEAD
         <img class="postImg" src="images/posts/<?php echo $r['post_img_dir']; ?>" alt="">
         <p class="description"><?php  $hashtag = $r['post_description'];
     $linked_string = preg_replace("/#([^\s]+)/", "<a href=\"search.php?q=$1\">#$1</a>", $hashtag);
     echo $linked_string ?></p>
+||||||| merged common ancestors
+        <img class="postImg" src="<?php echo $r['post_img_dir']; ?>" alt="">
+        <p class="description"><?php  $hashtag = $r['post_description'];
+    $linked_string = preg_replace("/#([^\s]+)/", "<a href=\"search.php?q=$1\">#$1</a>", $hashtag);
+    echo $linked_string ?></p>
+=======
+        <img class="postImg" src="<?php echo $r['post_img_dir']; ?>" alt="">
+        <p class="description">
+            <?php  
+                $hashtag = $r['post_description'];
+                $linked_string = preg_replace("/#([^\s]+)/", "<a href=\"search.php?searchResult=$1\">#$1</a>", $hashtag);
+                echo $linked_string 
+            ?>
+        </p>
+        <p><strong><?php echo Post::timeAgo($r['date_created']); ?></strong></p>
+>>>>>>> 35a5f066df2f1b3f302b92bde9e0e88374cfd9d6
         <p><strong><?php echo $r['username']; ?></strong></p>
+        
         
         <form method="post" action="">
             <input type="text" placeholder="Comment Here" class="comment" name="comment"/>
@@ -143,5 +161,6 @@
 
 
     </script>
+    
 </body>
 </html>
