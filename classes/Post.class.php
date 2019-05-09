@@ -19,7 +19,7 @@ class Post
         return $result= $stmnt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function getSearchResults(){
+    public static function getSearchResults(){
         
         if(!isset($_GET['showitems'])){
             $itemCount = 20;
@@ -38,7 +38,7 @@ class Post
         return $result= $stmnt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public function timeAgo($timestamp){
+    public static function timeAgo($timestamp){
         date_default_timezone_set("Europe/Brussels");         
         $time_ago        = strtotime($timestamp);
         $current_time    = time();
