@@ -36,9 +36,9 @@
     
         <img class="postImg" src="<?php echo $r['post_img_dir']; ?>" alt="">
         <!-- start Likes -->
-        <div>
-            <a href="#" data-id="<?php echo $r['id']; ?>" class="like">Like</a> <span class='likes'><?php //echo $post->getLikes();?></span> people like this 
-        </div>
+        <input type="button" value="Like" id="like_<?php echo $r['id']; ?>" class="like"/><span id="likes_<?php echo $r['id']; ?>"><?php //echo $total_likes;?></span>
+
+        <input type="button" value="Unlike" id="unlike_<?php echo $r['id']; ?>" class="unlike"/><span id="unlikes_<?php echo $r['id']; ?>"><?php //echo $total_unlikes;?></span>
         <!-- end Likes -->
 
         <p class="description">
