@@ -34,6 +34,7 @@
    
     <div class="post" id="<?php echo $r['id']; ?>" data-id="<?php echo $r['id']; ?>">
     
+        <a href="#" class="btn report" data-id="<?php echo $r['id']; ?>">Report</a>
         <img class="postImg" src="<?php echo $r['post_img_dir']; ?>" alt="">
         <p class="description">
             <?php  
@@ -129,5 +130,29 @@
 
     </script>
     
+    <script>
+    
+        $(".report").on("click", function(e){
+                let that = $(this);
+                let currentForm = $(this).parent();
+                let postId = that.data('id');
+                console.log(postId);
+                $.ajax({
+                    method: "POST",
+                    url: "ajax/report.php",
+                    dataType: 'json',
+                    data: { 
+                        postId: postId,
+                        }
+                })
+                .done( function( res ){
+                    if(res.status == "success"){
+                        that.text("Undo");
+                    }
+                });
+                e.preventDefault();
+            })
+    
+    </script>
 </body>
 </html>
