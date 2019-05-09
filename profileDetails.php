@@ -1,5 +1,5 @@
 <?php
-    require_once 'bootstrap.php';
+    require_once 'bootstrap/bootstrap.php';
 
     //$userName = $_SESSION['UserName'];
     if (isset($_SESSION['User'])) {
@@ -29,7 +29,7 @@
     <div class="container details">
         <div class="sideNav">
             <div class="upperSide">
-                <img src="<?php echo $posFollow['img_dir']; ?>" class="userPic" alt="Profile Picture">
+                <img src="images/profilePics/<?php echo $posFollow['img_dir']; ?>" class="userPic" alt="Profile Picture">
                 <h3 class="info info--name"><?php echo $posFollow['username']; ?></h3>
                 <a href="#">Follow</a>
             </div>
@@ -50,7 +50,7 @@
    
                 <div class="post" id="<?php echo $r['id']; ?>" data-id="<?php echo $r['id']; ?>">
    
-                <img class="postImg" src="<?php echo $r['post_img_dir']; ?>" alt="">
+                <img class="postImg" src="images/posts/<?php echo $r['post_img_dir']; ?>" alt="">
                 <p class="description">
                     <?php
                         $hashtag = $r['post_description'];
@@ -81,16 +81,11 @@
                     </ul>
                 </form>
             </div>
-
-            <div class="fullView" id="full-<?php echo $r['id']; ?>" data-full-id="full-<?php echo $r['id']; ?>">
-                <span class="x">X</span>
-                <img src="<?php echo $r['post_img_dir']; ?>" alt="">
-            </div>
             <?php ++$counter; ?>
             <?php endforeach; ?>
 
 
-            <a href="index.php?showitems=<?php echo $counter + 3; ?>' class="load">Load More</a>
+            <a href="index.php?showitems=<?php echo $counter + 3; ?>" class="load">Load More</a>
         </div>
     </div>
 </body>

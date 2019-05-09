@@ -1,26 +1,21 @@
 <?php
-    //require_once("classes/Db.class.php");
-    //require_once("classes/Upload.class.php");
-    //require_once("classes/User.class.php");
+    require_once 'bootstrap/bootstrap.php';
 
-    //session_start();
-    require_once("bootstrap.php");
-    
-    if( isset($_SESSION['User']) ){
+    if (isset($_SESSION['User'])) {
         //logged in user
-    }else{
+    } else {
         //no logged in user
         header('Location: login.php');
     }
     $userName = $_SESSION['UserName'];
     //Start uploading Profile pic
-    if( isset($_POST['uploadImage']) ){
-        $upload = new Upload;
+    if (isset($_POST['uploadImage'])) {
+        $upload = new Upload();
         $upload->setFileName($_FILES['imageFile']['name']);
         $upload->setFileType($_FILES['imageFile']['type']);
         $upload->setFileTempName($_FILES['imageFile']['tmp_name']);
         $upload->setFileSize($_FILES['imageFile']['size']);
-        $upload->setTargetDir("images/profilePics/");
+        $upload->setTargetDir('images/profilePics/');
 
         $upload->setUserId($_SESSION['Id']);
 
@@ -29,35 +24,34 @@
     //End uploading Profile pic
 
     //Start save derscription
-    if( isset($_POST['descrSave']) && !empty($_POST['myDiscr']) ){
+    if (isset($_POST['descrSave']) && !empty($_POST['myDiscr'])) {
         $result = User::saveDiscription($userName);
     }
     //End save derscription
 
     //Start Change Email
-    if( isset($_POST['changeEmail']) && !empty($_POST['password']) && !empty($_POST['newEmail']) ){
+    if (isset($_POST['changeEmail']) && !empty($_POST['password']) && !empty($_POST['newEmail'])) {
         $password = $_POST['password'];
         $newEmail = htmlspecialchars($_POST['newEmail'], ENT_QUOTES);
 
-        $result = User::changeEmail($password,$newEmail,$userName);
+        $result = User::changeEmail($password, $newEmail, $userName);
     }
     //End Change Email
 
     //Start password change
-    if( isset($_POST['changePassword']) && !empty($_POST['oldPassword']) && !empty($_POST['newPassword']) && !empty($_POST['new_password_confirmation']) ){
+    if (isset($_POST['changePassword']) && !empty($_POST['oldPassword']) && !empty($_POST['newPassword']) && !empty($_POST['new_password_confirmation'])) {
         $oldPass = $_POST['oldPassword'];
         $newPass = $_POST['newPassword'];
         $newPassComf = $_POST['new_password_confirmation'];
-        
-        $result = User::changePass($oldPass,$newPass,$newPassComf,$userName);
 
+        $result = User::changePass($oldPass, $newPass, $newPassComf, $userName);
     }
     //End password change
 
     //Start view current profile pic
     $conn = Db::getInstance();
     $stmnt = $conn->prepare('select img_dir, description, email  FROM `users` WHERE username = :username');
-    $stmnt->bindParam(":username", $userName);
+    $stmnt->bindParam(':username', $userName);
     $stmnt->execute();
     $result = $stmnt->fetch(PDO::FETCH_OBJ);
     //echo $result->img_dir;
@@ -74,7 +68,7 @@
 </head>
 <body>
     <header>
-        <?php require_once("nav.inc.php"); ?>
+        <?php require_once 'nav.inc.php'; ?>
     </header>
     <div class="settings">
         <h1>Accountinstellingen</h1>

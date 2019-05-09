@@ -1,41 +1,35 @@
 <?php
-    //require_once("classes/Db.class.php");
-    //require_once("classes/Post.class.php");
+    require_once 'bootstrap/bootstrap.php';
 
-    //session_start();
-    require_once("bootstrap.php");
-    if( isset($_SESSION['User']) ){
+    if (isset($_SESSION['User'])) {
         //logged in user
         //echo "😁";
-    }else{
+    } else {
         //no logged in user
         //echo "😒";
         header('Location: login.php');
     }
     $userName = $_SESSION['UserName'];
-    if( isset($_POST['uploadPost']) ){
-        
+    if (isset($_POST['uploadPost'])) {
         //echo $_SERVER['REQUEST_METHOD'] . " ";
-        if( !empty($_POST['description']) ){
-            $post = new Upload;
+        if (!empty($_POST['description'])) {
+            $post = new Upload();
             $post->setFileName($_FILES['imageFile']['name']);
             $post->setFileType($_FILES['imageFile']['type']);
             $post->setFileTempName($_FILES['imageFile']['tmp_name']);
             $post->setFileSize($_FILES['imageFile']['size']);
-            $post->setTargetDir("images/posts/");
+            $post->setTargetDir('images/posts/');
             $post->setDescription($_POST['description']);
             $post->setUserId($_SESSION['Id']);
-            date_default_timezone_set("Europe/Brussels"); //set timezone for correct date
+            date_default_timezone_set('Europe/Brussels'); //set timezone for correct date
             $post->setDateTime(date('Y-m-d H:i:s'));
 
             $result = $post->uploadPost($userName);
             header('Location: index.php');
-        }else{
+        } else {
             $newPostError = true;
         }
-        
     }
-
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -53,7 +47,7 @@
             <p>
                 File: <input type="file" name="imageFile">
             </p>
-            <?php if( isset($newPostError ) ): ?>
+            <?php if (isset($newPostError)): ?>
                 <div class="form__error">
                     <p>
                         Sorry, you need to fill in the description.

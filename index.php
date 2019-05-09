@@ -1,5 +1,5 @@
 <?php
-    require_once 'bootstrap.php';
+    require_once 'bootstrap/bootstrap.php';
     //$userName = $_SESSION['UserName'];
     if (isset($_SESSION['User'])) {
         //logged in user
@@ -110,8 +110,10 @@
             var type = 0;
             if(text == "like"){
                 type = 1;
+                console.log(type)
             }else{
                 type = 0;
+                console.log(type)
             }
             // AJAX Request
             $.ajax({

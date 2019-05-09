@@ -1,7 +1,4 @@
-<?php 
-//require_once("classes/Db.class.php");
-require_once("bootstrap.php");
-?><div class="logo"></div>
+<div class="logo"></div>
 <nav>
     <ul class="navFlex">
         <li><a href="index.php" class="navLink">Home</a></li>

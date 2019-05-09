@@ -1,13 +1,11 @@
-<?php 
-    //require_once("classes/Db.class.php");
-    //require_once("classes/Post.class.php");
-    require_once("bootstrap.php");
-   
+<?php
+    require_once 'bootstrap/bootstrap.php';
+
     //$userName = $_SESSION['UserName'];
-    if( isset($_SESSION['User']) ){
+    if (isset($_SESSION['User'])) {
         //logged in user
         //echo "😎";
-    }else{
+    } else {
         //no logged in user
         header('Location: login.php');
     }
@@ -26,29 +24,29 @@
 </head>
 <body>
     <header>
-        <?php require_once("nav.inc.php"); ?>
+        <?php require_once 'nav.inc.php'; ?>
     </header>
     <div class="feed">
     <?php $counter = 0; ?>
     <!-- start lus -->
-    <?php foreach($result as $r): ?>
+    <?php foreach ($result as $r): ?>
    
     <div class="post" id="<?php echo $counter; ?>">
-    <img src="<?php echo $r['post_img_dir'] ?>" alt="">
-    <p class="description"><?php 
+    <img src="<?php echo $r['post_img_dir']; ?>" alt="">
+    <p class="description"><?php
     $hashtag = $r['post_description'];
-    $linked_string = preg_replace("/#([^\s]+)/", "<a href=\"search.php?searchResult=$1\">#$1</a>", $hashtag);
-    echo $linked_string?></p>
-    <p><strong><?php echo $r['username'] ?></strong></p>
+    $linked_string = preg_replace("/#([^\s]+)/", '<a href="search.php?searchResult=$1">#$1</a>', $hashtag);
+    echo $linked_string; ?></p>
+    <p><strong><?php echo $r['username']; ?></strong></p>
     </div>
 
     <div class="fullView" id="full-<?= $counter; ?>">
         <span class="x">X</span>
-        <img src="<?php echo $r['post_img_dir'] ?>" alt="">
+        <img src="<?php echo $r['post_img_dir']; ?>" alt="">
     </div>
     
-    <?php $counter++; ?>
-    <?php endforeach;?>
+    <?php ++$counter; ?>
+    <?php endforeach; ?>
 
     </div>
     <script>

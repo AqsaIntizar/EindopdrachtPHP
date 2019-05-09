@@ -1,8 +1,4 @@
 <?php
-  //require_once("Security.class.php");
-  //require_once("Db.class.php");
-  require_once 'bootstrap.php';
-
     class User
     {
         private $firstname;
