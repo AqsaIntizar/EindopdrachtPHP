@@ -35,6 +35,12 @@
     <div class="post" id="<?php echo $r['id']; ?>" data-id="<?php echo $r['id']; ?>">
     
         <img class="postImg" src="<?php echo $r['post_img_dir']; ?>" alt="">
+        <!-- start Likes -->
+        <div>
+            <a href="#" data-id="<?php echo $r['id']; ?>" class="like">Like</a> <span class='likes'><?php //echo $post->getLikes();?></span> people like this 
+        </div>
+        <!-- end Likes -->
+
         <p class="description">
             <?php  
                 $hashtag = $r['post_description'];
