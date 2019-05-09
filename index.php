@@ -30,11 +30,11 @@
     <div class="addContent"><a href="newPost.php">Add some fresh content here</a></div>
     <?php $counter = 0; ?>
     <!-- start lus -->
-    <?php foreach ($result as $r): ?>
+    <span class="replace" style="display: none;"><?php foreach ($result as $r): ?></span>
    
     <div class="post" id="<?php echo $r['id']; ?>" data-id="<?php echo $r['id']; ?>">
     
-        <img class="postImg" src="<?php echo $r['post_img_dir']; ?>" alt="">
+        <img class="postImg" src="images/posts/<?php echo $r['post_img_dir']; ?>" alt="">
         <p class="description"><?php  $hashtag = $r['post_description'];
     $linked_string = preg_replace("/#([^\s]+)/", "<a href=\"search.php?q=$1\">#$1</a>", $hashtag);
     echo $linked_string ?></p>
@@ -67,7 +67,7 @@
     <?php endforeach; ?>
 
 
-    <a href="index.php?showitems=<?php echo $counter + 3; ?>' class="load">Load More</a>
+    <a href="index.php?showitems=<?php echo $counter + 3; ?>" data-counter="<?php echo $counter + 3; ?>"  class="load">Load More</a>
     
     
     <!-- einde lus -->
@@ -117,9 +117,30 @@
                 }
             });
             e.preventDefault();
-        })
+        });
+    </script>
+    <script>
+        //ajax for load more
+        // $(".load").on("click", function(e){
+        //     let counter = $(this).data('counter');
+        //     $.ajax({
+        //         method: "POST",
+        //         url: "ajax/save_comment.php",
+        //         data: { 
+        //             counter: counter },
+        //         dataType: 'json'
+        //     })
+        //     .done( function( res ){
+        //         if(res.status == "success"){
+        //             //console.log("hier");
+        //             let posts = res.data.posts;
+        //             console.log('something');
+        //         }
+        //     });
+        //     e.preventDefault();
+        // });
+     
 
-       
 
     </script>
 </body>

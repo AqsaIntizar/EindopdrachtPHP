@@ -22,6 +22,8 @@
         $upload->setFileSize($_FILES['imageFile']['size']);
         $upload->setTargetDir("images/profilePics/");
 
+        $upload->setUserId($_SESSION['Id']);
+
         $result = $upload->uploadProfPic($userName);
     }
     //End uploading Profile pic
@@ -81,7 +83,7 @@
         <div class="setProfPic">
             <div class="edit">
                 <h2>Chance profile picture</h2>
-                <img class="currentPic" src="<?php echo $result->img_dir; ?>">
+                <img class="currentPic" src="images/profilePics/<?php echo $result->img_dir; ?>">
                 <br><br>
                 <form action="" method="post" enctype="multipart/form-data">
                     <p>

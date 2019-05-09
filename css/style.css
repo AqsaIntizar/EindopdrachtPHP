@@ -3,6 +3,7 @@
     padding: 0;
     box-sizing: border-box;
 }
+
 /* start header */
 header{
     width: 100vw;
@@ -106,7 +107,7 @@ div.feed {
     grid-gap: 10px;
     justify-content: center;
     align-content: center;
-    border: 1px solid red;
+    border: 1px solid green;
 }
 
 
@@ -200,5 +201,5 @@ div.more {
 
 
 
-  
+
 /* end css for feed */
