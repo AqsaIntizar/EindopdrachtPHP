@@ -55,17 +55,37 @@
             $this->type = $type;
             return $this;
         }
-        // public static function getAll($id){
-        //     $conn = Db::getInstance();
-        //     $stmnt = $conn->prepare('');
-        // }
+        public static function getLikes($id)
+        {
+            $conn = Db::getInstance();
+            $stmnt = $conn->prepare('select count(*) as cntLikes from likes where type = 1 and post_id = :postId');
+            $stmnt->bindValue(':postId', $id);
+            $stmnt->execute();
+            $result = $stmnt->fetch(PDO::FETCH_OBJ);
+            return $result;
+        }
         public function saveLike()
         {
             $conn = Db::getInstance();
-            $stmnt = $conn->prepare('insert into likes (`user_id`,`post_id`,`type`,`date_created`) VALUES (:userId, :postId, :type, UTC_TIMESTAMP())');
+            $stmnt = $conn->prepare('select count(*) as checkLikes from likes where user_id = :userId and post_id= :postId');
             $stmnt->bindValue(':userId', $this->getUserId());
             $stmnt->bindValue(':postId', $this->getPostId());
-            $stmnt->bindValue(':type', $this->getType());
-            return $stmnt->execute();
+            $stmnt->execute();
+            $result = $stmnt->fetch(PDO::FETCH_OBJ);
+            $likeCheck = $result->checkLikes;
+            if ($likeCheck == 0) {
+                $insertStmnt = $conn->prepare('insert into likes (`user_id`,`post_id`,`type`,`date_created`) VALUES (:userId, :postId, :type, UTC_TIMESTAMP())');
+                $insertStmnt->bindValue(':userId', $this->getUserId());
+                $insertStmnt->bindValue(':postId', $this->getPostId());
+                $insertStmnt->bindValue(':type', $this->getType());
+                $insertStmnt->execute();
+            } else {
+                $updateStmnt = $conn->prepare('update likes set type = :type where user_id = :userId and post_id= :postId');
+                $updateStmnt->bindValue(':userId', $this->getUserId());
+                $updateStmnt->bindValue(':postId', $this->getPostId());
+                $updateStmnt->bindValue(':type', $this->getType());
+                $updateStmnt->execute();
+            }
+            // return $stmnt->execute();
         }
     }

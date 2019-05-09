@@ -39,9 +39,13 @@
         <p><strong><?php echo $r['username']; ?></strong></p>
 
         <!-- start Likes -->
-        <input type="button" value="Like" id="like_<?php echo $r['id']; ?>" class="like"/><span id="likes_<?php echo $r['id']; ?>"><?php //echo $total_likes;?></span>
+        <div class="likes">
+            <input type="button" value="Like" id="like_<?php echo $r['id']; ?>" class="like"/>
+            <input type="button" value="Unlike" id="unlike_<?php echo $r['id']; ?>" class="unlike" style="display: none; "/>
 
-        <input type="button" value="Unlike" id="unlike_<?php echo $r['id']; ?>" class="unlike"/><span id="unlikes_<?php echo $r['id']; ?>"><?php //echo $total_unlikes;?></span>
+            <?php  $likes = Like::getLikes($r['id']); ?>
+            <span id="likes_<?php echo $r['id']; ?>"><?php echo $likes->cntLikes; ?></span> <span>mensen hebben dit geliked</span>
+        </div
         <!-- end Likes -->
 
         <form method="post" action="">
@@ -117,10 +121,10 @@
             }).done(function( res ) {
 				console.log(res.status);
 				if(res.status == "succes"){
-					// var likes = link.next().html();
-					// console.log(likes);
-					// likes++;
-					// link.next().html(likes);
+					var likes = link.next().html();
+					console.log(likes);
+					likes++;
+					link.next().html(likes);
 				}
 			});
             // .done( function ( res ){
