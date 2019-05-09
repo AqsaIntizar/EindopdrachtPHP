@@ -30,7 +30,7 @@
     <div class="addContent"><a href="newPost.php">Add some fresh content here</a></div>
     <?php $counter = 0; ?>
     <!-- start lus -->
-    <span class="replace" style="display: none;"><?php foreach ($result as $r): ?></span>
+    <?php foreach ($result as $r): ?>
    
     <div class="post" id="<?php echo $r['id']; ?>" data-id="<?php echo $r['id']; ?>">
     
