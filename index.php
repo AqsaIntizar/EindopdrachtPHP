@@ -45,7 +45,7 @@
 
             <?php  $likes = Like::getLikes($r['id']); ?>
             <span id="likes_<?php echo $r['id']; ?>"><?php echo $likes->cntLikes; ?></span> <span>mensen hebben dit geliked</span>
-        </div
+        </div>
         <!-- end Likes -->
 
         <form method="post" action="">
@@ -74,7 +74,7 @@
     <?php endforeach; ?>
     <!-- einde lus -->
 
-    <a href='index.php?showitems=<?php echo $counter + 3; ?>' class="load">Load More</a>
+    <a href="index.php?showitems=<?php echo $counter + 3; ?>" class="load">Load More</a>
     
     
     <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
@@ -93,21 +93,22 @@
             });
         })
     </script>
+
 <script>
         $(".like, .unlike").click(function(e){
-            var id = this.id;   // Getting Button id
-            var split_id = id.split("_");
-            var text = split_id[0];
-            var postId = split_id[1];  // postid
-            //console.log(text);
-            // Finding click type
+            let id = this.id;                           // Getting Button id
+            let split_id = id.split("_");               // split id on _
+            let text = split_id[0];                     // first part of splitted id = text
+            let postId = split_id[1];                   // second part = postid
+            let currentLikeCnt = $("#likes_" + postId); 
+            let likeAmount = currentLikeCnt.html();     // amount of current likes
+            // Setting type
             var type = 0;
             if(text == "like"){
                 type = 1;
             }else{
                 type = 0;
             }
-            //console.log(type);
             // AJAX Request
             $.ajax({
                 method: "POST",
@@ -118,33 +119,22 @@
                 },
                 dataType: 'json'
                 
-            }).done(function( res ) {
-				console.log(res.status);
-				if(res.status == "succes"){
-					var likes = link.next().html();
-					console.log(likes);
-					likes++;
-					link.next().html(likes);
-				}
-			});
-            // .done( function ( res ){
-            //     console.log(res.status)
-            //     if (res.status == "success"){
-            //         console.log("hier");
-            //         // var likes = data['likes'];
-            //         // var unlikes = data['unlikes'];
-            //         // $("#likes_"+postId).text(likes);        // setting likes
-            //         // $("#unlikes_"+postId).text(unlikes);    // setting unlikes
-            //         // if(type == 1){
-            //         //     $("#like_"+postId).css("color","#ffa449");
-            //         //     $("#unlike_"+postId).css("color","lightseagreen");
-            //         // }
-            //         // if(type == 0){
-            //         //     $("#unlike_"+postId).css("color","#ffa449");
-            //         //     $("#like_"+postId).css("color","lightseagreen");
-            //         // } 
-            //     }
-            // });
+            })
+            .done( function ( res ){
+                if (res.status == "success"){
+                    //change the buttons
+                    $("#" + id).siblings().css("display", "inline-block");
+                    $("#" + id).css("display", "none");
+                    //if the button was like, likeAmount +1 else -1
+                    if( text == "like"){
+                        likeAmount++;
+                        currentLikeCnt.html(likeAmount);
+                    }else{
+                        likeAmount--;
+                        currentLikeCnt.html(likeAmount);
+                    }
+                }
+            });
             e.preventDefault();
         })
     </script>
@@ -164,7 +154,6 @@
                 dataType: 'json'
             })
             .done( function( res ){
-                console.log(res.status)
                 if(res.status == "success"){
                     //console.log("hier");
                     let comment = res.data.comment;
@@ -177,6 +166,7 @@
             e.preventDefault();
         })
     </script>
+
     
 </body>
 </html>
