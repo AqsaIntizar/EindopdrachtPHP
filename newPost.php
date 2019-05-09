@@ -9,7 +9,7 @@
         //echo "😒";
         header('Location: login.php');
     }
-    $userName = $_SESSION['UserName'];
+    $userName = $_SESSION['user']['id'];
     if (isset($_POST['uploadPost'])) {
         //echo $_SERVER['REQUEST_METHOD'] . " ";
         if (!empty($_POST['description'])) {
@@ -20,7 +20,7 @@
             $post->setFileSize($_FILES['imageFile']['size']);
             $post->setTargetDir('images/posts/');
             $post->setDescription($_POST['description']);
-            $post->setUserId($_SESSION['Id']);
+            $post->setUserId($_SESSION['user']['id']);
             date_default_timezone_set('Europe/Brussels'); //set timezone for correct date
             $post->setDateTime(date('Y-m-d H:i:s'));
 

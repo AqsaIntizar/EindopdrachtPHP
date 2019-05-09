@@ -4,6 +4,7 @@
         private $postId;
         private $userId;
         private $type;
+
         /**
          * Get the value of postId.
          */
@@ -11,6 +12,7 @@
         {
             return $this->postId;
         }
+
         /**
          * Set the value of postId.
          *
@@ -19,8 +21,10 @@
         public function setPostId($postId)
         {
             $this->postId = $postId;
+
             return $this;
         }
+
         /**
          * Get the value of userId.
          */
@@ -28,6 +32,7 @@
         {
             return $this->userId;
         }
+
         /**
          * Set the value of userId.
          *
@@ -36,8 +41,10 @@
         public function setUserId($userId)
         {
             $this->userId = $userId;
+
             return $this;
         }
+
         /**
          * Get the value of type.
          */
@@ -45,6 +52,7 @@
         {
             return $this->type;
         }
+
         /**
          * Set the value of type.
          *
@@ -53,8 +61,10 @@
         public function setType($type)
         {
             $this->type = $type;
+
             return $this;
         }
+
         public static function getLikes($id)
         {
             $conn = Db::getInstance();
@@ -62,8 +72,10 @@
             $stmnt->bindValue(':postId', $id);
             $stmnt->execute();
             $result = $stmnt->fetch(PDO::FETCH_OBJ);
+
             return $result;
         }
+
         public function saveLike()
         {
             $conn = Db::getInstance();
@@ -72,18 +84,23 @@
             $stmnt->bindValue(':postId', $this->getPostId());
             $stmnt->execute();
             $result = $stmnt->fetch(PDO::FETCH_OBJ);
+            date_default_timezone_set('Europe/Brussels'); //set timezone for correct date
+            $dateTime = date('Y-m-d H:i:s');
             $likeCheck = $result->checkLikes;
             if ($likeCheck == 0) {
-                $insertStmnt = $conn->prepare('insert into likes (`user_id`,`post_id`,`type`,`date_created`) VALUES (:userId, :postId, :type, UTC_TIMESTAMP())');
+                $insertStmnt = $conn->prepare('insert into likes (`user_id`,`post_id`,`type`,`date_created`) VALUES (:userId, :postId, :type, :time)');
                 $insertStmnt->bindValue(':userId', $this->getUserId());
                 $insertStmnt->bindValue(':postId', $this->getPostId());
                 $insertStmnt->bindValue(':type', $this->getType());
+                $insertStmnt->bindValue(':time', $dateTime);
+
                 $insertStmnt->execute();
             } else {
-                $updateStmnt = $conn->prepare('update likes set type = :type where user_id = :userId and post_id= :postId');
+                $updateStmnt = $conn->prepare('update likes set type = :type, date_created = :time where user_id = :userId and post_id= :postId');
                 $updateStmnt->bindValue(':userId', $this->getUserId());
                 $updateStmnt->bindValue(':postId', $this->getPostId());
                 $updateStmnt->bindValue(':type', $this->getType());
+                $updateStmnt->bindValue(':time', $dateTime);
                 $updateStmnt->execute();
             }
             // return $stmnt->execute();

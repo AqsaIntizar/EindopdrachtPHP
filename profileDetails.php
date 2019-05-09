@@ -1,7 +1,6 @@
 <?php
     require_once 'bootstrap/bootstrap.php';
 
-    //$userName = $_SESSION['UserName'];
     if (isset($_SESSION['user'])) {
         //logged in user
         //echo "😎";
@@ -34,14 +33,14 @@
 
                 <!-- start Likes -->
 
-                <div class="likes">
+                <div class="followers">
 
                     <input type="button" value="Follow" id="follow_<?php echo $posFollow['id']; ?>" class="follow" />
                     <input type="button" value="Unfollow" id="unfollow_<?php echo $posFollow['id']; ?>" class="unfollow" style="display: none;"/> 
 
                     <?php // $likes = Like::getLikes($r['id']);?>
                     <br>
-                    <span id="likes_<?php //echo $r['id'];?>"><?php // echo $likes->cntLikes;?></span> <span>mensen volgen deze persoon.</span>
+                    <span id="follow_<?php //echo $r['id'];?>"><?php // echo $likes->cntLikes;?></span> <span>mensen volgen deze persoon.</span>
                 </div>
 <!-- end Likes -->
             </div>

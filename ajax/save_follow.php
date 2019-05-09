@@ -2,10 +2,10 @@
     require_once '../bootstrap/bootstrap.php';
     if (!empty($_POST)) {
         $followsId = $_POST['followsId'];
-        $userId = $_SESSION['Id'];
+        $userId = $_SESSION['user']['id'];
         $type = $_POST['type'];
         try {
-            $l = new Like();
+            $l = new Follow();
             $l->setPostId($postId);
             $l->setUserId($userId);
             $l->setType($type);

@@ -4,7 +4,7 @@
     if (!empty($_POST)) {
         $postId = $_POST['postId'];
         $text = $_POST['text'];
-        $userId = $_SESSION['Id'];
+        $userId = $_SESSION['user']['id'];
         try {
             $c = new Comment();
             $c->setPostId($postId);

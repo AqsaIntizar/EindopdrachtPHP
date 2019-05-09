@@ -1,7 +1,6 @@
 <?php
     require_once 'bootstrap/bootstrap.php';
 
-    //$userName = $_SESSION['UserName'];
     if (isset($_SESSION['user'])) {
         //logged in user
         //echo "😎";

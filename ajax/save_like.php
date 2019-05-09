@@ -2,7 +2,7 @@
     require_once '../bootstrap/bootstrap.php';
     if (!empty($_POST)) {
         $postId = $_POST['postId'];
-        $userId = $_SESSION['Id'];
+        $userId = $_SESSION['user']['id'];
         $type = $_POST['type'];
         try {
             $l = new Like();

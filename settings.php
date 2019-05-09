@@ -7,7 +7,7 @@
         //no logged in user
         header('Location: login.php');
     }
-    $userName = $_SESSION['UserName'];
+    $userName = $_SESSION['user']['username'];
     //Start uploading Profile pic
     if (isset($_POST['uploadImage'])) {
         $upload = new Upload();
@@ -17,7 +17,7 @@
         $upload->setFileSize($_FILES['imageFile']['size']);
         $upload->setTargetDir('images/profilePics/');
 
-        $upload->setUserId($_SESSION['Id']);
+        $upload->setUserId($_SESSION['user']['id']);
 
         $result = $upload->uploadProfPic($userName);
     }
