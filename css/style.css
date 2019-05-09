@@ -161,6 +161,21 @@ div.fullView img {
 div.more {
     display: none;
 }
+/* start profile details */
+
+.container{
+    width: 100%;
+    padding-top: 100px;
+    display: flex;
+}
+.sideNav{
+    width: 25%;
+}
+.content--details{
+    width: 75%;
+}
+
+/* end profile details */
 
 @media screen and (max-width: 1500px) {
     /* body {
