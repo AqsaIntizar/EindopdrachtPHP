@@ -25,15 +25,9 @@
             $post->setTargetDir("images/posts/");
             $post->setDescription($_POST['description']);
             $post->setUserId($_SESSION['Id']);
-<<<<<<< HEAD
-            
-||||||| merged common ancestors
-
-=======
             date_default_timezone_set("Europe/Brussels"); //set timezone for correct date
             $post->setDateTime(date('Y-m-d H:i:s'));
 
->>>>>>> 35a5f066df2f1b3f302b92bde9e0e88374cfd9d6
             $result = $post->uploadPost($userName);
             header('Location: index.php');
         }else{
