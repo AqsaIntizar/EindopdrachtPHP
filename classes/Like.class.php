@@ -76,6 +76,23 @@
             return $result;
         }
 
+        public static function checkIfLiked($userId, $postId)
+        {
+            $conn = Db::getInstance();
+            $stmnt = $conn->prepare('select type from likes where user_id = :userId and post_id = :postId');
+            $stmnt->bindValue(':userId', $userId);
+            $stmnt->bindValue(':postId', $postId);
+            $stmnt->execute();
+            $result = $stmnt->fetch(PDO::FETCH_ASSOC);
+
+            //return $result['type'];
+            if ($result['type'] < 1) {
+                return 0;
+            } else {
+                return $result['type'];
+            }
+        }
+
         public function saveLike()
         {
             $conn = Db::getInstance();

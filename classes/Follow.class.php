@@ -83,9 +83,9 @@
             $stmnt->bindValue(':followerId', $followerId);
             $stmnt->bindValue(':followsId', $followsId);
             $stmnt->execute();
-            $result = $stmnt->fetch(PDO::FETCH_OBJ);
+            $result = $stmnt->fetch(PDO::FETCH_ASSOC);
 
-            return $result->type;
+            return $result['type'];
         }
 
         public function saveFollower()
