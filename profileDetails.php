@@ -4,13 +4,16 @@
     if (isset($_SESSION['user'])) {
         //logged in user
         //echo "😎";
+        $followsId = $_GET['id'];
+        $followChecker = Follow::checkIfFollows($_SESSION['user']['id'], $followsId);
+        $followers = Follow::getFollowers($followsId);
     } else {
         //no logged in user
         header('Location: login.php');
     }
-    $id = $_GET['id'];
-    $result = Post::getAllById($id);
-    $posFollow = User::getProfile($id);
+
+    $result = Post::getAllById($followsId);
+    $posFollow = User::getProfile($followsId);
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -40,7 +43,7 @@
 
                     <?php // $likes = Like::getLikes($r['id']);?>
                     <br>
-                    <span id="follows_<?php echo $posFollow['id']; ?>"><?php // echo $likes->cntLikes;?>0</span> <span>mensen volgen deze persoon.</span>
+                    <span id="follows_<?php echo $posFollow['id']; ?>" data-type="<?php echo $followChecker; ?>"><?php echo $followers->cntFollowers; ?></span> <span>mensen volgen deze persoon.</span>
                 </div>
                 <!-- end Follow-->
             </div>
@@ -101,22 +104,32 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
     <script>
-        $(".follow, .unfollow").click(function(e){
+        $(document).ready(()=>{
+            let currentFollowerType = $('#follows_<?php echo $posFollow['id']; ?>').data('type');
+            if(currentFollowerType == 1){
+                $('#follow_<?php echo $posFollow['id']; ?>').css("display", "none");
+                $('#unfollow_<?php echo $posFollow['id']; ?>').css("display", "inline-block");
+            }else{
+                $('#unfollow_<?php echo $posFollow['id']; ?>').css("display", "none");
+                $('#follow_<?php echo $posFollow['id']; ?>').css("display", "inline-block");
+            }
+
+            $(".follow, .unfollow").click(function(e){
             let id = this.id;                           // Getting Button id
             let split_id = id.split("_");               // split id on _
             let text = split_id[0];                     // first part of splitted id = text
             let followsId = split_id[1];                   // second part = followsId
             let currentFollowersCnt = $("#follows_" + followsId); 
-            console.log(currentFollowersCnt)
+            //console.log(currentFollowersCnt)
             let followersAmount = currentFollowersCnt.html();     // amount of current likes
             // Setting type
             var type = 0;
             if(text == "follow"){
                 type = 1;
-                console.log(type)
+                //console.log(type)
             }else{
                 type = 0;
-                console.log(type)
+                //console.log(type)
             }
             // AJAX Request
             $.ajax({
@@ -146,6 +159,10 @@
             });
             e.preventDefault();
         })
+        });
+    </script>
+    <script>
+        
     </script>
 </body>
 </html>

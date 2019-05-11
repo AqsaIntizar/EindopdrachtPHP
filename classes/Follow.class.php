@@ -65,10 +65,33 @@
             return $this;
         }
 
+        public static function getFollowers($id)
+        {
+            $conn = Db::getInstance();
+            $stmnt = $conn->prepare('select count(*) as cntFollowers from follower where type = 1 and follows = :followsId');
+            $stmnt->bindValue(':followsId', $id);
+            $stmnt->execute();
+            $result = $stmnt->fetch(PDO::FETCH_OBJ);
+
+            return $result;
+        }
+
+        public static function checkIfFollows($followerId, $followsId)
+        {
+            $conn = Db::getInstance();
+            $stmnt = $conn->prepare('select type from follower where follower = :followerId and follows = :followsId');
+            $stmnt->bindValue(':followerId', $followerId);
+            $stmnt->bindValue(':followsId', $followsId);
+            $stmnt->execute();
+            $result = $stmnt->fetch(PDO::FETCH_OBJ);
+
+            return $result->type;
+        }
+
         public function saveFollower()
         {
             $conn = Db::getInstance();
-            $stmnt = $conn->prepare('select count(*) as checkIfFollow from follower where follower= :followerId and follows= :followsId');
+            $stmnt = $conn->prepare('select count(*) as checkIfFollow from follower where follower = :followerId and follows = :followsId');
             $stmnt->bindValue(':followerId', $this->getFollowerId());
             $stmnt->bindValue(':followsId', $this->getFollowsId());
             $stmnt->execute();
