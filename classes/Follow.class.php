@@ -1,46 +1,46 @@
 <?php
     class Follow
     {
-        private $postId;
-        private $userId;
+        private $followerId;
+        private $followsId;
         private $type;
 
         /**
-         * Get the value of postId.
+         * Get the value of followerId.
          */
-        public function getPostId()
+        public function getFollowerId()
         {
-            return $this->postId;
+            return $this->followerId;
         }
 
         /**
-         * Set the value of postId.
+         * Set the value of followerId.
          *
          * @return self
          */
-        public function setPostId($postId)
+        public function setFollowerId($followerId)
         {
-            $this->postId = $postId;
+            $this->followerId = $followerId;
 
             return $this;
         }
 
         /**
-         * Get the value of userId.
+         * Get the value of followsId.
          */
-        public function getUserId()
+        public function getFollowsId()
         {
-            return $this->userId;
+            return $this->followsId;
         }
 
         /**
-         * Set the value of userId.
+         * Set the value of followsId.
          *
          * @return self
          */
-        public function setUserId($userId)
+        public function setFollowsId($followsId)
         {
-            $this->userId = $userId;
+            $this->followsId = $followsId;
 
             return $this;
         }
@@ -63,5 +63,34 @@
             $this->type = $type;
 
             return $this;
+        }
+
+        public function saveFollower()
+        {
+            $conn = Db::getInstance();
+            $stmnt = $conn->prepare('select count(*) as checkIfFollow from follower where follower= :followerId and follows= :followsId');
+            $stmnt->bindValue(':followerId', $this->getFollowerId());
+            $stmnt->bindValue(':followsId', $this->getFollowsId());
+            $stmnt->execute();
+            $result = $stmnt->fetch(PDO::FETCH_OBJ);
+            date_default_timezone_set('Europe/Brussels'); //set timezone for correct date
+            $dateTime = date('Y-m-d H:i:s');
+            $followCheck = $result->checkIfFollow;
+            if ($followCheck == 0) {
+                $insertStmnt = $conn->prepare('insert into follower (`follower`,`follows`,`type`,`date_created`) VALUES (:followerId, :followsId, :type, :time)');
+                $insertStmnt->bindValue(':followerId', $this->getFollowerId());
+                $insertStmnt->bindValue(':followsId', $this->getFollowsId());
+                $insertStmnt->bindValue(':type', $this->getType());
+                $insertStmnt->bindValue(':time', $dateTime);
+
+                $insertStmnt->execute();
+            } else {
+                $updateStmnt = $conn->prepare('update follower set type = :type, date_created = :time where follower = :followerId and follows= :followsId');
+                $updateStmnt->bindValue(':followerId', $this->getFollowerId());
+                $updateStmnt->bindValue(':followsId', $this->getFollowsId());
+                $updateStmnt->bindValue(':type', $this->getType());
+                $updateStmnt->bindValue(':time', $dateTime);
+                $updateStmnt->execute();
+            }
         }
     }

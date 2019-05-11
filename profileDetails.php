@@ -31,7 +31,7 @@
                 <img src="images/profilePics/<?php echo $posFollow['img_dir']; ?>" class="userPic" alt="Profile Picture">
                 <h3 class="info info--name"><?php echo $posFollow['username']; ?></h3>
 
-                <!-- start Likes -->
+                <!-- start Follow -->
 
                 <div class="followers">
 
@@ -40,9 +40,9 @@
 
                     <?php // $likes = Like::getLikes($r['id']);?>
                     <br>
-                    <span id="follow_<?php //echo $r['id'];?>"><?php // echo $likes->cntLikes;?></span> <span>mensen volgen deze persoon.</span>
+                    <span id="follows_<?php echo $posFollow['id']; ?>"><?php // echo $likes->cntLikes;?>0</span> <span>mensen volgen deze persoon.</span>
                 </div>
-<!-- end Likes -->
+                <!-- end Follow-->
             </div>
             <hr>
             <div class="underSide">
@@ -99,17 +99,19 @@
             <a href="index.php?showitems=<?php echo $counter + 3; ?>" class="load">Load More</a>
         </div>
     </div>
+    <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
     <script>
         $(".follow, .unfollow").click(function(e){
             let id = this.id;                           // Getting Button id
             let split_id = id.split("_");               // split id on _
             let text = split_id[0];                     // first part of splitted id = text
-            let followsId = split_id[1];                   // second part = postid
-            let currentLikeCnt = $("#likes_" + postId); 
-            let likeAmount = currentLikeCnt.html();     // amount of current likes
+            let followsId = split_id[1];                   // second part = followsId
+            let currentFollowersCnt = $("#follows_" + followsId); 
+            console.log(currentFollowersCnt)
+            let followersAmount = currentFollowersCnt.html();     // amount of current likes
             // Setting type
             var type = 0;
-            if(text == "like"){
+            if(text == "follow"){
                 type = 1;
                 console.log(type)
             }else{
@@ -133,12 +135,12 @@
                     $("#" + id).siblings().css("display", "inline-block");
                     $("#" + id).css("display", "none");
                     //if the button was like, likeAmount +1 else -1
-                    if( text == "like"){
-                        likeAmount++;
-                        currentLikeCnt.html(likeAmount);
+                    if( text == "follow"){
+                        followersAmount++;
+                        currentFollowersCnt.html(followersAmount);
                     }else{
-                        likeAmount--;
-                        currentLikeCnt.html(likeAmount);
+                        followersAmount--;
+                        currentFollowersCnt.html(followersAmount);
                     }
                 }
             });

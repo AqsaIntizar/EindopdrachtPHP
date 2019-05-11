@@ -2,14 +2,14 @@
     require_once '../bootstrap/bootstrap.php';
     if (!empty($_POST)) {
         $followsId = $_POST['followsId'];
-        $userId = $_SESSION['user']['id'];
+        $followerId = $_SESSION['user']['id'];
         $type = $_POST['type'];
         try {
             $l = new Follow();
-            $l->setPostId($postId);
-            $l->setUserId($userId);
+            $l->setFollowsId($followsId);
+            $l->setFollowerId($followerId);
             $l->setType($type);
-            $l->saveLike();
+            $l->saveFollower();
             $result = [
                 'status' => 'success',
                 'message' => 'Like was saved',
