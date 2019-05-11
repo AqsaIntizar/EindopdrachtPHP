@@ -8,7 +8,12 @@
         //no logged in user
         header('Location: login.php');
     }
-    $result = Post::getAll();
+    if (Post::getAllFollows($_SESSION['user']['id'])) {
+        $result = Post::getAllFollows($_SESSION['user']['id']);
+    } else {
+        $result = Post::getAll();
+    }
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -224,7 +229,5 @@
 
 
     </script>
-
-    
 </body>
 </html>
