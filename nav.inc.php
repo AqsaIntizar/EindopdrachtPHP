@@ -10,7 +10,7 @@
         </form>
         <li>
             <div class="dropdown">
-                <img src="https://fakeimg.pl/50x50/?text=MyPic" class="dropbtn">
+                <img src="images/profilePics/<?php echo $_SESSION['user']['img_dir']; ?>" class="dropbtn">
                 <div class="dropdown-content">
                     <a href="settings.php">Instellingen</a>
                     <a href="logout.php">Hi <?php echo $_SESSION['user']['username']; ?>, log out?</a>

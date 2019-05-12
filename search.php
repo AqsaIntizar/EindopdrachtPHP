@@ -8,8 +8,9 @@
         //no logged in user
         header('Location: login.php');
     }
-
-    $result = Post::getSearchResults();
+    $search = '%'.$_GET['searchResult'].'%';
+    $result = Post::getSearchResults($search);
+    //$result = User::getProfileByUsername($search);
 
 ?><!DOCTYPE html>
 <html lang="en">

@@ -65,7 +65,7 @@ class Post
         return $result = $stmnt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function getSearchResults()
+    public static function getSearchResults($search)
     {
         if (!isset($_GET['showitems'])) {
             $itemCount = 3;
@@ -74,7 +74,7 @@ class Post
             //echo $itemCount;
         }
 
-        $search = '%'.$_GET['searchResult'].'%';
+        //$search = '%'.$_GET['searchResult'].'%';
 
         $conn = Db::getInstance();
         $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id AND post_description LIKE :hashtag ORDER BY id DESC LIMIT :itemCount ');

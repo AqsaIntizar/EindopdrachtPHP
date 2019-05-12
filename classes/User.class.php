@@ -315,6 +315,8 @@
                     $stmntEmailCh->bindParam(':userName', $userName);
                     $resultEmail = $stmntEmailCh->execute();
 
+                    $_SESSION['user']['email'] = $newEmail;
+
                     return $resultEmail;
                 } else {
                     //echo "wachtwoord foutief";
@@ -334,5 +336,16 @@
             $user = $stmnt->fetch(PDO::FETCH_ASSOC);
 
             return $user;
+        }
+
+        public static function getProfileByUsername($search)
+        {
+            $conn = Db::getInstance();
+            $stmnt = $conn->prepare('select * from users where username = :username');
+            $stmnt->bindValue(':username', $search);
+            $stmnt->execute();
+            $result = $stmnt->fetchAll(PDO::FETCH_ASSOC);
+
+            return $result;
         }
     }

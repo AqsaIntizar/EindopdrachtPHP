@@ -190,6 +190,8 @@
                             $stmnt->bindParam(':userName', $userName);
                             $result = $stmnt->execute();
 
+                            $_SESSION['user']['img_dir'] = $newName;
+
                             return $result;
                         } catch (Throwable $t) {
                             return false;
