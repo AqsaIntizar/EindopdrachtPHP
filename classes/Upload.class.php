@@ -211,14 +211,7 @@
                     $extension = Image::checkExt($this->fileName);
                     $newName = Image::rename($this->userId, $extension);
 
-                    // Image::resize();
-                    // var_dump($this->fileTempName);
-                    // exit();
-
-                    // $image_resized = imagescale(imagecreatefromjpeg($this->fileTempName), 300);
-                    // imagejpeg($image_resized, $this->targetDir."mini-".$newName);
-
-                    // resize("rightImg");
+                    Image::resize($this->fileTempName, $extension, $newName, $this->targetDir);
 
                     if (move_uploaded_file($this->fileTempName, $this->targetDir.$newName)) {
                         $myPostDiscr = htmlspecialchars($this->description, ENT_QUOTES);

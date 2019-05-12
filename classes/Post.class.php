@@ -32,7 +32,6 @@ class Post
         $stmnt->bindValue(':userId', $userId);
         $stmnt->bindValue(':itemCount', $itemCount, PDO::PARAM_INT);
         $stmnt->execute();
-
         $result = $stmnt->fetchAll(PDO::FETCH_ASSOC);
 
         return $result;
