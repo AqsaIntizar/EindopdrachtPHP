@@ -338,14 +338,14 @@
             return $user;
         }
 
-        public static function getProfileByUsername($search)
-        {
-            $conn = Db::getInstance();
-            $stmnt = $conn->prepare('select * from users where username = :username');
-            $stmnt->bindValue(':username', $search);
-            $stmnt->execute();
-            $result = $stmnt->fetchAll(PDO::FETCH_ASSOC);
+        // public static function getProfileByUsername($search)
+        // {
+        //     $conn = Db::getInstance();
+        //     $stmnt = $conn->prepare('select * from users where username = :username');
+        //     $stmnt->bindValue(':username', $search);
+        //     $stmnt->execute();
+        //     $result = $stmnt->fetchAll(PDO::FETCH_ASSOC);
 
-            return $result;
-        }
+        //     return $result;
+        // }
     }
