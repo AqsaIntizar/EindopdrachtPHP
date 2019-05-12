@@ -129,51 +129,51 @@
             });
 
             $(".like, .unlike").click(function(e){
-            let id = this.id;                           // Getting Button id
-            let split_id = id.split("_");               // split id on _
-            let text = split_id[0];                     // first part of splitted id = text
-            let postId = split_id[1];                   // second part = postid
-            let currentLikeCnt = $("#likes_" + postId); 
-            let likeAmount = currentLikeCnt.html();     // amount of current likes
-            // Setting type
-            var type = 0;
-            if(text == "like"){
-                type = 1;
-                console.log(type)
-            }else{
-                type = 0;
-                console.log(type)
-            }
-            // AJAX Request
-            $.ajax({
-                method: "POST",
-                url: "ajax/save_like.php",
-                data: {
-                    postId: postId,
-                    type: type
-                },
-                dataType: 'json'
-                
-            })
-            .done( function ( res ){
-                if (res.status == "success"){
-                    //change the buttons
-                    $("#" + id).siblings().css("display", "inline-block");
-                    $("#" + id).css("display", "none");
-                    //if the button was like, likeAmount +1 else -1
-                    if( text == "like"){
-                        likeAmount++;
-                        currentLikeCnt.html(likeAmount);
-                        $('#likes_<?php echo $postId; ?>').data('type', 0);
-                    }else{
-                        likeAmount--;
-                        currentLikeCnt.html(likeAmount);
-                        $('#likes_<?php echo $postId; ?>').data('type', 1);
-                    }
+                let id = this.id;                           // Getting Button id
+                let split_id = id.split("_");               // split id on _
+                let text = split_id[0];                     // first part of splitted id = text
+                let postId = split_id[1];                   // second part = postid
+                let currentLikeCnt = $("#likes_" + postId); 
+                let likeAmount = currentLikeCnt.html();     // amount of current likes
+                // Setting type
+                var type = 0;
+                if(text == "like"){
+                    type = 1;
+                    console.log(type)
+                }else{
+                    type = 0;
+                    console.log(type)
                 }
-            });
-            e.preventDefault();
-        })
+                // AJAX Request
+                $.ajax({
+                    method: "POST",
+                    url: "ajax/save_like.php",
+                    data: {
+                        postId: postId,
+                        type: type
+                    },
+                    dataType: 'json'
+                    
+                })
+                .done( function ( res ){
+                    if (res.status == "success"){
+                        //change the buttons
+                        $("#" + id).siblings().css("display", "inline-block");
+                        $("#" + id).css("display", "none");
+                        //if the button was like, likeAmount +1 else -1
+                        if( text == "like"){
+                            likeAmount++;
+                            currentLikeCnt.html(likeAmount);
+                            $('#likes_<?php echo $postId; ?>').data('type', 0);
+                        }else{
+                            likeAmount--;
+                            currentLikeCnt.html(likeAmount);
+                            $('#likes_<?php echo $postId; ?>').data('type', 1);
+                        }
+                    }
+                });
+                e.preventDefault();
+            })
 
         })
        
