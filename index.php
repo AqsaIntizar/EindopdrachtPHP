@@ -10,10 +10,14 @@
     }
     if (Post::getAllFollows($_SESSION['user']['id'])) {
         $result = Post::getAllFollows($_SESSION['user']['id']);
-        $result += Post::getAll();
+        // $result += Post::getAll();
     } else {
         $result = Post::getAll();
     }
+
+    
+
+
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -40,7 +44,7 @@
         
     <div class="post" id="<?php echo $postId; ?>" data-id="<?php echo $postId; ?>">
 
-        <img class="postImg" src="images/posts/<?php echo $r['post_img_dir']; ?>" alt="">
+        <a href="single.php?post=<?= $postId; ?>"><img class="postImg" src="images/posts/mini-<?php echo $r['post_img_dir']; ?>" alt=""></a>
         <p class="description"><?php  $hashtag = $r['post_description'];
             $linked_string = preg_replace("/#([^\s]+)/", '<a href="search.php?searchResult=$1">#$1</a>', $hashtag);
             echo $linked_string; ?></p>
@@ -81,32 +85,33 @@
         </form>
     </div>
 
-    <div class="fullView" id="full-<?php echo $postId; ?>" data-full-id="full-<?php echo $postId; ?>">
+    <!-- <div class="fullView" id="full-<?php echo $postId; ?>" data-full-id="full-<?php echo $postId; ?>">
         <span class="x">X</span>
         <img src="<?php echo $r['post_img_dir']; ?>" alt="">
-    </div>
+    </div> -->
     <?php ++$counter; ?>
     <?php endforeach; ?>
     <!-- einde lus -->
+    </div>
 
-    <a href="index.php?showitems=<?php echo $counter + 3; ?>" class="load">Load More</a>
+    <a href="#" class="load">Load More</a>
     
-    
+
     <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
     <script>
         // document.getElementById("1").addEventListener("click", displayFull);
         // document.getElementById("close").addEventListener("click", close);
-            $('.postImg').on('click', function(){
-                    const bigImg = $(this).parent().attr('id');
-                //full view
-                $('.post').on('click', function(){
-                    const bigImg = $(this).attr('id');
-                    $('#full-' + bigImg).fadeIn();
-            });
-            $('.x').on('click', function(){
-                $('.fullView').fadeOut();
-            });
-        })
+        //     $('.postImg').on('click', function(){
+        //             const bigImg = $(this).parent().attr('id');
+        //         //full view
+        //         $('.post').on('click', function(){
+        //             const bigImg = $(this).attr('id');
+        //             $('#full-' + bigImg).fadeIn();
+        //     });
+        //     $('.x').on('click', function(){
+        //         $('.fullView').fadeOut();
+        //     });
+        // })
     </script>
 
     <script>
@@ -178,12 +183,13 @@
         })
        
     </script>
+    
     <script>
-        $(".btnSub").on("click", function(e){
+       $(".btnSub").on("click", function(e){
             let that = $(this);
             let text = $(this).siblings(".comment").val();
             let currentForm = $(this).parent();
-            let postId = currentForm.parent().data("id");
+            let postId = currentForm.parent().data("id");       
             $.ajax({
                 method: "POST",
                 url: "ajax/save_comment.php",
@@ -207,28 +213,52 @@
         });
     </script>
     <script>
-        //ajax for load more
-        // $(".load").on("click", function(e){
-        //     let counter = $(this).data('counter');
-        //     $.ajax({
-        //         method: "POST",
-        //         url: "ajax/save_comment.php",
-        //         data: { 
-        //             counter: counter },
-        //         dataType: 'json'
-        //     })
-        //     .done( function( res ){
-        //         if(res.status == "success"){
-        //             //console.log("hier");
-        //             let posts = res.data.posts;
-        //             console.log('something');
-        //         }
-        //     });
-        //     e.preventDefault();
-        // });
-     
+        $(".load").on("click", function(e){
+            e.preventDefault();
+            
+            let counter = $(".post").length + 1;
+            
 
+            $.ajax({
+                method: "POST",
+                url: "ajax/load_more.php",
+                data: { 
+                    showitems: counter
+                },
+                dataType: 'json'
+            })
+            .done( function( res ){
+                console.log(res);
+                if(res.status == "success"){
+                    const posts = res.data.posts;
+                    let newImages = [];
 
+                    $('.feed').empty();
+
+                    posts.map(post => {
+                        //regex hashtag
+                        //timing
+
+                        newImages.push(`<div class="post" id="${post.id}">
+                                <a href="single.php?post=${post.id}"><img class="postImg" src="images/posts/mini-${post.post_img_dir}" alt=""></a>
+                                <p class="description">${post.post_description}</p>
+                                
+                                <a href="profileDetails.php?id=${post.user_id}" class="post__item"><span class="infoBlock"><strong>${post.username}</strong></span></a>
+                            </div>`);
+                    });
+
+                    $('.feed').append(newImages);
+                    // //console.log("hier");
+                    // let comment = res.data.comment;
+                    // let li = `<li style="display: hidden;">${comment}</li>`;
+                    // that.siblings(".comments").append(li);
+                    // that.siblings(".comment").val("").focus();
+                    // //that.siblings(".comments").find("li").last().slideDown(100);
+                    
+                }
+            });
+            
+        });
     </script>
 </body>
 </html>

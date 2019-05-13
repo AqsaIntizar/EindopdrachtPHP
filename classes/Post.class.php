@@ -4,10 +4,10 @@ class Post
 {
     public static function getAll()
     {
-        if (!isset($_GET['showitems'])) {
-            $itemCount = 3;
+        if (!isset($_POST['showitems'])) {
+            $itemCount = 2;
         } else {
-            $itemCount = (int) $_GET['showitems'];
+            $itemCount = (int) $_POST['showitems'];
             //echo $itemCount;
         }
 
@@ -21,10 +21,11 @@ class Post
 
     public static function getAllFollows($userId)
     {
-        if (!isset($_GET['showitems'])) {
-            $itemCount = 3;
+        if (!isset($_POST['showitems'])) {
+            $itemCount = 1;
         } else {
-            $itemCount = (int) $_GET['showitems'];
+            // $itemCount = (int) $_POST['showitems'];
+            $itemCount = (int) $_POST['showitems'];
             //echo $itemCount;
         }
         $conn = Db::getInstance();
@@ -54,15 +55,15 @@ class Post
         return $result = $stmnt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    public static function getMore()
-    {
-        $conn = Db::getInstance();
-        $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id ORDER BY id DESC LIMIT :itemCount');
-        $stmnt->bindValue(':itemCount', $itemCount, PDO::PARAM_INT);
-        $stmnt->execute();
+    // public static function getMore()
+    // {
+    //     $conn = Db::getInstance();
+    //     $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id ORDER BY id DESC LIMIT :itemCount');
+    //     $stmnt->bindValue(':itemCount', $itemCount, PDO::PARAM_INT);
+    //     $stmnt->execute();
 
-        return $result = $stmnt->fetchAll(PDO::FETCH_ASSOC);
-    }
+    //     return $result = $stmnt->fetchAll(PDO::FETCH_ASSOC);
+    // }
 
     public static function getSearchResults()
     {
