@@ -254,6 +254,8 @@
                     // that.siblings(".comments").append(li);
                     // that.siblings(".comment").val("").focus();
                     // //that.siblings(".comments").find("li").last().slideDown(100);
+
+                    console.log('yolo');
                     
                 }
             });
