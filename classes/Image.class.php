@@ -28,7 +28,7 @@
             if ($extension == 'png') {
                 $image_resized = imagescale(imagecreatefrompng($tempFile), 300);
                 // imagescale maakt png background zwart
-                $black = imagecolorallocate($im, 0, 0, 0);
+                $black = imagecolorallocate($image_resized, 0, 0, 0);
                 imagecolortransparent($image_resized, $black);
                 imagepng($image_resized, $target.'mini-'.$newName);
             }
