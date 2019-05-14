@@ -37,15 +37,39 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="css/addpost.css">
     <title>incFood</title>
 </head>
 <body>
-    <div class="newPost">
+    <section class="newPost">
         <h1>Food up the Feed!</h1>
         <h2>Add some new content here</h2>
         <form action="" method="post" enctype="multipart/form-data">
             <p>
-                File: <input type="file" name="imageFile">
+                <input class="addcontent" type="file" name="imageFile" id="file" data-multiple-caption="{count} files selected" multiple >
+                <label for="file">Choose a file</label>
+                <script>var inputs = document.querySelectorAll( '.inputfile' );
+ 
+ Array.prototype.forEach.call( inputs, function( input ) {
+   var label = input.nextElementSibling,
+               labelVal = label.innerHTML;
+  
+   input.addEventListener( 'change', function( e ) {
+     var fileName = '';
+      
+     if ( this.files &amp;&amp; this.files.length > 1 ) {
+       fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
+     } else {
+       fileName = e.target.value.split( '\\' ).pop();
+     }
+  
+     if ( fileName ) {
+       label.querySelector( 'span' ).innerHTML = fileName;
+     } else {
+       label.innerHTML = labelVal;
+     }
+   });
+ });</script>
             </p>
             <?php if (isset($newPostError)): ?>
                 <div class="form__error">
@@ -58,6 +82,6 @@
             <input type="text" id="description" name="description">
         <input type="submit" name="uploadPost" value="Upload post">
         </form>
-    </div>
+</section>
 </body>
 </html>
