@@ -25,12 +25,14 @@
     <title>Document</title>
 </head>
 <body>
-<header>
+    <header>
         <?php require_once 'nav.inc.php'; ?>
     </header>
 
-        
+    <a href="" class="report">Report</a>    
+    
     <div class="singlePost" id="<?php echo $r['id']; ?>" data-id="<?php echo $r['id']; ?>">
+
         <img class="postImg" src="images/posts/<?php echo $r['post_img_dir']; ?>" alt="">
         <p class="description"><?php  $hashtag = $r['post_description'];
             $linked_string = preg_replace("/#([^\s]+)/", '<a href="search.php?searchResult=$1">#$1</a>', $hashtag);

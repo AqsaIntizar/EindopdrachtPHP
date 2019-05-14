@@ -69,7 +69,7 @@ class Post
     public static function getSearchResults()
     {
         if (!isset($_POST['showitems'])) {
-            $itemCount = 3;
+            $itemCount = 10;
         } else {
             $itemCount = (int) $_POST['showitems'];
             //echo $itemCount;
@@ -78,7 +78,7 @@ class Post
         $search = '%'.$_GET['searchResult'].'%';
 
         $conn = Db::getInstance();
-        $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id AND post_description LIKE :hashtag ORDER BY id DESC LIMIT :itemCount ');
+        $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir, post_description, username from posts, users where posts.user_id = users.id AND post_description LIKE :hashtag ORDER BY id DESC LIMIT :itemCount ');
         $stmnt->bindValue(':itemCount', $itemCount, PDO::PARAM_INT);
         $stmnt->bindParam(':hashtag', $search);
         $stmnt->execute();
