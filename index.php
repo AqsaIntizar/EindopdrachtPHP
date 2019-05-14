@@ -10,15 +10,10 @@
     }
     if (Post::getAllFollows($_SESSION['user']['id'])) {
         $result = Post::getAllFollows($_SESSION['user']['id']);
-        // $result += Post::getAll();
+        $result += Post::getAll();
     } else {
         $result = Post::getAll();
-        
     }
-
-     
-
-
 
 ?><!DOCTYPE html>
 <html lang="en">
