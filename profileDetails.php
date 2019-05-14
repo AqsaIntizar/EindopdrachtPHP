@@ -65,7 +65,7 @@
    
                 <div class="post" id="<?php echo $postId; ?>" data-id="<?php echo $postId; ?>">
    
-                <img class="postImg" src="images/posts/<?php echo $r['post_img_dir']; ?>" alt="">
+                <img class="postImg" src="images/posts/mini-<?php echo $r['post_img_dir']; ?>" alt="">
                 <p class="description">
                     <?php
                         $hashtag = $r['post_description'];
