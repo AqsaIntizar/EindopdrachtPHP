@@ -2,10 +2,21 @@
 
 class Post
 {
+    public static function getSinglePost($idSinglePost)
+    {
+        $conn = Db::getInstance();
+        $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir,post_description,username,date_created from posts, users where posts.user_id = users.id and posts.id = :idSinglePost');
+        $stmnt->bindValue(':idSinglePost', $idSinglePost, PDO::PARAM_INT);
+        $stmnt->execute();
+
+        return $result = $stmnt->fetchAll(PDO::FETCH_ASSOC);
+        // print_r($result); exit();
+    }
+
     public static function getAll()
     {
         if (!isset($_POST['showitems'])) {
-            $itemCount = 2;
+            $itemCount = 5;
         } else {
             $itemCount = (int) $_POST['showitems'];
             //echo $itemCount;
@@ -22,7 +33,7 @@ class Post
     public static function getAllFollows($userId)
     {
         if (!isset($_POST['showitems'])) {
-            $itemCount = 1;
+            $itemCount = 5;
         } else {
             // $itemCount = (int) $_POST['showitems'];
             $itemCount = (int) $_POST['showitems'];
@@ -40,10 +51,10 @@ class Post
 
     public static function getAllById($usedId)
     {
-        if (!isset($_GET['showitems'])) {
+        if (!isset($_POST['showitems'])) {
             $itemCount = 20;
         } else {
-            $itemCount = (int) $_GET['showitems'];
+            $itemCount = (int) $_POST['showitems'];
             //echo $itemCount;
         }
         $conn = Db::getInstance();
@@ -55,22 +66,12 @@ class Post
         return $result = $stmnt->fetchAll(PDO::FETCH_ASSOC);
     }
 
-    // public static function getMore()
-    // {
-    //     $conn = Db::getInstance();
-    //     $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir,post_description,username from posts, users where posts.user_id = users.id ORDER BY id DESC LIMIT :itemCount');
-    //     $stmnt->bindValue(':itemCount', $itemCount, PDO::PARAM_INT);
-    //     $stmnt->execute();
-
-    //     return $result = $stmnt->fetchAll(PDO::FETCH_ASSOC);
-    // }
-
     public static function getSearchResults()
     {
-        if (!isset($_GET['showitems'])) {
+        if (!isset($_POST['showitems'])) {
             $itemCount = 3;
         } else {
-            $itemCount = (int) $_GET['showitems'];
+            $itemCount = (int) $_POST['showitems'];
             //echo $itemCount;
         }
 

@@ -1,1 +1,1 @@
-php_value upload_max_filesize 5M
+php_value upload_max_filesize 6M

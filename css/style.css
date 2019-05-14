@@ -3,6 +3,9 @@
     padding: 0;
     box-sizing: border-box;
 }
+ body {
+    font-family: sans-serif;
+ }
 
 /* start header */
 header{
@@ -99,69 +102,55 @@ hr{
 /*end settings */
 
 /* Start css for feed */
-div.feed {
+div.homepage {
+    display: block;
+    width: 90%;
+    margin-left: auto;
+    margin-right: auto;
     padding-top: 100px;
-    display: grid;
-    grid-template-columns: 500px 500px 500px;
-    grid-template-rows: 500px 500px 500px;
-    grid-gap: 10px;
+    display: flex;
+    flex-direction: column;
     justify-content: center;
-    align-content: center;
-    border: 1px solid green;
+    align-items: center;
 }
 
 
 div.post {
     /* for testing */
-    border: 1px solid blue;
+    /* border: 1px solid blue; */
     text-align: center;
-    padding: 50px;
-    padding-top: 10px;
+    
     
 }
 .post img{
     max-width: 100%;
-    
+    padding-top: 20px;
 }
 
-div.addContent {
-    text-align: center;
-    margin-top: auto;
-    margin-bottom: auto;
+.post_info {
+    display: flex;
+    padding-bottom: 30px;
 }
 
-div.fullView {
-    border: 1px solid purple;
-    position: fixed;
-    z-index: 999;
-    background-color: red;
-    max-width: 90%;
-    max-height: 90%;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-    display: none;
+.post_info p, .post_info a {
+    margin-left: 10px;
 }
 
-div.fullView img {
-    max-width: 100%;
-    margin: auto;
+.btn {
+    text-decoration: none;
+    background-color: blue;
+    color: white;
+    border-radius: 4px;
+    padding: 20px;
 }
 
-.x {
-    position: absolute;
-    right: 1%;
-    top: 1%;
-    font-size: 2em;
-    z-index: 9999;
-    font-family: sans-serif;
-    cursor: pointer;
-
+.load {
+    margin-bottom: 10px;
 }
 
-div.more {
-    display: none;
-}
+
+
+
 /* start profile details */
 
 .container{
@@ -201,46 +190,11 @@ hr{
     width: 75%;
 }
 
+.post--home {
+    border-radius: 5px;
+    background-color: lightblue;
+    margin: 20px;
+}
 
 /* end profile details */
 
-@media screen and (max-width: 1500px) {
-    /* body {
-      background-color: red;
-    } */
-
-    div.feed {
-        grid-template-columns: 500px 500px;
-        grid-template-rows: 500px 500px;
-        
-    }
-  }
-
-  @media screen and (max-width: 1000px) {
-    /* body {
-      background-color: green;
-    } */
-
-    div.feed {
-        grid-template-columns: 500px;
-        grid-template-rows: 500px;
-        
-    }
-  }
-
-@media screen and (max-width: 500px) {
-    /* body {
-      background-color: olive;
-    } */
-
-    div.feed {
-        grid-template-columns: 350px;
-        grid-template-rows: 350px;
-        
-    }
-  }
-
-
-
-
-/* end css for feed */
