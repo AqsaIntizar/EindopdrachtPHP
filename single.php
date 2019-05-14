@@ -30,7 +30,7 @@
     </header>
     
     <div class="report">
-    <a href="#" class="report">Report</a>    
+    <a href="#" class="report" data-postid="<?php echo $r['id']; ?>">Report</a>   
     </div>
     
     <div class="singlePost" id="<?php echo $r['id']; ?>" data-id="<?php echo $r['id']; ?>">
@@ -149,7 +149,7 @@
      
   </script>
   
-  <script>
+    <script>
      $(".btnSub").on("click", function(e){
           let that = $(this);
           let text = $(this).siblings(".comment").val();
@@ -176,7 +176,34 @@
           });
           e.preventDefault();
       });
-  </script>
+    </script>
    
+    <script> 
+      $(document).ready(function(){
+        $(".report").on("click", function(e){
+            var postId = $(this).data('postid');
+            var reportText = $(this);
+            console.log(postId);
+            
+            $.ajax({
+                method: "POST",
+                url: "ajax/report_post.php",
+                dataType: "json",
+                data: {
+                    postId: postId
+                }
+            }).done(function(res){
+                if(res.status === "success"){
+                }
+                
+            });
+            
+            e.preventDefault();
+        })
+        
+      });
+      
+    </script>
+
 </body>
 </html>
