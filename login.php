@@ -8,6 +8,7 @@
         if ($user->login()) {
             header('Location: index.php');
         } else {
+            
         }
     }
 
@@ -22,11 +23,15 @@
 	<form action="" method="post">
 		<h2>Log in to your account</h2>
 
-        <?php if (isset($errorLogin)): ?>
+        <?php if (isset($_SESSION["error"])): ?>
         <div class="form__error">
-            <p>
-                Sorry, we can't log you in with that username and password.
-            </p>
+            <span>
+                <?php 
+                    $error = $_SESSION["error"];
+                    echo $error;
+                ?>
+            </span>
+            
         </div>
         <?php endif; ?>
 				
@@ -40,3 +45,7 @@
 	</form>
 </body>
 </html>
+
+<?php
+    unset($_SESSION["error"]);
+?>

@@ -198,8 +198,8 @@
 
                 return true;
             } else {
-                $errorLogin = true;
-
+                $error = "Username/Password incorrect";
+                $_SESSION["error"] = $error;
                 return false;
             }
         }
