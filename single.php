@@ -28,8 +28,10 @@
     <header>
         <?php require_once 'nav.inc.php'; ?>
     </header>
-
-    <a href="" class="report">Report</a>    
+    
+    <div class="report">
+    <a href="#" class="report">Report</a>    
+    </div>
     
     <div class="singlePost" id="<?php echo $r['id']; ?>" data-id="<?php echo $r['id']; ?>">
 
@@ -176,7 +178,5 @@
       });
   </script>
    
-
-
 </body>
 </html>

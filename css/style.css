@@ -152,7 +152,7 @@ div.post {
 
 /* single view */
 .singlePost {
-    padding-top: 100px;
+    padding-top: 0px;
     width: 70%;
     margin-left: auto;
     margin-right: auto;
@@ -161,6 +161,13 @@ div.post {
 .singlePost img {
     max-width: 90%;
     
+}
+
+.report{
+    padding-top: 100px;
+    width: 70%;
+    margin-left: auto;
+    margin-right: auto;
 }
 /* end single view */
 
