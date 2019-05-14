@@ -138,7 +138,7 @@ div.post {
 
 .btn {
     text-decoration: none;
-    background-color: blue;
+    background-color: green;
     color: white;
     border-radius: 4px;
     padding: 20px;
@@ -207,7 +207,7 @@ hr{
 
 .post--home {
     border-radius: 5px;
-    background-color: lightblue;
+    background-color: lightseagreen;
     margin: 20px;
 }
 
