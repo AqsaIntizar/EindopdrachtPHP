@@ -133,8 +133,7 @@
     <script>
     
         $(".report").on("click", function(e){
-                let that = $(this);
-                let currentForm = $(this).parent();
+                let that = $(this); 
                 let postId = that.data('id');
                 console.log(postId);
                 $.ajax({
@@ -148,6 +147,7 @@
                 .done( function( res ){
                     if(res.status == "success"){
                         that.text("Undo");
+                        console.log(res.status);
                     }
                 });
                 e.preventDefault();
