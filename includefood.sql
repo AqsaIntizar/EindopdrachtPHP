@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.8.5
+-- version 4.8.3
 -- https://www.phpmyadmin.net/
 --
--- Host: 127.0.0.1
--- Gegenereerd op: 13 mei 2019 om 13:53
--- Serverversie: 10.1.38-MariaDB
--- PHP-versie: 7.3.2
+-- Host: localhost:3306
+-- Generation Time: May 14, 2019 at 10:00 PM
+-- Server version: 5.7.24-log
+-- PHP Version: 7.2.10
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET AUTOCOMMIT = 0;
@@ -25,7 +25,7 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `comments`
+-- Table structure for table `comments`
 --
 
 CREATE TABLE `comments` (
@@ -36,7 +36,7 @@ CREATE TABLE `comments` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Gegevens worden geëxporteerd voor tabel `comments`
+-- Dumping data for table `comments`
 --
 
 INSERT INTO `comments` (`id`, `post_id`, `user_id`, `text`) VALUES
@@ -68,12 +68,16 @@ INSERT INTO `comments` (`id`, `post_id`, `user_id`, `text`) VALUES
 (73, 38, 15, 'etst'),
 (74, 38, 12, 'tester'),
 (75, 37, 12, 'anders'),
-(76, 37, 12, 'nog een comment');
+(76, 37, 12, 'nog een comment'),
+(77, 40, 14, 'thats lit'),
+(78, 45, 14, 'wow'),
+(79, 46, 14, 'kewl'),
+(80, 46, 14, 'hallo');
 
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `follower`
+-- Table structure for table `follower`
 --
 
 CREATE TABLE `follower` (
@@ -85,7 +89,7 @@ CREATE TABLE `follower` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Gegevens worden geëxporteerd voor tabel `follower`
+-- Dumping data for table `follower`
 --
 
 INSERT INTO `follower` (`id`, `follower`, `follows`, `type`, `date_created`) VALUES
@@ -98,12 +102,13 @@ INSERT INTO `follower` (`id`, `follower`, `follows`, `type`, `date_created`) VAL
 (7, 18, 15, 0, '2019-05-11 23:46:22'),
 (8, 18, 12, 0, '2019-05-11 23:46:18'),
 (9, 12, 11, 0, '2019-05-12 15:37:58'),
-(10, 12, 6, 1, '2019-05-12 15:58:32');
+(10, 12, 6, 1, '2019-05-12 15:58:32'),
+(11, 14, 14, 1, '2019-05-14 20:12:06');
 
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `likes`
+-- Table structure for table `likes`
 --
 
 CREATE TABLE `likes` (
@@ -115,7 +120,7 @@ CREATE TABLE `likes` (
 ) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
--- Gegevens worden geëxporteerd voor tabel `likes`
+-- Dumping data for table `likes`
 --
 
 INSERT INTO `likes` (`id`, `user_id`, `post_id`, `type`, `date_created`) VALUES
@@ -128,12 +133,17 @@ INSERT INTO `likes` (`id`, `user_id`, `post_id`, `type`, `date_created`) VALUES
 (32, 12, 10, 1, '2019-05-11 22:54:24'),
 (33, 12, 5, 1, '2019-05-11 22:54:36'),
 (34, 12, 32, 1, '2019-05-12 15:38:23'),
-(35, 12, 31, 1, '2019-05-12 15:46:49');
+(35, 12, 31, 1, '2019-05-12 15:46:49'),
+(36, 14, 40, 1, '2019-05-14 21:10:46'),
+(37, 14, 45, 1, '2019-05-14 21:57:31'),
+(38, 14, 39, 0, '2019-05-14 21:58:05'),
+(39, 14, 46, 1, '2019-05-14 23:36:25'),
+(40, 14, 44, 1, '2019-05-14 22:48:59');
 
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `posts`
+-- Table structure for table `posts`
 --
 
 CREATE TABLE `posts` (
@@ -145,52 +155,42 @@ CREATE TABLE `posts` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
--- Gegevens worden geëxporteerd voor tabel `posts`
+-- Dumping data for table `posts`
 --
 
 INSERT INTO `posts` (`id`, `user_id`, `post_img_dir`, `post_description`, `date_created`) VALUES
-(1, 5, 'images/posts/one_pot_chorizo_and_15611_16x9.jpg', 'anders', '0000-00-00 00:00:00'),
-(2, 5, 'images/posts/9-Foods-You-Should-Never-Eat-Before-Bed-760x506.jpg', 'een andere beschrijving', '0000-00-00 00:00:00'),
-(3, 5, 'images/posts/9-Foods-You-Should-Never-Eat-Before-Bed-760x506.jpg', 'sommige dagen zijn beter dan andere', '0000-00-00 00:00:00'),
-(4, 11, 'images/posts/one_pot_chorizo_and_15611_16x9.jpg', 'lekker hoor', '0000-00-00 00:00:00'),
-(5, 6, 'images/posts/636674359927753055-0717-NEW-STATEFAIR-FOODS-00029.jpg', 'some text', '0000-00-00 00:00:00'),
-(6, 6, 'images/posts/9-Foods-You-Should-Never-Eat-Before-Bed-760x506.jpg', 'some other text', '0000-00-00 00:00:00'),
-(7, 6, 'images/posts/636674359927753055-0717-NEW-STATEFAIR-FOODS-00029.jpg', 'some other text', '0000-00-00 00:00:00'),
-(8, 6, 'images/posts/636674359927753055-0717-NEW-STATEFAIR-FOODS-00029.jpg', 'some other text', '0000-00-00 00:00:00'),
-(9, 11, 'images/posts/one_pot_chorizo_and_15611_16x9.jpg', 'truturturtu', '0000-00-00 00:00:00'),
-(10, 11, 'images/posts/9-Foods-You-Should-Never-Eat-Before-Bed-760x506.jpg', 'dsfdfsdfdf', '0000-00-00 00:00:00'),
-(11, 11, 'images/posts/636674359927753055-0717-NEW-STATEFAIR-FOODS-00029.jpg', 'heggdsfgdsgf', '0000-00-00 00:00:00'),
-(12, 11, 'images/posts/one_pot_chorizo_and_15611_16x9.jpg', 'iets nieuws', '0000-00-00 00:00:00'),
-(13, 11, 'images/posts/636674359927753055-0717-NEW-STATEFAIR-FOODS-00029.jpg', 'new', '0000-00-00 00:00:00'),
-(14, 11, 'images/posts/636674359927753055-0717-NEW-STATEFAIR-FOODS-00029.jpg', 'iets', '0000-00-00 00:00:00'),
-(15, 11, 'images/posts/9-Foods-You-Should-Never-Eat-Before-Bed-760x506.jpg', '?', '0000-00-00 00:00:00'),
-(16, 11, 'images/posts/four_horsemen.png', '👀', '0000-00-00 00:00:00'),
-(17, 11, 'images/posts/one_pot_chorizo_and_15611_16x9.jpg', '&lt;SCRIPT SRC=http://xss.rocks/xss.js&gt;&lt;/SCRIPT&gt;', '0000-00-00 00:00:00'),
-(18, 14, 'images/posts/apache.jpg', '#wow #food #beautiful This is so cool!', '0000-00-00 00:00:00'),
-(19, 14, 'images/posts/9-Foods-You-Should-Never-Eat-Before-Bed-760x506.jpg', '#food', '0000-00-00 00:00:00'),
-(20, 14, 'images/posts/636674359927753055-0717-NEW-STATEFAIR-FOODS-00029.jpg', '#food', '0000-00-00 00:00:00'),
-(21, 14, 'images/posts/one_pot_chorizo_and_15611_16x9.jpg', '#wow #food #beautiful This is so cool!', '0000-00-00 00:00:00'),
-(23, 14, 'images/posts/one_pot_chorizo_and_15611_16x9.jpg', 'so #cool', '0000-00-00 00:00:00'),
-(24, 14, 'images/posts/636674359927753055-0717-NEW-STATEFAIR-FOODS-00029.jpg', '#test', '0000-00-00 00:00:00'),
-(25, 14, 'images/posts/636674359927753055-0717-NEW-STATEFAIR-FOODS-00029.jpg', '#food', '0000-00-00 00:00:00'),
-(26, 14, 'images/posts/9-Foods-You-Should-Never-Eat-Before-Bed-760x506.jpg', '#food', '0000-00-00 00:00:00'),
-(27, 14, 'images/posts/one_pot_chorizo_and_15611_16x9.jpg', '#food', '0000-00-00 00:00:00'),
-(28, 14, 'images/posts/four_horsemen.png', '#food', '0000-00-00 00:00:00'),
-(29, 14, 'images/posts/four_horsemen.png', '#food', '0000-00-00 00:00:00'),
-(30, 14, 'images/posts/one_pot_chorizo_and_15611_16x9.jpg', '#food', '0000-00-00 00:00:00'),
-(31, 14, 'images/posts/one_pot_chorizo_and_15611_16x9.jpg', '#food', '2019-05-08 13:43:48'),
-(32, 14, 'images/posts/9-Foods-You-Should-Never-Eat-Before-Bed-760x506.jpg', '#cool', '2019-05-08 13:55:16'),
-(33, 14, 'images/posts/636674359927753055-0717-NEW-STATEFAIR-FOODS-00029.jpg', '#food', '2019-05-08 14:10:35'),
-(34, 14, 'images/posts/africa-animal-animals-417142.jpg', '#wow #food #beautiful This is so cool!', '2019-05-08 18:38:17'),
-(35, 14, '9-Foods-You-Should-Never-Eat-Before-Bed-760x506.jpg', '#food', '2019-05-08 20:49:52'),
-(36, 12, '12_1557431023.jpg', 'lekker lekker 👀', '2019-05-09 21:43:43'),
-(37, 12, '12_1557433470.jpg', 'trolololo', '2019-05-09 22:24:30'),
-(38, 15, '15_1557436116.jpg', 'mijn nieuwste foto 🤣', '2019-05-09 23:08:36');
+(39, 14, '14_1557856616.jpg', 'so #cool', '2019-05-14 19:56:56'),
+(40, 14, '14_1557856712.jpg', '#space', '2019-05-14 19:58:32'),
+(41, 14, '14_1557857272.jpg', '#cool', '2019-05-14 20:07:52'),
+(42, 14, '14_1557857286.png', '#OMEGALUL', '2019-05-14 20:08:06'),
+(44, 14, '14_1557857324.jpg', '#cool', '2019-05-14 20:08:44'),
+(45, 14, '14_1557857361.jpg', '#space', '2019-05-14 20:09:21'),
+(46, 14, '14_1557863871.jpg', '#cool', '2019-05-14 21:57:51');
 
 -- --------------------------------------------------------
 
 --
--- Tabelstructuur voor tabel `users`
+-- Table structure for table `reports`
+--
+
+CREATE TABLE `reports` (
+  `id` int(11) NOT NULL,
+  `post_id` int(11) NOT NULL,
+  `user_id` int(11) NOT NULL,
+  `date_created` datetime NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+--
+-- Dumping data for table `reports`
+--
+
+INSERT INTO `reports` (`id`, `post_id`, `user_id`, `date_created`) VALUES
+(1, 42, 14, '2019-05-14 23:14:44');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
 --
 
 CREATE TABLE `users` (
@@ -205,7 +205,7 @@ CREATE TABLE `users` (
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
 
 --
--- Gegevens worden geëxporteerd voor tabel `users`
+-- Dumping data for table `users`
 --
 
 INSERT INTO `users` (`id`, `firstname`, `lastname`, `username`, `email`, `password`, `img_dir`, `description`) VALUES
@@ -222,76 +222,88 @@ INSERT INTO `users` (`id`, `firstname`, `lastname`, `username`, `email`, `passwo
 (11, 'new', 'Post', 'newPost', 'newpost@hotmail.com', '$2y$12$JW8X5/PoQsABMuBBL2Hfb.atAdPPkF5HkyYEAufMDLTN5dR98wSXC', 'images/profilePics/9-Foods-You-Should-Never-Eat-Before-Bed-760x506.jpg', 'this is my new description 👀'),
 (12, 'weske', 'wke', 'wwke', 'wwke@test.com', '$2y$12$3TEOxS5IWM6KXa/EW.D3ee4B7Svsy65mbNhZZgwFs1ysye7NeZNZW', '12_1557668399.jpg', 'mijn beschrijving is als volgt: dat was het 😂'),
 (13, 'newT', 'est', 'newTest', 'newTest@hotmail.com', '$2y$12$lQamSQx7r6YbRvYUxS1hHu8QB75ZB7/BoXm6jC6N9pJHvqZvMJqe2', '', ''),
-(14, 'Ruben', 'Pieters', 'Ruben', 'pietersruben@hotmail.com', '$2y$10$aw8OWiPi1crtYgx0qO5C7eVPZGNErCzaE56B0fQ.ph7WSBO8w271m', 'images/profilePics/FeelsGood.png', 'Ruben Pieters'),
+(14, 'Ruben', 'Pieters', 'Ruben', 'pietersruben@hotmail.com', '$2y$10$aw8OWiPi1crtYgx0qO5C7eVPZGNErCzaE56B0fQ.ph7WSBO8w271m', '14_1557856658.jpg', 'RubaDubDub'),
 (15, 'nieuw', 'ste', 'nieuwste', 'nieuwste@test.com', '$2y$10$Ip3jSXiNFD17qGBke0GRfufnbtof5V/bb/zkqtPyTKqRNhatI9OX6', '', ''),
 (16, 'een', 'naam', 'enaam', 'eennaam@test.com', '$2y$10$TZXdwt6dFPh5U7i19MvaA.Xiwn7A/wdchUuN0KnHHdbQkDCvF9iiq', '', ''),
 (17, 'piet', 'snot', 'piot', 'poit@test.com', '$2y$10$lQ3IFcANxmwhePg1Ph7S2ezkBeF6t9R0TZsux1CJOb2Sc8o802wse', '', ''),
 (18, 'Don', 'Amigo', 'DAmigo', 'DAmigo@test.com', '$2y$10$yHn6O6p2suuwy13ocsdIqubnnDsBN68BOuJ/gFyrsakLP7O0mXps2', '18_1557613857.png', '');
 
 --
--- Indexen voor geëxporteerde tabellen
+-- Indexes for dumped tables
 --
 
 --
--- Indexen voor tabel `comments`
+-- Indexes for table `comments`
 --
 ALTER TABLE `comments`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexen voor tabel `follower`
+-- Indexes for table `follower`
 --
 ALTER TABLE `follower`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexen voor tabel `likes`
+-- Indexes for table `likes`
 --
 ALTER TABLE `likes`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexen voor tabel `posts`
+-- Indexes for table `posts`
 --
 ALTER TABLE `posts`
   ADD PRIMARY KEY (`id`);
 
 --
--- Indexen voor tabel `users`
+-- Indexes for table `reports`
+--
+ALTER TABLE `reports`
+  ADD PRIMARY KEY (`id`,`post_id`,`user_id`);
+
+--
+-- Indexes for table `users`
 --
 ALTER TABLE `users`
   ADD PRIMARY KEY (`id`);
 
 --
--- AUTO_INCREMENT voor geëxporteerde tabellen
+-- AUTO_INCREMENT for dumped tables
 --
 
 --
--- AUTO_INCREMENT voor een tabel `comments`
+-- AUTO_INCREMENT for table `comments`
 --
 ALTER TABLE `comments`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=77;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=81;
 
 --
--- AUTO_INCREMENT voor een tabel `follower`
+-- AUTO_INCREMENT for table `follower`
 --
 ALTER TABLE `follower`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=12;
 
 --
--- AUTO_INCREMENT voor een tabel `likes`
+-- AUTO_INCREMENT for table `likes`
 --
 ALTER TABLE `likes`
-  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=36;
+  MODIFY `id` int(11) UNSIGNED NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=41;
 
 --
--- AUTO_INCREMENT voor een tabel `posts`
+-- AUTO_INCREMENT for table `posts`
 --
 ALTER TABLE `posts`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=39;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=47;
 
 --
--- AUTO_INCREMENT voor een tabel `users`
+-- AUTO_INCREMENT for table `reports`
+--
+ALTER TABLE `reports`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+
+--
+-- AUTO_INCREMENT for table `users`
 --
 ALTER TABLE `users`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=19;
