@@ -217,9 +217,12 @@
                     Image::resize($this->fileTempName, $extension, $newName, $this->targetDir);
 
                     if (move_uploaded_file($this->fileTempName, $this->targetDir.$newName)) {
-                        $colorVars = array("color1", "color2", "color3", "color4");
-                        $colors = Image::extractColors($this->targetDir.$newName);
                         
+                        // wanneer de foto verplaatst is wordt er een array met variable namen aangemaakt
+                        $colorVars = array("color1", "color2", "color3", "color4");
+                        // kleuren extracten van de verplaatste foto -> returned een array van 4
+                        $colors = Image::extractColors($this->targetDir.$newName);
+                        // koppel de variable namen aan de verkregen kleurwaardes
                         extract(array_combine($colorVars, $colors));
 
                         $myPostDiscr = htmlspecialchars($this->description, ENT_QUOTES);
@@ -231,10 +234,10 @@
                             $stmnt->bindParam(':dir', $newName);
                             $stmnt->bindParam(':descr', $myPostDiscr);
                             $stmnt->bindParam(':time', $this->dateTime);
-                            $stmnt->bindParam(':color1', Color::fromIntToHex($color1));
-                            $stmnt->bindParam(':color2', Color::fromIntToHex($color2));
-                            $stmnt->bindParam(':color3', Color::fromIntToHex($color3));
-                            $stmnt->bindParam(':color4', Color::fromIntToHex($color4));
+                            $stmnt->bindParam(':color1', Color::fromIntToHex($color1)); // kleuren omzetten naar hex en versturen
+                            $stmnt->bindParam(':color2', Color::fromIntToHex($color2)); // kleuren omzetten naar hex en versturen
+                            $stmnt->bindParam(':color3', Color::fromIntToHex($color3)); // kleuren omzetten naar hex en versturen
+                            $stmnt->bindParam(':color4', Color::fromIntToHex($color4)); // kleuren omzetten naar hex en versturen
                             $result = $stmnt->execute();
 
                             return $result;

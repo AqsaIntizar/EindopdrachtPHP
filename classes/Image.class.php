@@ -39,12 +39,11 @@
             }
         }
         public static function extractColors($sourceImage){
-            
-            // $sourceImage = "images/posts/";
-            // $sourceImage .= $r['post_img_dir'];
+            // aanroepen van palette class met parameter de direction van de img
             $palette = Palette::fromFilename($sourceImage);
-
+            // extracten op basis van het palette
             $extractor = new ColorExtractor($palette);
+            // max 4 kleuren
             $colors = $extractor->extract(4);
             
             return $colors;
