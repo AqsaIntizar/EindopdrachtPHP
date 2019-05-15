@@ -42,7 +42,7 @@
 						💩 <?php echo $error; ?>
 					</p>
 				</div>
-                <?php endif; ?>
+        <?php endif; ?>
 				
 		<label for="firstanme">Firstname</label>
 		<input type="text" id="firstname" name="firstname">

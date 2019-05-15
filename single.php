@@ -1,4 +1,7 @@
 <?php
+    ini_set('display_errors', 1);
+    ini_set('display_startup_errors', 1);
+    error_reporting(E_ALL);
     require_once 'bootstrap/bootstrap.php';
     if (isset($_SESSION['user'])) {
         //logged in user
@@ -11,9 +14,14 @@
         $idSinglePost = $_GET['post'];
         $r = Post::getSinglePost($idSinglePost);
         $r = array_shift($r);
+        //phpinfo(); 
+
+        
+
     } else {
         echo ":("; 
     }
+
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -30,7 +38,18 @@
     </header>
     
     <div class="report">
-    <a href="#" class="report" data-postid="<?php echo $r['id']; ?>">Report</a>   
+
+        <?php 
+            $reportChecker = Report::hasReported($_SESSION['user']['id'], $r['id']);
+            
+            $l = new Report();
+            $l->setPostId($r['id']);
+            $l->setUserId($_SESSION['user']['id']);
+            $l->saveReport();
+
+        ?>
+
+        <a href="#" class="report" data-id="<?php echo $r['id']; ?>">Report</a>   
     </div>
     
     <div class="singlePost" id="<?php echo $r['id']; ?>" data-id="<?php echo $r['id']; ?>">
@@ -181,9 +200,11 @@
     <script> 
       $(document).ready(function(){
         $(".report").on("click", function(e){
-            var postId = $(this).data('postid');
-            var reportText = $(this);
+            let that = $(this);
+            let postId = $(this).data('id');
+            let reportText = $(this);
             console.log(postId);
+            console.log(reportText);
             
             $.ajax({
                 method: "POST",
@@ -194,9 +215,11 @@
                 }
             }).done(function(res){
                 if(res.status === "success"){
+                    //reportText.text("Undo");
+                    console.log(res.status);
                 }
                 
-            });
+            })
             
             e.preventDefault();
         })
