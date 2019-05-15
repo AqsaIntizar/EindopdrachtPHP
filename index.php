@@ -39,6 +39,12 @@
             
             <div class="post post--home" id="<?php echo $r['id']; ?>">
                 <a href="single.php?post=<?php echo $r['id']; ?>"><img class="postImg" src="images/posts/mini-<?php echo $r['post_img_dir']; ?>" alt=""></a>
+                <div class="colors-wrapper">
+                    <div class="colors" style="background-color:rgb(<?php echo $palette[0][0]; ?>, <?php echo $palette[0][1]; ?>, <?php echo $palette[0][2]; ?>)"></div>
+                    <div class="colors" style="background-color:rgb(<?php echo $palette[1][0]; ?>, <?php echo $palette[1][1]; ?>, <?php echo $palette[1][2]; ?>)"></div>
+                    <div class="colors" style="background-color:rgb(<?php echo $palette[2][0]; ?>, <?php echo $palette[2][1]; ?>, <?php echo $palette[2][2]; ?>)"></div>
+                    <div class="colors" style="background-color:rgb(<?php echo $palette[3][0]; ?>, <?php echo $palette[3][1]; ?>, <?php echo $palette[3][2]; ?>)"></div>
+                </div>
                 <div class="post_info">
                     <a href="profileDetails.php?id=<?php echo $r['user_id']; ?>" class="post__item"><span class="infoBlock"><strong><?php echo $r['username']; ?></strong></span></a>
                     <p class="description"><?php echo $r['post_description']; ?></p>

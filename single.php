@@ -1,8 +1,10 @@
 <?php
     require_once 'bootstrap/bootstrap.php';
-    require_once 'vendor/autoload.php';
-    use ColorThief\ColorThief;
+    require 'vendor/autoload.php';
 
+    use League\ColorExtractor\Color;
+    use League\ColorExtractor\ColorExtractor;
+    use League\ColorExtractor\Palette;
     if (isset($_SESSION['user'])) {
         //logged in user
     } else {
@@ -14,18 +16,22 @@
         $idSinglePost = $_GET['post'];
         $r = Post::getSinglePost($idSinglePost);
         $r = array_shift($r);
-        $sourceImage = 'images/posts/';
+        $sourceImage = "images/posts/";
         $sourceImage .= $r['post_img_dir'];
-        $palette = ColorThief::getPalette($sourceImage, 4);
-        var_dump($palette);
-        $color1 = $palette[0][0];
-        $color1 .= $palette[0][1];
-        $color1 .= $palette[0][2];
-        echo $color1;
+        $palette = Palette::fromFilename($sourceImage);
     } else {
         echo ':(';
     }
-
+    foreach($palette as $color => $count) {
+        // colors are represented by integers
+        //echo Color::fromIntToHex($color), ': ', $count, "\n";
+    }
+    $extractor = new ColorExtractor($palette);
+    $colors = $extractor->extract(4);
+    foreach($colors as $color){
+        echo Color::fromIntToHex($color);
+    }
+    //var_dump($colors);
 ?><!DOCTYPE html>
 <html lang="en">
 <head>

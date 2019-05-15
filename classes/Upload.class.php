@@ -1,4 +1,7 @@
 <?php
+    require 'vendor/autoload.php';
+
+    use League\ColorExtractor\Color;
     class Upload
     {
         private $fileName;
@@ -214,15 +217,24 @@
                     Image::resize($this->fileTempName, $extension, $newName, $this->targetDir);
 
                     if (move_uploaded_file($this->fileTempName, $this->targetDir.$newName)) {
+                        $colorVars = array("color1", "color2", "color3", "color4");
+                        $colors = Image::extractColors($this->targetDir.$newName);
+                        
+                        extract(array_combine($colorVars, $colors));
+
                         $myPostDiscr = htmlspecialchars($this->description, ENT_QUOTES);
                         //connect db
                         try {
                             $conn = Db::getInstance();
-                            $stmnt = $conn->prepare('insert posts (`user_id`,`post_img_dir`,`post_description`,`date_created`) VALUES (:userId, :dir,:descr, :time)');
+                            $stmnt = $conn->prepare('insert posts (`user_id`,`post_img_dir`,`post_description`,`date_created`, `color1`, `color2`, `color3`, `color4`) VALUES (:userId, :dir,:descr, :time, :color1, :color2, :color3, :color4)');
                             $stmnt->bindParam(':userId', $this->userId);
                             $stmnt->bindParam(':dir', $newName);
                             $stmnt->bindParam(':descr', $myPostDiscr);
                             $stmnt->bindParam(':time', $this->dateTime);
+                            $stmnt->bindParam(':color1', Color::fromIntToHex($color1));
+                            $stmnt->bindParam(':color2', Color::fromIntToHex($color2));
+                            $stmnt->bindParam(':color3', Color::fromIntToHex($color3));
+                            $stmnt->bindParam(':color4', Color::fromIntToHex($color4));
                             $result = $stmnt->execute();
 
                             return $result;

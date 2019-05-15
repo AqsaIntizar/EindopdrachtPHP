@@ -1,4 +1,9 @@
 <?php
+    require 'vendor/autoload.php';
+
+    use League\ColorExtractor\ColorExtractor;
+    use League\ColorExtractor\Palette;
+
     class Image
     {
         public static function checkExt($file)
@@ -32,5 +37,16 @@
                 // imagecolortransparent($image_resized, $black);
                 imagepng($image_resized, $target.'mini-'.$newName);
             }
+        }
+        public static function extractColors($sourceImage){
+            
+            // $sourceImage = "images/posts/";
+            // $sourceImage .= $r['post_img_dir'];
+            $palette = Palette::fromFilename($sourceImage);
+
+            $extractor = new ColorExtractor($palette);
+            $colors = $extractor->extract(4);
+            
+            return $colors;
         }
     }
