@@ -1,7 +1,4 @@
-<?php 
-//require_once("classes/Db.class.php");
-require_once("bootstrap.php");
-?><div class="logo"></div>
+<div class="logo"></div>
 <nav>
     <ul class="navFlex">
         <li><a href="index.php" class="navLink">Home</a></li>
@@ -13,10 +10,10 @@ require_once("bootstrap.php");
         </form>
         <li>
             <div class="dropdown">
-                <img src="https://fakeimg.pl/50x50/?text=MyPic" class="dropbtn">
+                <img src="images/profilePics/<?php echo $_SESSION['user']['img_dir']; ?>" class="dropbtn">
                 <div class="dropdown-content">
                     <a href="settings.php">Instellingen</a>
-                    <a href="logout.php">Hi <?php echo $_SESSION['UserName']; ?>, log out?</a>
+                    <a href="logout.php">Hi <?php echo $_SESSION['user']['username']; ?>, log out?</a>
                 </div>
             </div>
         </li>

@@ -1,16 +1,21 @@
 <?php
-    require_once 'bootstrap.php';
+    require_once 'bootstrap/bootstrap.php';
 
-    //$userName = $_SESSION['UserName'];
-    if (isset($_SESSION['User'])) {
+    if (isset($_SESSION['user'])) {
         //logged in user
         //echo "😎";
     } else {
         //no logged in user
         header('Location: login.php');
     }
+    if (Post::getAllFollows($_SESSION['user']['id'])) {
+        $result = Post::getAllFollows($_SESSION['user']['id']);
+        // $result += Post::getAll();
+    } else {
+        $result = Post::getAll();
+        
+    }
 
-    $result = Post::getAll();
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -26,6 +31,7 @@
     <header>
         <?php require_once 'nav.inc.php'; ?>
     </header>
+<<<<<<< HEAD
     <div class="feed">
     <div class="addContent"><a href="newPost.php">Add some fresh content here</a></div>
     <?php $counter = 0; ?>
@@ -45,90 +51,83 @@
         </p>
         <p><strong><?php echo Post::timeAgo($r['date_created']); ?></strong></p>
         <p><strong><?php echo $r['username']; ?></strong></p>
+=======
+    <div class="homepage">
+        <a href="newPost.php" class="btn">Add some fresh content here</a>
+        <div class="feed">
+>>>>>>> 9d5ae5407c1460dd534d4b65c3c5f3bcf364fd2f
         
-        
-        <form method="post" action="">
-            <input type="text" placeholder="Comment Here" class="comment" name="comment"/>
-            <input type="submit" value="Post comment" class="btnSub" />
 
-            <ul class="comments">
-                <?php
-                    //echo $r['id'];
-                    $comments = Comment::getAll($r['id']);
-                    if (is_array($comments) || is_object($comments)) {
-                        foreach ($comments as $c) {
-                            echo '<li>'.htmlspecialchars($c['text'], ENT_QUOTES).'</li>';
-                        }
-                    }
+        <!-- start lus posts-->
+        <?php foreach ($result as $r): ?>
+            
+            <div class="post post--home" id="<?php echo $r['id']; ?>">
+                <a href="single.php?post=<?php echo $r['id']; ?>"><img class="postImg" src="images/posts/mini-<?php echo $r['post_img_dir']; ?>" alt=""></a>
+                <div class="post_info">
+                    <a href="profileDetails.php?id=<?php echo $r['user_id']; ?>" class="post__item"><span class="infoBlock"><strong><?php echo $r['username']; ?></strong></span></a>
+                    <p class="description"><?php echo $r['post_description']; ?></p>
+                </div>
+            </div>
 
-                ?>
-            </ul>
-        </form>
+    
+    
+        <?php endforeach; ?>
+        <!-- einde lus -->
+        </div>
+
+        <a href="#" class="load btn">Load More</a>
     </div>
-
-    <div class="fullView" id="full-<?php echo $r['id']; ?>" data-full-id="full-<?php echo $r['id']; ?>">
-        <span class="x">X</span>
-        <img src="<?php echo $r['post_img_dir']; ?>" alt="">
-    </div>
-    <?php ++$counter; ?>
-    <?php endforeach; ?>
-
-
-    <a href="index.php?showitems=<?php echo $counter + 3; ?>' class="load">Load More</a>
     
-    
-    <!-- einde lus -->
 
-    
     <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+  
+    
+  
     <script>
-        // document.getElementById("1").addEventListener("click", displayFull);
-        // document.getElementById("close").addEventListener("click", close);
+        $(".load").on("click", function(e){
+            e.preventDefault();
+            
+            let counter = $(".post").length + 5;
+            
 
-            $('.postImg').on('click', function(){
-                    const bigImg = $(this).parent().attr('id');
-                //full view
-                $('.post').on('click', function(){
-                    const bigImg = $(this).attr('id');
-                    $('#full-' + bigImg).fadeIn();
-            });
-
-            $('.x').on('click', function(){
-                $('.fullView').fadeOut();
-            });
-        })
-    </script>
-    <script>
-        $(".btnSub").on("click", function(e){
-            let that = $(this);
-            let text = $(this).siblings(".comment").val();
-            let currentForm = $(this).parent();
-            let postId = currentForm.parent().data("id");
-            console.log(postId);
             $.ajax({
                 method: "POST",
-                url: "ajax/save_comment.php",
+                url: "ajax/load_more.php",
                 data: { 
-                    postId: postId,
-                    text: text },
+                    showitems: counter
+                },
                 dataType: 'json'
             })
             .done( function( res ){
+                console.log(res);
                 if(res.status == "success"){
-                    //console.log("hier");
-                    let comment = res.data.comment;
-                    let li = `<li style="display: hidden;">${comment}</li>`;
-                    that.siblings(".comments").append(li);
-                    that.siblings(".comment").val("").focus();
-                    //that.siblings(".comments").find("li").last().slideDown(100);
+                    const posts = res.data.posts;
+                    let newImages = [];
+
+                    $('.feed').empty();
+
+                    posts.map(post => {
+                        //regex hashtag
+                        //timing
+
+                        newImages.push(`<div class="post post--home" id="${post.id}">
+                                <a href="single.php?post=${post.id}"><img class="postImg" src="images/posts/mini-${post.post_img_dir}" alt=""></a>
+                                <div class="post_info">
+                                    <a href="profileDetails.php?id=${post.user_id}" class="post__item"><span class="infoBlock"><strong>${post.username}</strong></span></a>
+                                    <p class="description">${post.post_description}</p>
+                                </div>
+                                
+                                
+                            </div>`);
+                    });
+
+                    $('.feed').append(newImages);               
                 }
             });
-            e.preventDefault();
-        })
-
-       
-
+            
+        });
     </script>
+<<<<<<< HEAD
     
     <script>
     
@@ -154,5 +153,7 @@
             })
     
     </script>
+=======
+>>>>>>> 9d5ae5407c1460dd534d4b65c3c5f3bcf364fd2f
 </body>
 </html>

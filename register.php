@@ -1,34 +1,28 @@
 <?php
-	include_once("classes/User.class.php");
-	require_once("bootstrap.php");
-    include_once("helpers/Security.class.php");
-    
-    if( !empty($_POST) ){
-        try
-        {
-            $security = new Security();
+    require_once 'bootstrap/bootstrap.php';
+
+    if (!empty($_POST)) {
+        try {
+            $security = new Verification();
             $security->password = $_POST['password'];
             $security->passwordConfirmation = $_POST['password_confirmation'];
 
-            if( $security->passwordsAreSecure() ){
-                $user = new User();        
-                $user->setEmail( $_POST['email'] );
-				$user->setPassword( $_POST['password'] );
-				$user->setUsername( $_POST['username'] );
-				$user->setFirstname( $_POST['firstname'] );
-				$user->setLastname( $_POST['lastname'] );
-				if( $user->register() ) {
-					$user->login();
-				}
-			}
-			else {
-				$error = "Your passwords are not secure or do not match.";
-			}
+            if ($security->passwordsAreSecure()) {
+                $user = new User();
+                $user->setEmail($_POST['email']);
+                $user->setPassword($_POST['password']);
+                $user->setUsername($_POST['username']);
+                $user->setFirstname($_POST['firstname']);
+                $user->setLastname($_POST['lastname']);
+                if ($user->register()) {
+                    header('Location: index.php');
+                }
+            } else {
+                $error = 'Your passwords are not secure or do not match.';
+            }
+        } catch (Exception $e) {
+            $error = $e->getMessage();
         }
-        catch(Exception $e) {
-			$error = $e->getMessage();
-        }
-
     }
 ?>
 
@@ -42,7 +36,7 @@
 <body>
 	<form action="" method="post">
 		<h2>Sign up for an account</h2>
-		<?php if(isset($error)): ?>
+		<?php if (isset($error)): ?>
 				<div class="form__error">
 					<p>
 						💩 <?php echo $error; ?>

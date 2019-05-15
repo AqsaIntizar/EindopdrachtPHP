@@ -1,29 +1,16 @@
 <?php
-//require_once("classes/Db.class.php");
-require_once("bootstrap.php");
+    require_once 'bootstrap/bootstrap.php';
 
-if(!empty($_POST)){
-    $conn = Db::getInstance();
-    $username = htmlspecialchars($_POST['username']);
-    $password = $_POST['password'];
-
-    $statement = $conn->prepare("select * from users where username = :username");
-    $statement->bindParam(":username", $username);
-    $statement->execute();
-    $user = $statement->fetch(PDO::FETCH_ASSOC);
-    
-
-	if(password_verify($password, $user['password'])){
-        //setcookie("loggedin", $user['password'], time() +60*60*24*30);
-        session_start();
-        $_SESSION['User'] = true;
-        $_SESSION['UserName'] = $username;
-        $_SESSION['Id'] = $user['id'];
-        header('Location: index.php');
-	} else{
-        $errorLogin = true;
+    if (!empty($_POST)) {
+        $user = new User();
+        $user->setUsername($_POST['username']);
+        $user->setPassword($_POST['password']);
+        if ($user->login()) {
+            header('Location: index.php');
+        } else {
+            
+        }
     }
-}
 
 ?><!DOCTYPE html>
 <html lang="en">
@@ -36,11 +23,15 @@ if(!empty($_POST)){
 	<form action="" method="post">
 		<h2>Log in to your account</h2>
 
-        <?php if(isset($errorLogin)): ?>
+        <?php if (isset($_SESSION["error"])): ?>
         <div class="form__error">
-            <p>
-                Sorry, we can't log you in with that username and password.
-            </p>
+            <span>
+                <?php 
+                    $error = $_SESSION["error"];
+                    echo $error;
+                ?>
+            </span>
+            
         </div>
         <?php endif; ?>
 				
@@ -54,3 +45,7 @@ if(!empty($_POST)){
 	</form>
 </body>
 </html>
+
+<?php
+    unset($_SESSION["error"]);
+?>
