@@ -1,5 +1,8 @@
 <?php
     require_once 'bootstrap/bootstrap.php';
+    require_once 'vendor/autoload.php';
+    use ColorThief\ColorThief;
+
     if (isset($_SESSION['user'])) {
         //logged in user
     } else {
@@ -11,8 +14,16 @@
         $idSinglePost = $_GET['post'];
         $r = Post::getSinglePost($idSinglePost);
         $r = array_shift($r);
+        $sourceImage = 'images/posts/';
+        $sourceImage .= $r['post_img_dir'];
+        $palette = ColorThief::getPalette($sourceImage, 4);
+        var_dump($palette);
+        $color1 = $palette[0][0];
+        $color1 .= $palette[0][1];
+        $color1 .= $palette[0][2];
+        echo $color1;
     } else {
-        echo ":("; 
+        echo ':(';
     }
 
 ?><!DOCTYPE html>
