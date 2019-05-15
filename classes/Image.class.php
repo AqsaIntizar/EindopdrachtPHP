@@ -1,6 +1,6 @@
 <?php
     require 'vendor/autoload.php';
-
+    use League\ColorExtractor\Color;
     use League\ColorExtractor\ColorExtractor;
     use League\ColorExtractor\Palette;
 

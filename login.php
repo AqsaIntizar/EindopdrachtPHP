@@ -8,7 +8,6 @@
         if ($user->login()) {
             header('Location: index.php');
         } else {
-            
         }
     }
 
@@ -16,18 +15,18 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>includeFood - Login</title>
+  <title>IncludeFood - Login</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>
 	<form action="" method="post">
 		<h2>Log in to your account</h2>
 
-        <?php if (isset($_SESSION["error"])): ?>
+        <?php if (isset($_SESSION['error'])): ?>
         <div class="form__error">
             <span>
-                <?php 
-                    $error = $_SESSION["error"];
+                <?php
+                    $error = $_SESSION['error'];
                     echo $error;
                 ?>
             </span>
@@ -47,5 +46,5 @@
 </html>
 
 <?php
-    unset($_SESSION["error"]);
+    unset($_SESSION['error']);
 ?>

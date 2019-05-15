@@ -1,20 +1,19 @@
 <?php
-    require_once 'bootstrap/bootstrap.php';
-
     if (isset($_SESSION['user'])) {
         //logged in user
-        //echo "😎";
     } else {
         //no logged in user
         header('Location: login.php');
     }
-    if (Post::getAllFollows($_SESSION['user']['id'])) {
-        $result = Post::getAllFollows($_SESSION['user']['id']);
-        $result += Post::getAll();
-    } else {
-        $result = Post::getAll();
-    }
 
+    if (isset($_GET['color'])) {
+        $color = $_GET['color'];
+        echo $color;
+    //$r = Post::getSinglePost($idSinglePost);
+        //$r = array_shift($r);
+    } else {
+        echo ':(';
+    }
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,20 +21,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
-    <title>IncludeFood - Home</title>
+    <title>IncludeFood - Search Color</title>
     
 </head>
 <body>
-    <header>
-        <?php require_once 'nav.inc.php'; ?>
-    </header>
-    <div class="homepage">
-        <a href="newPost.php" class="btn">Add some fresh content here</a>
-        <div class="feed">
-        
-
-        <!-- start lus posts-->
-        <?php foreach ($result as $r): ?>
+    <div class="searchColor">
+                <!-- start lus posts-->
+                <?php foreach ($result as $r): ?>
             
             <div class="post post--home" id="<?php echo $r['id']; ?>">
                 <a href="single.php?post=<?php echo $r['id']; ?>"><img class="postImg" src="images/posts/mini-<?php echo $r['post_img_dir']; ?>" alt=""></a>
@@ -59,15 +51,10 @@
 
         <a href="#" class="load btn">Load More</a>
     </div>
-    
-
     <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
-  
-    
-  
     <script>
         $(".load").on("click", function(e){
-
+            
             let counter = $(".post").length + 5;
             
             $.ajax({

@@ -23,7 +23,7 @@ class Post
         }
 
         $conn = Db::getInstance();
-        $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir,post_description,username,date_created from posts, users where posts.user_id = users.id ORDER BY id DESC LIMIT :itemCount');
+        $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir,post_description,color1,color2,color3,color4,username,date_created from posts, users where posts.user_id = users.id ORDER BY id DESC LIMIT :itemCount');
         $stmnt->bindValue(':itemCount', $itemCount, PDO::PARAM_INT);
         $stmnt->execute();
 

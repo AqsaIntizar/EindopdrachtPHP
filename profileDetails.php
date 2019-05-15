@@ -21,7 +21,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
-    <title>includeFood - Profile Details</title>
+    <title>IncludeFood - Profile Details</title>
     
 </head>
 <body>

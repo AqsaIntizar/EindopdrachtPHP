@@ -2,9 +2,6 @@
     require_once 'bootstrap/bootstrap.php';
     require 'vendor/autoload.php';
 
-    use League\ColorExtractor\Color;
-    use League\ColorExtractor\ColorExtractor;
-    use League\ColorExtractor\Palette;
     if (isset($_SESSION['user'])) {
         //logged in user
     } else {
@@ -16,22 +13,9 @@
         $idSinglePost = $_GET['post'];
         $r = Post::getSinglePost($idSinglePost);
         $r = array_shift($r);
-        $sourceImage = "images/posts/";
-        $sourceImage .= $r['post_img_dir'];
-        $palette = Palette::fromFilename($sourceImage);
     } else {
         echo ':(';
     }
-    foreach($palette as $color => $count) {
-        // colors are represented by integers
-        //echo Color::fromIntToHex($color), ': ', $count, "\n";
-    }
-    $extractor = new ColorExtractor($palette);
-    $colors = $extractor->extract(4);
-    foreach($colors as $color){
-        echo Color::fromIntToHex($color);
-    }
-    //var_dump($colors);
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -39,7 +23,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
-    <title>Document</title>
+    <title>IncludeFood - Details</title>
 </head>
 <body>
     <header>
