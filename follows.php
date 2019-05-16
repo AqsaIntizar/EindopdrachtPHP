@@ -8,20 +8,15 @@
         //no logged in user
         header('Location: login.php');
     }
-    // if (Post::getAllFollows($_SESSION['user']['id'])) {
-    //     $result = Post::getAllFollows($_SESSION['user']['id']);
-    //     $result += Post::getAll();
-    // } else {
-    // }
-    $result = Post::getAll();
+    if (Post::getAllFollows($_SESSION['user']['id'])) {
+        $result = Post::getAllFollows($_SESSION['user']['id']);
+    } else {
+        $noFollowers = true;
+    }
+
     if (isset($_GET['color'])) {
-        // $idSinglePost = $_GET['post'];
-        // $r = Post::getSinglePost($idSinglePost);
-        // $r = array_shift($r);
         $colorCode = $_GET['color'];
         $result = Post::getPostsByColor($colorCode);
-    //var_dump($result);
-    } else {
     }
 ?><!DOCTYPE html>
 <html lang="en">
@@ -30,7 +25,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
-    <title>IncludeFood - Home</title>
+    <title>IncludeFood - Your Follows</title>
     
 </head>
 <body>
@@ -38,41 +33,45 @@
         <?php require_once 'nav.inc.php'; ?>
     </header>
     <div class="homepage">
-        <a href="newPost.php" class="btn">Add some fresh content here</a>
+        <!-- <a href="newPost.php" class="btn">Add some fresh content here</a> -->
         <div class="feed">
+        <?php if (isset($noFollowers)): ?>
+			<div class="noFollows">
+				<h2 class="noFollows--title">
+					Sorry, we hebben nog geen vrienden gevonden.
+                </h2>
+                <div class="emptyFollower">
+                    <div class="emptyState"></div>
+                </div>
+		    </div>
+        <?php endif; ?>
         
-
-        <!-- start lus posts-->
-        <?php foreach ($result as $r): ?>
-            
-            <div class="post post--home" id="<?php echo $r['id']; ?>">
-                <a href="single.php?post=<?php echo $r['id']; ?>"><img class="postImg" src="images/posts/mini-<?php echo $r['post_img_dir']; ?>" alt=""></a>
-                <div class="colors-wrapper">
-                    <a class="colors" href="index.php?color=<?php echo str_replace('#', '', $r['color1']); ?>" style="background-color:<?php echo $r['color1']; ?>"></a>
-                    <a class="colors" href="index.php?color=<?php echo str_replace('#', '', $r['color2']); ?>" style="background-color:<?php echo $r['color2']; ?>"></a>
-                    <a class="colors" href="index.php?color=<?php echo str_replace('#', '', $r['color3']); ?>" style="background-color:<?php echo $r['color3']; ?>"></a>
-                    <a class="colors" href="index.php?color=<?php echo str_replace('#', '', $r['color4']); ?>" style="background-color:<?php echo $r['color4']; ?>"></a>
+        <?php if (isset($result)): ?>
+            <!-- start lus posts-->
+            <?php foreach ($result as $r): ?>
+                
+                <div class="post post--home" id="<?php echo $r['id']; ?>">
+                    <a href="single.php?post=<?php echo $r['id']; ?>"><img class="postImg" src="images/posts/mini-<?php echo $r['post_img_dir']; ?>" alt=""></a>
+                    <div class="colors-wrapper">
+                        <a class="colors" href="index.php?color=<?php echo str_replace('#', '', $r['color1']); ?>" style="background-color:<?php echo $r['color1']; ?>"></a>
+                        <a class="colors" href="index.php?color=<?php echo str_replace('#', '', $r['color2']); ?>" style="background-color:<?php echo $r['color2']; ?>"></a>
+                        <a class="colors" href="index.php?color=<?php echo str_replace('#', '', $r['color3']); ?>" style="background-color:<?php echo $r['color3']; ?>"></a>
+                        <a class="colors" href="index.php?color=<?php echo str_replace('#', '', $r['color4']); ?>" style="background-color:<?php echo $r['color4']; ?>"></a>
+                    </div>
+                    <div class="post_info">
+                        <a href="profileDetails.php?id=<?php echo $r['user_id']; ?>" class="post__item"><span class="infoBlock"><strong><?php echo $r['username']; ?></strong></span></a>
+                        <p class="description"><?php echo $r['post_description']; ?></p>
+                    </div>
                 </div>
-                <div class="post_info">
-                    <a href="profileDetails.php?id=<?php echo $r['user_id']; ?>" class="post__item"><span class="infoBlock"><strong><?php echo $r['username']; ?></strong></span></a>
-                    <p class="description"><?php echo $r['post_description']; ?></p>
-                </div>
-            </div>
 
-    
-    
-        <?php endforeach; ?>
-        <!-- einde lus -->
+            <?php endforeach; ?>
+            <!-- einde lus -->
+        
         </div>
-
         <a href="#" class="load btn">Load More</a>
+        <?php endif; ?>
     </div>
-    
-
     <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
-  
-    
-  
     <script>
         $(".load").on("click", function(e){
 

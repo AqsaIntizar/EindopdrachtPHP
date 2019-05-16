@@ -48,21 +48,25 @@ class Post
 
     public static function getAllFollows($userId)
     {
-        if (!isset($_POST['showitems'])) {
-            $itemCount = 5;
-        } else {
-            // $itemCount = (int) $_POST['showitems'];
-            $itemCount = (int) $_POST['showitems'];
-            //echo $itemCount;
-        }
-        $conn = Db::getInstance();
-        $stmnt = $conn->prepare('select posts.*, users.username from posts, users where (user_id = :userId or user_id in (select follower.follows from follower where user_id = :userId and follower.type = 1) or user_id in (select follower.follows from follower where follower.follower = :userId and follower.type = 1)) and (posts.user_id =  users.id ) ORDER BY id DESC LIMIT :itemCount');
-        $stmnt->bindValue(':userId', $userId);
-        $stmnt->bindValue(':itemCount', $itemCount, PDO::PARAM_INT);
-        $stmnt->execute();
-        $result = $stmnt->fetchAll(PDO::FETCH_ASSOC);
+        try {
+            if (!isset($_POST['showitems'])) {
+                $itemCount = 5;
+            } else {
+                // $itemCount = (int) $_POST['showitems'];
+                $itemCount = (int) $_POST['showitems'];
+                //echo $itemCount;
+            }
+            $conn = Db::getInstance();
+            $stmnt = $conn->prepare('select posts.*, users.username from posts, users where (user_id in (select follower.follows from follower where user_id = :userId and follower.type = 1) or user_id in (select follower.follows from follower where follower.follower = :userId and follower.type = 1)) and (posts.user_id =  users.id ) ORDER BY id DESC LIMIT :itemCount');
+            $stmnt->bindValue(':userId', $userId);
+            $stmnt->bindValue(':itemCount', $itemCount, PDO::PARAM_INT);
+            $stmnt->execute();
+            $result = $stmnt->fetchAll(PDO::FETCH_ASSOC);
 
-        return $result;
+            return $result;
+        } catch (Trowable $t) {
+            return false;
+        }
     }
 
     public static function getAllById($usedId)
