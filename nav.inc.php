@@ -2,7 +2,7 @@
 <nav>
     <ul class="navFlex">
         <li><a href="index.php" class="navLink">Home</a></li>
-        <li><a href="followers.php" class="navLink">Followers</a></li>
+        <li><a href="follows.php" class="navLink">Follows</a></li>
         <li><a href="#" class="navLink">Link 3</a></li>
         <li><a href="#" class="navLink">Link 4</a></li>
         <form action="search.php" method="get">

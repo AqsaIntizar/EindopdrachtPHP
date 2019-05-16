@@ -192,9 +192,23 @@ div.post {
     border: 1px solid black;
 }
 /* end single view */
-
-
-
+/* start empty state */
+.noFollows--title{
+    text-align: center;
+    margin-top: 1em;
+    margin-bottom: 2.2em;
+}
+.emptyFollower{
+    width: 70vw;
+}
+.emptyState{
+    width: 100%;
+    height: 600px;
+    background-image: url("../images/emptyFollows.jpg");
+    background-repeat: no-repeat;
+    background-position: center center;
+}
+/* end empty state */
 /* start profile details */
 
 .container{
