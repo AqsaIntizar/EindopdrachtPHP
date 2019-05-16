@@ -338,6 +338,17 @@
             return $user;
         }
 
+        public static function canEdit($sessionId, $userPostId)
+        {
+            if($sessionId == $userPostId) {
+                $style = "block";
+            } else {
+                $style = "none";
+            }
+            return $style;
+            // get session user_id compare to user_id from post if true display block if false display none
+        }
+
         // public static function getProfileByUsername($search)
         // {
         //     $conn = Db::getInstance();

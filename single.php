@@ -15,6 +15,10 @@
         echo ":("; 
     }
 
+    $style = User::canEdit($_SESSION['user']['id'], $r['user_id']);
+
+    
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +26,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
-    <title>Document</title>
+    <title>IncludeFood</title>
 </head>
 <body>
     <header>
@@ -32,14 +36,21 @@
     <a href="" class="report">Report</a>    
     
     <div class="singlePost" id="<?php echo $r['id']; ?>" data-id="<?php echo $r['id']; ?>">
-        <div class="detail">
+            <div class="edit" style="display:<?php echo $style; ?>">
+                <p>Edit</p>
+                <div class="edit-dropdown">
+                    <a class="hardDelete" href="#">Delete</a>
+                    <a href="#">Change description</a>
+                </div>
+            </div>
             <img class="postImg" src="images/posts/<?php echo $r['post_img_dir']; ?>" alt="">
-            <div class="post-info-center">
-                <p class="description"><?php  $hashtag = $r['post_description'];
-                    $linked_string = preg_replace("/#([^\s]+)/", '<a href="search.php?searchResult=$1">#$1</a>', $hashtag);
-                    echo $linked_string; ?></p>
-                <p><strong><?php echo Post::timeAgo($r['date_created']); ?></strong></p>
-                <a href="profileDetails.php?id=<?php echo $r['user_id']; ?>" class="post__item"><span class="infoBlock"><strong><?php echo $r['username']; ?></strong></span></a>
+                <div class="description-post">
+                    <a href="profileDetails.php?id=<?php echo $r['user_id']; ?>" class="post__item"><span class="infoBlock"><strong><?php echo $r['username']; ?></strong></span></a>
+                    <p class="description"><?php  $hashtag = $r['post_description'];
+                        $linked_string = preg_replace("/#([^\s]+)/", '<a href="search.php?searchResult=$1">#$1</a>', $hashtag);
+                        echo $linked_string; ?></p>
+                    <p><strong><?php echo Post::timeAgo($r['date_created']); ?></strong></p>
+                </div>
                 <!--<p><strong><a href="#"><?php //echo $r['username'];?></a> </strong></p>-->
 
                 <!-- start Likes -->
@@ -72,9 +83,15 @@
                             }
                         ?>
                     </ul>
-                </form>
-            </div>    
-        </div>    
+                </form>       
+    </div>
+
+    <div class="alertDelete">
+        <p>Delete is final after this. Are you sure?</p>
+        <div class="flex-options">
+            <a href="delete.php?post=<?php echo $r['id']; ?>">Yes</a>
+            <p class="dont">No</p>
+        </div>
     </div>
 
    
@@ -178,7 +195,16 @@
           e.preventDefault();
       });
   </script>
-   
+   <script>
+       //for deleting posts
+       $(".hardDelete").click(function(e){
+           $(".alertDelete").fadeIn();
+       });
+
+       $(".dont").click(function(e){
+        $(".alertDelete").fadeOut();
+       });
+   </script>
 
 
 </body>

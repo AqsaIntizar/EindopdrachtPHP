@@ -86,6 +86,13 @@ class Post
         return $result = $stmnt->fetchAll(PDO::FETCH_ASSOC);
     }
 
+    public static function deletePost($idPost) {
+        $conn = Db::getInstance();
+        $stmnt = $conn->prepare('delete from posts where id = :postId');
+        $stmnt->bindParam(':postId', $idPost);
+        $stmnt->execute();
+    }
+
     public static function timeAgo($timestamp)
     {
         date_default_timezone_set('Europe/Brussels');
