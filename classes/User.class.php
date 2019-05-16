@@ -163,7 +163,7 @@
             try {
                 $conn = Db::getInstance();
                 //var_dump($conn->errorCode());
-                $statement = $conn->prepare('INSERT INTO users (firstname, lastname, username, email, password) values (:firstname, :lastname, :username, :email, :password)');
+                $statement = $conn->prepare('INSERT INTO users (firstname, lastname, username, email, password, img_dir) values (:firstname, :lastname, :username, :email, :password, "default.png")');
                 $statement->bindParam(':email', $this->email);
                 $statement->bindParam(':firstname', $this->firstname);
                 $statement->bindParam(':lastname', $this->lastname);
@@ -198,8 +198,9 @@
 
                 return true;
             } else {
-                $error = "Username/Password incorrect";
-                $_SESSION["error"] = $error;
+                $error = 'Username/Password incorrect';
+                $_SESSION['error'] = $error;
+
                 return false;
             }
         }

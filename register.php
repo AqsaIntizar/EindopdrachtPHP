@@ -30,7 +30,7 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <title>includeFood - Register</title>
+  <title>IncludeFood - Register</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
 <body>

@@ -15,6 +15,15 @@
         $result = Post::getAll();
     }
 
+    if (isset($_GET['color'])) {
+        // $idSinglePost = $_GET['post'];
+        // $r = Post::getSinglePost($idSinglePost);
+        // $r = array_shift($r);
+        $colorCode = $_GET['color'];
+        $result = Post::getPostsByColor($colorCode);
+    //var_dump($result);
+    } else {
+    }
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +31,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
-    <title>includeFood - Home</title>
+    <title>IncludeFood - Home</title>
     
 </head>
 <body>
@@ -39,6 +48,12 @@
             
             <div class="post post--home" id="<?php echo $r['id']; ?>">
                 <a href="single.php?post=<?php echo $r['id']; ?>"><img class="postImg" src="images/posts/mini-<?php echo $r['post_img_dir']; ?>" alt=""></a>
+                <div class="colors-wrapper">
+                    <a class="colors" href="index.php?color=<?php echo str_replace('#', '', $r['color1']); ?>" style="background-color:<?php echo $r['color1']; ?>"></a>
+                    <a class="colors" href="index.php?color=<?php echo str_replace('#', '', $r['color2']); ?>" style="background-color:<?php echo $r['color2']; ?>"></a>
+                    <a class="colors" href="index.php?color=<?php echo str_replace('#', '', $r['color3']); ?>" style="background-color:<?php echo $r['color3']; ?>"></a>
+                    <a class="colors" href="index.php?color=<?php echo str_replace('#', '', $r['color4']); ?>" style="background-color:<?php echo $r['color4']; ?>"></a>
+                </div>
                 <div class="post_info">
                     <a href="profileDetails.php?id=<?php echo $r['user_id']; ?>" class="post__item"><span class="infoBlock"><strong><?php echo $r['username']; ?></strong></span></a>
                     <p class="description"><?php echo $r['post_description']; ?></p>
@@ -61,11 +76,9 @@
   
     <script>
         $(".load").on("click", function(e){
-            e.preventDefault();
-            
+
             let counter = $(".post").length + 5;
             
-
             $.ajax({
                 method: "POST",
                 url: "ajax/load_more.php",
@@ -88,6 +101,12 @@
 
                         newImages.push(`<div class="post post--home" id="${post.id}">
                                 <a href="single.php?post=${post.id}"><img class="postImg" src="images/posts/mini-${post.post_img_dir}" alt=""></a>
+                                <div class="colors-wrapper">
+                                    <a class="colors" href="index.php?color=${post.color1.replace('#', '')}" style="background-color:${post.color1}"></a>
+                                    <a class="colors" href="index.php?color=${post.color2.replace('#', '')}" style="background-color:${post.color2}"></a>
+                                    <a class="colors" href="index.php?color=${post.color3.replace('#', '')}" style="background-color:${post.color3}"></a>
+                                    <a class="colors" href="index.php?color=${post.color4.replace('#', '')}" style="background-color:${post.color4}"></a>
+                                </div>
                                 <div class="post_info">
                                     <a href="profileDetails.php?id=${post.user_id}" class="post__item"><span class="infoBlock"><strong>${post.username}</strong></span></a>
                                     <p class="description">${post.post_description}</p>
@@ -100,7 +119,7 @@
                     $('.feed').append(newImages);               
                 }
             });
-            
+            e.preventDefault();
         });
     </script>
 </body>

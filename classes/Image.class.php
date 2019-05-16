@@ -1,4 +1,8 @@
 <?php
+    require 'vendor/autoload.php';
+    // use League\ColorExtractor\ColorExtractor;
+    use League\ColorExtractor\Palette;
+
     class Image
     {
         public static function checkExt($file)
@@ -32,5 +36,17 @@
                 // imagecolortransparent($image_resized, $black);
                 imagepng($image_resized, $target.'mini-'.$newName);
             }
+        }
+
+        public static function extractColors($sourceImage)
+        {
+            // aanroepen van palette class met parameter de direction van de img
+            $palette = \League\ColorExtractor\Palette::fromFilename($sourceImage);
+            // extracten op basis van het palette
+            $extractor = new \League\ColorExtractor\ColorExtractor($palette);
+            // max 4 kleuren
+            $colors = $extractor->extract(4);
+
+            return $colors;
         }
     }

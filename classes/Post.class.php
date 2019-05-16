@@ -5,12 +5,28 @@ class Post
     public static function getSinglePost($idSinglePost)
     {
         $conn = Db::getInstance();
-        $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir,post_description,username,date_created from posts, users where posts.user_id = users.id and posts.id = :idSinglePost');
+        $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir,post_description,color1,color2,color3,color4,username,date_created from posts, users where posts.user_id = users.id and posts.id = :idSinglePost');
         $stmnt->bindValue(':idSinglePost', $idSinglePost, PDO::PARAM_INT);
         $stmnt->execute();
 
         return $result = $stmnt->fetchAll(PDO::FETCH_ASSOC);
         // print_r($result); exit();
+    }
+
+    public static function getPostsByColor($colorCode)
+    {
+        if (!isset($_POST['showitems'])) {
+            $itemCount = 10;
+        } else {
+            $itemCount = (int) $_POST['showitems'];
+            //echo $itemCount;
+        }
+        $conn = Db::getInstance();
+        $stmnt = $conn->prepare('select posts.* ,username from posts, users where posts.user_id = users.id and (color1 = :colorCode or color2 = :colorCode or color3 = :colorCode or color4 = :colorCode)');
+        $stmnt->bindValue(':colorCode', '#'.$colorCode);
+        $stmnt->execute();
+
+        return $result = $stmnt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     public static function getAll()
@@ -23,7 +39,7 @@ class Post
         }
 
         $conn = Db::getInstance();
-        $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir,post_description,username,date_created from posts, users where posts.user_id = users.id ORDER BY id DESC LIMIT :itemCount');
+        $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir,post_description,username,color1,color2,color3,color4,date_created from posts, users where posts.user_id = users.id ORDER BY id DESC LIMIT :itemCount');
         $stmnt->bindValue(':itemCount', $itemCount, PDO::PARAM_INT);
         $stmnt->execute();
 

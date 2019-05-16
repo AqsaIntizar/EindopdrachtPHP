@@ -1,4 +1,5 @@
 <?php
+    ini_set('memory_limit', '256M');
     require_once 'bootstrap/bootstrap.php';
 
     if (isset($_SESSION['user'])) {
@@ -38,7 +39,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/addpost.css">
-    <title>incFood</title>
+    <title>IncludeFood - New Post</title>
 </head>
 <body>
     <section class="newPost">

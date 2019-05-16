@@ -1,4 +1,7 @@
 <?php
+    require 'vendor/autoload.php';
+
+    // use League\ColorExtractor\Color;
     class Upload
     {
         private $fileName;
@@ -214,15 +217,26 @@
                     Image::resize($this->fileTempName, $extension, $newName, $this->targetDir);
 
                     if (move_uploaded_file($this->fileTempName, $this->targetDir.$newName)) {
+                        // wanneer de foto verplaatst is wordt er een array met variable namen aangemaakt
+                        $colorVars = array('color1', 'color2', 'color3', 'color4');
+                        // kleuren extracten van de verplaatste foto -> returned een array van 4
+                        $colors = Image::extractColors($this->targetDir.$newName);
+                        // koppel de variable namen aan de verkregen kleurwaardes
+                        extract(array_combine($colorVars, $colors));
+
                         $myPostDiscr = htmlspecialchars($this->description, ENT_QUOTES);
                         //connect db
                         try {
                             $conn = Db::getInstance();
-                            $stmnt = $conn->prepare('insert posts (`user_id`,`post_img_dir`,`post_description`,`date_created`) VALUES (:userId, :dir,:descr, :time)');
+                            $stmnt = $conn->prepare('insert posts (`user_id`,`post_img_dir`,`post_description`,`date_created`, `color1`, `color2`, `color3`, `color4`) VALUES (:userId, :dir,:descr, :time, :color1, :color2, :color3, :color4)');
                             $stmnt->bindParam(':userId', $this->userId);
                             $stmnt->bindParam(':dir', $newName);
                             $stmnt->bindParam(':descr', $myPostDiscr);
                             $stmnt->bindParam(':time', $this->dateTime);
+                            $stmnt->bindParam(':color1', \League\ColorExtractor\Color::fromIntToHex($color1)); // kleuren omzetten naar hex en versturen
+                            $stmnt->bindParam(':color2', \League\ColorExtractor\Color::fromIntToHex($color2)); // kleuren omzetten naar hex en versturen
+                            $stmnt->bindParam(':color3', \League\ColorExtractor\Color::fromIntToHex($color3)); // kleuren omzetten naar hex en versturen
+                            $stmnt->bindParam(':color4', \League\ColorExtractor\Color::fromIntToHex($color4)); // kleuren omzetten naar hex en versturen
                             $result = $stmnt->execute();
 
                             return $result;

@@ -1,5 +1,7 @@
 <?php
     require_once 'bootstrap/bootstrap.php';
+    require 'vendor/autoload.php';
+
     if (isset($_SESSION['user'])) {
         //logged in user
     } else {
@@ -12,9 +14,8 @@
         $r = Post::getSinglePost($idSinglePost);
         $r = array_shift($r);
     } else {
-        echo ":("; 
+        echo ':(';
     }
-
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -22,7 +23,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/style.css">
-    <title>Document</title>
+    <title>IncludeFood - Details</title>
 </head>
 <body>
     <header>
@@ -42,8 +43,20 @@
                 <a href="profileDetails.php?id=<?php echo $r['user_id']; ?>" class="post__item"><span class="infoBlock"><strong><?php echo $r['username']; ?></strong></span></a>
                 <!--<p><strong><a href="#"><?php //echo $r['username'];?></a> </strong></p>-->
 
+        <img class="postImg" src="images/posts/<?php echo $r['post_img_dir']; ?>" alt="">
+        <div class="colors-wrapper">
+            <a class="colors" href="colorsearch.php?color=<?php echo $r['color1']; ?>" style="background-color:<?php echo $r['color1']; ?>"></a>
+            <a class="colors" href="colorsearch.php?color=<?php echo $r['color2']; ?>" style="background-color:<?php echo $r['color2']; ?>"></a>
+            <a class="colors" href="colorsearch.php?color=<?php echo $r['color3']; ?>" style="background-color:<?php echo $r['color3']; ?>"></a>
+            <a class="colors" href="colorsearch.php?color=<?php echo $r['color4']; ?>" style="background-color:<?php echo $r['color4']; ?>"></a>
+        </div>
+        <p class="description"><?php  $hashtag = $r['post_description'];
+            $linked_string = preg_replace("/#([^\s]+)/", '<a href="search.php?searchResult=$1">#$1</a>', $hashtag);
+            echo $linked_string; ?></p>
+        <p><strong><?php echo Post::timeAgo($r['date_created']); ?></strong></p>
+        <a href="profileDetails.php?id=<?php echo $r['user_id']; ?>" class="post__item"><span class="infoBlock"><strong><?php echo $r['username']; ?></strong></span></a>
+        <!--<p><strong><a href="#"><?php //echo $r['username'];?></a> </strong></p>-->
                 <!-- start Likes -->
-
                 <div class="likes">
 
                     <input type="button" value="Like" id="like_<?php echo $r['id']; ?>" class="like" />
