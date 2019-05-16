@@ -1,4 +1,6 @@
 <?php
+    require_once 'bootstrap/bootstrap.php';
+
     if (isset($_SESSION['user'])) {
         //logged in user
     } else {
@@ -25,27 +27,30 @@
     
 </head>
 <body>
+    <header>
+        <?php require_once 'nav.inc.php'; ?>
+    </header>
     <div class="searchColor">
                 <!-- start lus posts-->
-                <?php foreach ($result as $r): ?>
+                <!-- <?php //foreach ($result as $r):?>
             
-            <div class="post post--home" id="<?php echo $r['id']; ?>">
-                <a href="single.php?post=<?php echo $r['id']; ?>"><img class="postImg" src="images/posts/mini-<?php echo $r['post_img_dir']; ?>" alt=""></a>
+            <div class="post post--home" id="<?php //echo $r['id'];?>">
+                <a href="single.php?post=<?php //echo $r['id'];?>"><img class="postImg" src="images/posts/mini-<?php echo $r['post_img_dir']; ?>" alt=""></a>
                 <div class="colors-wrapper">
-                    <a class="colors" href="colorsearch.php?color=<?php echo $r['color1']; ?>" style="background-color:<?php echo $r['color1']; ?>"></a>
-                    <a class="colors" href="colorsearch.php?color=<?php echo $r['color2']; ?>" style="background-color:<?php echo $r['color2']; ?>"></a>
-                    <a class="colors" href="colorsearch.php?color=<?php echo $r['color3']; ?>" style="background-color:<?php echo $r['color3']; ?>"></a>
-                    <a class="colors" href="colorsearch.php?color=<?php echo $r['color4']; ?>" style="background-color:<?php echo $r['color4']; ?>"></a>
+                    <a class="colors" href="colorsearch.php?color=<?php //echo $r['color1'];?>" style="background-color:<?php echo $r['color1']; ?>"></a>
+                    <a class="colors" href="colorsearch.php?color=<?php //echo $r['color2'];?>" style="background-color:<?php echo $r['color2']; ?>"></a>
+                    <a class="colors" href="colorsearch.php?color=<?php //echo $r['color3'];?>" style="background-color:<?php echo $r['color3']; ?>"></a>
+                    <a class="colors" href="colorsearch.php?color=<?php //echo $r['color4'];?>" style="background-color:<?php echo $r['color4']; ?>"></a>
                 </div>
                 <div class="post_info">
-                    <a href="profileDetails.php?id=<?php echo $r['user_id']; ?>" class="post__item"><span class="infoBlock"><strong><?php echo $r['username']; ?></strong></span></a>
-                    <p class="description"><?php echo $r['post_description']; ?></p>
+                    <a href="profileDetails.php?id=<?php //echo $r['user_id'];?>" class="post__item"><span class="infoBlock"><strong><?php echo $r['username']; ?></strong></span></a>
+                    <p class="description"><?php //echo $r['post_description'];?></p>
                 </div>
             </div>
 
     
     
-        <?php endforeach; ?>
+        <?php //endforeach;?> -->
         <!-- einde lus -->
         </div>
 

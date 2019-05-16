@@ -1,4 +1,5 @@
 <?php
+    ini_set('memory_limit', '256M');
     require_once 'bootstrap/bootstrap.php';
 
     if (isset($_SESSION['user'])) {
