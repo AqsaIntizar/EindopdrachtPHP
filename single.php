@@ -30,7 +30,7 @@
     </header>
     
     <div class="report">
-    <a href="#" class="report" data-postid="<?php echo $r['id']; ?>">Report</a>   
+    <a href="#" class="report" data-postid="<?php echo $r['id']; ?>">Report<?php //var_dump(Report::hasReported($_SESSION['user']['id'], $r['id'])); ?></a>   
     </div>
     
     <div class="singlePost" id="<?php echo $r['id']; ?>" data-id="<?php echo $r['id']; ?>">
