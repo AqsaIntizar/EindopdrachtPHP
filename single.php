@@ -48,7 +48,7 @@
     </header>
     
     <div class="report">
-    <a href="#" class="report" data-postid="<?php echo $r['id']; ?>">Report</a>  
+        <a href="#" class="reportText" data-postid="<?php echo $r['id']; ?>">Report</a>  
     </div>
     
     <div class="singlePost" id="<?php echo $r['id']; ?>" data-id="<?php echo $r['id']; ?>">
@@ -204,7 +204,9 @@
    
     <script> 
       $(document).ready(function(){
-        $(".report").on("click", function(e){
+        $(".reportText").on("click", function(e){
+
+            
             var postId = $(this).data('postid');
             var reportText = $(this);
             console.log(postId);
@@ -217,14 +219,15 @@
                     postId: postId
                 }
             }).done(function(res){
+                console.log(res);
                 if(res.status === "success"){
-                    
+                    reportText.text("Undo");
                 } 
                 
             });
             
             e.preventDefault();
-        })
+        });
         
       });
       

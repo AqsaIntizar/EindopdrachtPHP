@@ -3,7 +3,7 @@
     if (!empty($_POST)) {
         $postId = $_POST['postId'];
         $userId = $_SESSION['user']['id'];
-        var_dump($postId);
+
         try {
             $l = new Report();
             $l->setPostId($postId);

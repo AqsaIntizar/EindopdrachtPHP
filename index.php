@@ -40,26 +40,6 @@
                 <div class="singleImg">
                     <a href="single.php?post=<?php echo $r['id']; ?>"><img class="postImg" src="images/posts/mini-<?php echo $r['post_img_dir']; ?>" alt=""></a>
                 </div>
-                
-                <!--
-                
-                <?php 
-                    if(Report::reportAmount($r['id'])){
-                    ?>
-                    <style type="text/css">
-                        .postImg{
-                            filter: blur(50px);
-                        }
-                        .singleImg{
-                            overflow:hidden;
-                        }
-                        .description{
-                            display: none;
-                        }
-                    </style>
-                <?php } ?>
-                //-->
-
                 <div class="post_info">
                     <a href="profileDetails.php?id=<?php echo $r['user_id']; ?>" class="post__item"><span class="infoBlock"><strong><?php echo $r['username']; ?></strong></span></a>
                     <p class="description"><?php echo $r['post_description']; ?></p>

@@ -111,6 +111,11 @@
             $amountStmnt->bindValue(':status', 1);
             $amountStmnt->execute();
             if($amountStmnt->rowCount() >= 3){
+                
+                $statusStmnt = $conn->prepare('update posts set statusReport = :status where id = :postId');
+                $statusStmnt->bindValue(':postId', $postId);
+                $statusStmnt->bindValue(':status', 1);
+                $statusStmnt->execute();
                 return true;
             }
             else{
