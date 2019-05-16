@@ -15,6 +15,24 @@
         echo ":("; 
     }
 
+    if(Report::reportAmount($r['id'])){
+            ?>
+            <style type="text/css">
+                .postImg{
+                    filter: blur(50px);
+                }
+                .singleImg{
+                    overflow:hidden;
+                }
+                .description{
+                    display: none;
+                }
+                .commentForm{
+                    display: none;
+                }
+            </style>
+    <?php }
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,16 +48,22 @@
     </header>
     
     <div class="report">
-    <a href="#" class="report" data-postid="<?php echo $r['id']; ?>">Report<?php //var_dump(Report::hasReported($_SESSION['user']['id'], $r['id'])); ?></a>   
+    <a href="#" class="report" data-postid="<?php echo $r['id']; ?>">Report</a>  
     </div>
     
     <div class="singlePost" id="<?php echo $r['id']; ?>" data-id="<?php echo $r['id']; ?>">
 
-        <img class="postImg" src="images/posts/<?php echo $r['post_img_dir']; ?>" alt="">
+        <div class="singleImg">
+            <img class="postImg" src="images/posts/<?php echo $r['post_img_dir']; ?>" alt="">
+        </div>
+        
+
+        
+
         <p class="description"><?php  $hashtag = $r['post_description'];
             $linked_string = preg_replace("/#([^\s]+)/", '<a href="search.php?searchResult=$1">#$1</a>', $hashtag);
             echo $linked_string; ?></p>
-        <p><strong><?php echo Post::timeAgo($r['date_created']); ?></strong></p>
+        <p class="timeAgo"><strong><?php echo Post::timeAgo($r['date_created']); ?></strong></p>
         <a href="profileDetails.php?id=<?php echo $r['user_id']; ?>" class="post__item"><span class="infoBlock"><strong><?php echo $r['username']; ?></strong></span></a>
         <!--<p><strong><a href="#"><?php //echo $r['username'];?></a> </strong></p>-->
 
@@ -58,7 +82,7 @@
         </div>
         <!-- end Likes -->
 
-        <form method="post" action="">
+        <form method="post" action="" class="commentForm">
             <input type="text" placeholder="Comment Here" class="comment" name="comment"/>
             <input type="submit" value="Post comment" class="btnSub" />
 
@@ -194,7 +218,8 @@
                 }
             }).done(function(res){
                 if(res.status === "success"){
-                }
+                    
+                } 
                 
             });
             

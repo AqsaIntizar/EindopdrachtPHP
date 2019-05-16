@@ -102,4 +102,19 @@
                 return true;
             }
         }
+
+        public static function reportAmount($postId)
+        {
+            $conn = Db::getInstance();
+            $amountStmnt = $conn->prepare('select * from reports where post_id = :postId and statusReport = :status');
+            $amountStmnt->bindValue(':postId', $postId);
+            $amountStmnt->bindValue(':status', 1);
+            $amountStmnt->execute();
+            if($amountStmnt->rowCount() >= 3){
+                return true;
+            }
+            else{
+                return false;
+            }
+        }
     }
