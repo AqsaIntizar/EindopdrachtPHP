@@ -32,46 +32,49 @@
     <a href="" class="report">Report</a>    
     
     <div class="singlePost" id="<?php echo $r['id']; ?>" data-id="<?php echo $r['id']; ?>">
+        <div class="detail">
+            <img class="postImg" src="images/posts/<?php echo $r['post_img_dir']; ?>" alt="">
+            <div class="post-info-center">
+                <p class="description"><?php  $hashtag = $r['post_description'];
+                    $linked_string = preg_replace("/#([^\s]+)/", '<a href="search.php?searchResult=$1">#$1</a>', $hashtag);
+                    echo $linked_string; ?></p>
+                <p><strong><?php echo Post::timeAgo($r['date_created']); ?></strong></p>
+                <a href="profileDetails.php?id=<?php echo $r['user_id']; ?>" class="post__item"><span class="infoBlock"><strong><?php echo $r['username']; ?></strong></span></a>
+                <!--<p><strong><a href="#"><?php //echo $r['username'];?></a> </strong></p>-->
 
-        <img class="postImg" src="images/posts/<?php echo $r['post_img_dir']; ?>" alt="">
-        <p class="description"><?php  $hashtag = $r['post_description'];
-            $linked_string = preg_replace("/#([^\s]+)/", '<a href="search.php?searchResult=$1">#$1</a>', $hashtag);
-            echo $linked_string; ?></p>
-        <p><strong><?php echo Post::timeAgo($r['date_created']); ?></strong></p>
-        <a href="profileDetails.php?id=<?php echo $r['user_id']; ?>" class="post__item"><span class="infoBlock"><strong><?php echo $r['username']; ?></strong></span></a>
-        <!--<p><strong><a href="#"><?php //echo $r['username'];?></a> </strong></p>-->
+                <!-- start Likes -->
 
-        <!-- start Likes -->
+                <div class="likes">
 
-        <div class="likes">
+                    <input type="button" value="Like" id="like_<?php echo $r['id']; ?>" class="like" />
+                    <input type="button" value="Unlike" id="unlike_<?php echo $r['id']; ?>" class="unlike" style="display: none;"/> 
 
-            <input type="button" value="Like" id="like_<?php echo $r['id']; ?>" class="like" />
-            <input type="button" value="Unlike" id="unlike_<?php echo $r['id']; ?>" class="unlike" style="display: none;"/> 
+                    <?php
+                        $likes = Like::getLikes($r['id']);
+                        $likeChecker = Like::checkIfLiked($_SESSION['user']['id'], $r['id']);
+                    ?>
+                    <span class="likesCnt" id="likes_<?php echo $r['id']; ?>" data-type="<?php echo $likeChecker; ?>"><?php echo $likes->cntLikes; ?></span> <span>mensen hebben dit geliked</span>
+                </div>
+                <!-- end Likes -->
 
-            <?php
-                $likes = Like::getLikes($r['id']);
-                $likeChecker = Like::checkIfLiked($_SESSION['user']['id'], $r['id']);
-            ?>
-            <span class="likesCnt" id="likes_<?php echo $r['id']; ?>" data-type="<?php echo $likeChecker; ?>"><?php echo $likes->cntLikes; ?></span> <span>mensen hebben dit geliked</span>
-        </div>
-        <!-- end Likes -->
+                <form method="post" action="">
+                    <input type="text" placeholder="Comment Here" class="comment" name="comment"/>
+                    <input type="submit" value="Post comment" class="btnSub" />
 
-        <form method="post" action="">
-            <input type="text" placeholder="Comment Here" class="comment" name="comment"/>
-            <input type="submit" value="Post comment" class="btnSub" />
-
-            <ul class="comments">
-                <?php
-                    //echo $r['id'];
-                    $comments = Comment::getAll($r['id']);
-                    if (is_array($comments) || is_object($comments)) {
-                        foreach ($comments as $c) {
-                            echo '<li>'.htmlspecialchars($c['text'], ENT_QUOTES).'</li>';
-                        }
-                    }
-                ?>
-            </ul>
-        </form>
+                    <ul class="comments">
+                        <?php
+                            //echo $r['id'];
+                            $comments = Comment::getAll($r['id']);
+                            if (is_array($comments) || is_object($comments)) {
+                                foreach ($comments as $c) {
+                                    echo '<li>'.htmlspecialchars($c['text'], ENT_QUOTES).'</li>';
+                                }
+                            }
+                        ?>
+                    </ul>
+                </form>
+            </div>    
+        </div>    
     </div>
 
    
