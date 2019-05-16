@@ -8,13 +8,12 @@
         //no logged in user
         header('Location: login.php');
     }
-    if (Post::getAllFollows($_SESSION['user']['id'])) {
-        $result = Post::getAllFollows($_SESSION['user']['id']);
-        $result += Post::getAll();
-    } else {
-        $result = Post::getAll();
-    }
-
+    // if (Post::getAllFollows($_SESSION['user']['id'])) {
+    //     $result = Post::getAllFollows($_SESSION['user']['id']);
+    //     $result += Post::getAll();
+    // } else {
+    // }
+    $result = Post::getAll();
     if (isset($_GET['color'])) {
         // $idSinglePost = $_GET['post'];
         // $r = Post::getSinglePost($idSinglePost);
