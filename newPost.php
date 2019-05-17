@@ -24,8 +24,10 @@
             $post->setUserId($_SESSION['user']['id']);
             date_default_timezone_set('Europe/Brussels'); //set timezone for correct date
             $post->setDateTime(date('Y-m-d H:i:s'));
+            $location = new Location();
+            $loc = $location->getcity();
 
-            $result = $post->uploadPost($userName);
+            $result = $post->uploadPost($userName, $_SESSION['lat'], $_SESSION['long'], $loc);
             header('Location: index.php');
         } else {
             $newPostError = true;

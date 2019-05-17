@@ -226,6 +226,7 @@
 
                         $myPostDiscr = htmlspecialchars($this->description, ENT_QUOTES);
                         //connect db
+                        echo $lat;
                         try {
                             $conn = Db::getInstance();
                             $stmnt = $conn->prepare("insert posts (`user_id`,`post_img_dir`,`post_description`,`date_created`, `color1`, `color2`, `color3`, `color4`, lat, `long`, city) VALUES (:userId, :dir,:descr, :time, :color1, :color2, :color3, :color4, :lat, :long, '$loc' )");

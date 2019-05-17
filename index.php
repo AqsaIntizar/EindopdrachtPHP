@@ -56,6 +56,7 @@
                 <div class="post_info">
                     <a href="profileDetails.php?id=<?php echo $r['user_id']; ?>" class="post__item"><span class="infoBlock"><strong><?php echo $r['username']; ?></strong></span></a>
                     <p class="description"><?php echo $r['post_description']; ?></p>
+                    <p class="location"><?php echo $r['city']; ?></p>
                 </div>
             </div>
 
@@ -109,6 +110,7 @@
                                 <div class="post_info">
                                     <a href="profileDetails.php?id=${post.user_id}" class="post__item"><span class="infoBlock"><strong>${post.username}</strong></span></a>
                                     <p class="description">${post.post_description}</p>
+                                    <p class="location">${post.city}</p>
                                 </div>
                                 
                                 
