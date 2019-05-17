@@ -1,5 +1,4 @@
 <?php
-    ini_set('memory_limit', '256M');
     require_once 'bootstrap/bootstrap.php';
 
     if (isset($_SESSION['user'])) {
@@ -27,7 +26,10 @@
             $location = new Location();
             $loc = $location->getcity();
 
+            echo $_SESSION['long'];
+
             $result = $post->uploadPost($userName, $_SESSION['lat'], $_SESSION['long'], $loc);
+
             header('Location: index.php');
         } else {
             $newPostError = true;
@@ -41,7 +43,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/addpost.css">
-    <title>IncludeFood - New Post</title>
+    <title>incFood</title>
 </head>
 <body>
     <section class="newPost">
@@ -53,38 +55,65 @@
                 <label for="file">Choose a file</label>
                 <script>var inputs = document.querySelectorAll( '.inputfile' );
  
- Array.prototype.forEach.call( inputs, function( input ) {
-   var label = input.nextElementSibling,
-               labelVal = label.innerHTML;
-  
-   input.addEventListener( 'change', function( e ) {
-     var fileName = '';
-      
-     if ( this.files &amp;&amp; this.files.length > 1 ) {
-       fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
-     } else {
-       fileName = e.target.value.split( '\\' ).pop();
-     }
-  
-     if ( fileName ) {
-       label.querySelector( 'span' ).innerHTML = fileName;
-     } else {
-       label.innerHTML = labelVal;
-     }
-   });
- });</script>
+                    Array.prototype.forEach.call( inputs, function( input ) {
+                    var label = input.nextElementSibling,
+                                labelVal = label.innerHTML;
+                    
+                    input.addEventListener( 'change', function( e ) {
+                        var fileName = '';
+                        
+                        if ( this.files &amp;&amp; this.files.length > 1 ) {
+                        fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
+                        } else {
+                        fileName = e.target.value.split( '\\' ).pop();
+                        }
+                    
+                        if ( fileName ) {
+                        label.querySelector( 'span' ).innerHTML = fileName;
+                        } else {
+                        label.innerHTML = labelVal;
+                        }
+                    });
+                    });</script>
             </p>
             <?php if (isset($newPostError)): ?>
                 <div class="form__error">
-                    <p>
+                    <p class="error">
                         Sorry, you need to fill in the description.
                     </p>
                 </div>
             <?php endif; ?>
-            <label for="description">Add a description</label>
-            <input type="text" id="description" name="description">
+            <p>Add some description down below.</p>
+            <input type="text" id="description" name="description"><br>
         <input type="submit" name="uploadPost" value="Upload post">
         </form>
 </section>
+<script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
+
+<script>
+
+        $( document ).ready(function() {
+
+            navigator.geolocation.getCurrentPosition(showPosition);
+            function showPosition(position) {
+                var lat = position.coords.latitude
+                var long = position.coords.longitude; 
+                    $.ajax({
+                    method: "POST",
+                    url: "ajax/location.php",
+                    data: { 
+                        lat: lat,
+                        long: long
+                    },
+                    dataType: 'json'
+                })
+                .done( function( res ){
+                    console.log(res);
+                    
+                });
+            }
+            
+        });
+    </script>
 </body>
 </html>
