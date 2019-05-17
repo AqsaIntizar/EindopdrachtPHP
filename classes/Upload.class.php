@@ -206,7 +206,7 @@
             }
         }
 
-        public function uploadPost($userName)
+        public function uploadPost($userName, $lat, $long, $loc)
         {
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 //request aanwezig, kijken of er files zijn om up te loaden
@@ -228,9 +228,11 @@
                         //connect db
                         try {
                             $conn = Db::getInstance();
-                            $stmnt = $conn->prepare('insert posts (`user_id`,`post_img_dir`,`post_description`,`date_created`, `color1`, `color2`, `color3`, `color4`) VALUES (:userId, :dir,:descr, :time, :color1, :color2, :color3, :color4)');
+                            $stmnt = $conn->prepare("insert posts (`user_id`,`post_img_dir`,`post_description`,`date_created`, `color1`, `color2`, `color3`, `color4`, lat, `long`, city) VALUES (:userId, :dir,:descr, :time, :color1, :color2, :color3, :color4, :lat, :long, '$loc' )");
                             $stmnt->bindParam(':userId', $this->userId);
                             $stmnt->bindParam(':dir', $newName);
+                            $stmnt->bindParam(':lat', $lat);
+                            $stmnt->bindParam(':long', $long);
                             $stmnt->bindParam(':descr', $myPostDiscr);
                             $stmnt->bindParam(':time', $this->dateTime);
                             $stmnt->bindParam(':color1', \League\ColorExtractor\Color::fromIntToHex($color1)); // kleuren omzetten naar hex en versturen
