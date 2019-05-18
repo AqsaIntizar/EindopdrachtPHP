@@ -5,7 +5,7 @@ class Post
     public static function getSinglePost($idSinglePost)
     {
         $conn = Db::getInstance();
-        $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir,post_description,color1,color2,color3,color4,username,date_created from posts, users where posts.user_id = users.id and posts.id = :idSinglePost');
+        $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir,post_description,username,date_created from posts, users where posts.user_id = users.id and posts.id = :idSinglePost and posts.statusReport = 0');
         $stmnt->bindValue(':idSinglePost', $idSinglePost, PDO::PARAM_INT);
         $stmnt->execute();
 
@@ -22,7 +22,7 @@ class Post
             //echo $itemCount;
         }
         $conn = Db::getInstance();
-        $stmnt = $conn->prepare('select posts.* ,username from posts, users where posts.user_id = users.id and (color1 = :colorCode or color2 = :colorCode or color3 = :colorCode or color4 = :colorCode)');
+        $stmnt = $conn->prepare('select posts.* ,username from posts, users where posts.user_id = users.id and posts.statusReport = 0 and (color1 = :colorCode or color2 = :colorCode or color3 = :colorCode or color4 = :colorCode)');
         $stmnt->bindValue(':colorCode', '#'.$colorCode);
         $stmnt->execute();
 
@@ -39,7 +39,7 @@ class Post
         }
 
         $conn = Db::getInstance();
-        $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir,post_description,username,color1,color2,color3,color4,date_created, lat, `long`, city from posts, users where posts.user_id = users.id ORDER BY id DESC LIMIT :itemCount');
+        $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir,post_description,username,color1,color2,color3,color4,date_created, lat, `long`, city from posts, users where posts.user_id = users.id and posts.statusReport = 0 ORDER BY id DESC LIMIT :itemCount');
         $stmnt->bindValue(':itemCount', $itemCount, PDO::PARAM_INT);
         $stmnt->execute();
 
@@ -57,7 +57,7 @@ class Post
                 //echo $itemCount;
             }
             $conn = Db::getInstance();
-            $stmnt = $conn->prepare('select posts.*, users.username from posts, users where (user_id in (select follower.follows from follower where user_id = :userId and follower.type = 1) or user_id in (select follower.follows from follower where follower.follower = :userId and follower.type = 1)) and (posts.user_id =  users.id ) ORDER BY id DESC LIMIT :itemCount');
+            $stmnt = $conn->prepare('select posts.*, users.username from posts, users where (user_id in (select follower.follows from follower where user_id = :userId and follower.type = 1) or user_id in (select follower.follows from follower where follower.follower = :userId and follower.type = 1)) and (posts.user_id =  users.id ) and posts.statusReport = 0 ORDER BY id DESC LIMIT :itemCount');
             $stmnt->bindValue(':userId', $userId);
             $stmnt->bindValue(':itemCount', $itemCount, PDO::PARAM_INT);
             $stmnt->execute();
@@ -78,7 +78,7 @@ class Post
             //echo $itemCount;
         }
         $conn = Db::getInstance();
-        $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir,post_description,username,date_created from posts, users where posts.user_id = users.id and posts.user_id = :id ORDER BY id DESC LIMIT :itemCount');
+        $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir,post_description,username,date_created from posts, users where posts.user_id = users.id and posts.user_id = :id and posts.statusReport = 0 ORDER BY id DESC LIMIT :itemCount');
         $stmnt->bindValue(':id', $usedId);
         $stmnt->bindValue(':itemCount', $itemCount, PDO::PARAM_INT);
         $stmnt->execute();
@@ -98,7 +98,7 @@ class Post
         $search = '%'.$_GET['searchResult'].'%';
 
         $conn = Db::getInstance();
-        $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir, post_description, username from posts, users where posts.user_id = users.id AND post_description LIKE :hashtag ORDER BY id DESC LIMIT :itemCount ');
+        $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir, post_description, username from posts, users where posts.user_id = users.id and posts.statusReport = 0 AND post_description LIKE :hashtag ORDER BY id DESC LIMIT :itemCount ');
         $stmnt->bindValue(':itemCount', $itemCount, PDO::PARAM_INT);
         $stmnt->bindParam(':hashtag', $search);
         $stmnt->execute();
