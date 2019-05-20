@@ -23,6 +23,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cssgram/0.1.10/cssgram.min.css">
     <link rel="stylesheet" href="css/style.css">
     <title>IncludeFood - Details</title>
 </head>
@@ -37,7 +38,9 @@
     
     <div class="singlePost" id="<?php echo $r['id']; ?>" data-id="<?php echo $r['id']; ?>">
         <div class="detail">
-            <img class="postImg" src="images/posts/<?php echo $r['post_img_dir']; ?>" alt="">
+            <figure class="imgFilter <?php echo $r['filter']; ?>" >
+                <img src="images/posts/<?php echo $r['post_img_dir']; ?>" alt="">
+            </figure>
             <div class="colors-wrapper">
                 <a class="colors" href="colorsearch.php?color=<?php echo $r['color1']; ?>" style="background-color:<?php echo $r['color1']; ?>"></a>
                 <a class="colors" href="colorsearch.php?color=<?php echo $r['color2']; ?>" style="background-color:<?php echo $r['color2']; ?>"></a>
@@ -66,11 +69,10 @@
                     <div class="report">
                         <a href="#" class="reportText" data-postid="<?php echo $r['id']; ?>">
                         <?php
-                            if(Report::textReport($_SESSION['user']['id'], $r['id']))
-                            {
-                                echo "Undo";
-                            } else{
-                                echo "Report";
+                            if (Report::textReport($_SESSION['user']['id'], $r['id'])) {
+                                echo 'Undo';
+                            } else {
+                                echo 'Report';
                             }
                         ?>
 

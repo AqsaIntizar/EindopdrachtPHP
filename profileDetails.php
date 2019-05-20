@@ -20,6 +20,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cssgram/0.1.10/cssgram.min.css">
     <link rel="stylesheet" href="css/style.css">
     <title>IncludeFood - Profile Details</title>
     
@@ -65,7 +66,11 @@
    
                 <div class="post" id="<?php echo $postId; ?>" data-id="<?php echo $postId; ?>">
    
-                <img class="postImg" src="images/posts/mini-<?php echo $r['post_img_dir']; ?>" alt="">
+                    <a class="postImgLink" href="single.php?post=<?php echo $r['id']; ?>">
+                        <figure class="imgFilter <?php echo $r['filter']; ?>" >
+                            <img src="images/posts/mini-<?php echo $r['post_img_dir']; ?>" alt="">
+                        </figure>
+                    </a>
                 <p class="description">
                     <?php
                         $hashtag = $r['post_description'];
