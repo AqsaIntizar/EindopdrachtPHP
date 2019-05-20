@@ -75,15 +75,24 @@
     
   
     <script>
+        function whichPage() {
+            if (top.location.pathname === '/EindopdrachtPHP/index.php')
+                {
+                    return "index";
+                } else {
+                    return false;
+                }
+        }
+        let page = whichPage();
         $(".load").on("click", function(e){
-
             let counter = $(".post").length + 5;
             
             $.ajax({
                 method: "POST",
                 url: "ajax/load_more.php",
                 data: { 
-                    showitems: counter
+                    showitems: counter,
+                    page: page
                 },
                 dataType: 'json'
             })

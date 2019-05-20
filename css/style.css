@@ -5,6 +5,7 @@
 }
  body {
     font-family: sans-serif;
+    
  }
 
 /* start header */
@@ -18,6 +19,7 @@ header{
     flex-flow: row nowrap;
     justify-content: space-between;
     position: fixed;
+    z-index: 10;
 }
 div.logo{
     width: 100px;
@@ -142,6 +144,7 @@ div.post {
     color: white;
     border-radius: 4px;
     padding: 20px;
+    margin-bottom: 10px;
 }
 
 .load {
@@ -151,29 +154,65 @@ div.post {
 /* end feed */
 
 /* single view */
-.singlePost {
-    padding-top: 100px;
-    width: 70%;
-    margin-left: auto;
-    margin-right: auto;
-    min-height: 400px;
+.editPost {
+    margin: 10px;
+    background-color: white;
+    width: 90px;
+    padding: 5px;
+    border-radius: 20px;
+    position: relative;
+    display: block;
+    cursor: pointer;
     text-align: center;
+}
+
+.edit-dropdown {
+    display: none;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 200px;
+    
+    z-index: 1;
+}
+
+.edit-dropdown a {
+    padding: 10px;
+    display: block;
+    text-decoration: none;
+    color: black;
+}
+
+.edit-dropdown a:hover {
+    background-color: gainsboro;
+}
+
+.editPost:hover .edit-dropdown {
+    display: block;
+  }
+
+.singlePost {
+    padding-top: 90px;
+    min-height: 100%;
     background-color: lightseagreen;
-    padding-bottom: 30px;
-}
-
-.detail {
-    display: inline-block;
-    max-height: 85vh;
-}
-
-.post-info-center {
+    padding-bottom: 90px;
     text-align: left;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.description-post {
+    display: flex;
+    justify-content: flex-start;
+}
+
+.description-post p, .description-post a {
+    margin-left: 50px;
 }
 
 .singlePost img {
     min-height: 450px;
-    max-width: 100%;;
+    max-width: 50%;
     max-height: 65vh;
     max-width: 90%;
 }
@@ -190,6 +229,38 @@ div.post {
     height: 40px;
     border-radius: 1rem;
 }
+
+.alertDelete {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 100;
+    background-color: green;
+    color: white;
+    padding: 20px;
+    display: none;
+}
+
+.flex-options {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
+}
+
+.flex-options a {
+    text-decoration: none;
+    padding: 10px;
+    background-color: red;
+    color: white;
+}
+
+.flex-options p {
+    padding: 10px;
+    border: 2px solid black;
+    cursor: pointer;
+}
+
 /* end single view */
 /* start empty state */
 .noFollows--title{

@@ -2,19 +2,20 @@
     require_once '../bootstrap/bootstrap.php';
 
     if (isset($_POST['showitems'])) {
-        // $showitems = $_POST['showitems'];
-    //    echo $_POST['showitems'];
-        
-        // echo $_POST['test'];
+        $page = $_POST['page'];
         try {
-            if (Post::getAllFollows($_SESSION['user']['id'])) {
-                $posts = Post::getAllFollows($_SESSION['user']['id']);
-                // $result += Post::getAll();
-            } else {
+            // if (Post::getAllFollows($_SESSION['user']['id'])) {
+            //     $posts = Post::getAllFollows($_SESSION['user']['id']);
+            //     // $result += Post::getAll();
+            // } else {
+            //     $posts = Post::getAll();
+            // }
+           if($page == "index") {
                 $posts = Post::getAll();
-            }
-           
-
+           } else {
+                $posts = Post::getAllFollows($_SESSION['user']['id']);
+           }
+            
             $result = [
                 'status' => 'success',
                 'message' => 'Posts loaded',

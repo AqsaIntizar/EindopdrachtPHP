@@ -76,7 +76,7 @@
         <!--Start ProfPic-->
         <div class="setProfPic">
             <div class="edit">
-                <h2>Chance profile picture</h2>
+                <h2>Change profile picture</h2>
                 <img class="currentPic" src="images/profilePics/<?php echo $result->img_dir; ?>">
                 <br><br>
                 <form action="" method="post" enctype="multipart/form-data">
@@ -94,7 +94,7 @@
         <!--Start Description-->
         <div class="setDescr">
             <div class="edit">
-                <h2>Chance your description</h2>
+                <h2>Change your description</h2>
                 <p><?php echo $result->description; ?></p>
                 <form action="" method="post">
                     <textarea name="myDiscr" id="myDiscr" cols="55" rows="10" ></textarea>
@@ -109,7 +109,7 @@
         <!--Start Email-->
         <div class="setEmail">
             <div class="edit">
-                <h2>Chance your email-address</h2>
+                <h2>Change your email-address</h2>
                 <p>Your current email is: <?php echo $result->email; ?></p>
                 <form action="" method="post">
                     <label for="password">Your password</label>
@@ -127,7 +127,7 @@
         <!--Start Password-->
         <div class="setPassword">
             <div class="edit">
-                <h2>Chance your password</h2>
+                <h2>Change your password</h2>
                 <form action="" method="post">
 
                     <label for="oldPassword">Old Password</label>

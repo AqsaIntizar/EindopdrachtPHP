@@ -17,6 +17,10 @@
         echo ':(';
     }
 
+    $style = User::canEdit($_SESSION['user']['id'], $r['user_id']);
+
+    
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -36,14 +40,14 @@
     </div>   
     
     <div class="singlePost" id="<?php echo $r['id']; ?>" data-id="<?php echo $r['id']; ?>">
-        <div class="detail">
-            <img class="postImg" src="images/posts/<?php echo $r['post_img_dir']; ?>" alt="">
-            <div class="colors-wrapper">
-                <a class="colors" href="colorsearch.php?color=<?php echo $r['color1']; ?>" style="background-color:<?php echo $r['color1']; ?>"></a>
-                <a class="colors" href="colorsearch.php?color=<?php echo $r['color2']; ?>" style="background-color:<?php echo $r['color2']; ?>"></a>
-                <a class="colors" href="colorsearch.php?color=<?php echo $r['color3']; ?>" style="background-color:<?php echo $r['color3']; ?>"></a>
-                <a class="colors" href="colorsearch.php?color=<?php echo $r['color4']; ?>" style="background-color:<?php echo $r['color4']; ?>"></a>
+            <div class="editPost" style="display:<?php echo $style; ?>">
+                <p>Edit</p>
+                <div class="edit-dropdown">
+                    <a class="hardDelete" href="#">Delete</a>
+                    <a href="editPost.php?post=<?php echo $r['id']; ?>">Change description</a>
+                </div>
             </div>
+            <img class="postImg" src="images/posts/<?php echo $r['post_img_dir']; ?>" alt="">
             <p class="description"><?php  $hashtag = $r['post_description'];
                 $linked_string = preg_replace("/#([^\s]+)/", '<a href="search.php?searchResult=$1">#$1</a>', $hashtag);
                 echo $linked_string; ?></p>
@@ -90,11 +94,17 @@
                                         echo '<li>'.htmlspecialchars($c['text'], ENT_QUOTES).'</li>';
                                     }
                                 }
-                            ?>
-                        </ul>
-                    </form>
-                </div>    
-        </div>    
+                        ?>
+                    </ul>
+                </form>       
+    </div>
+
+    <div class="alertDelete">
+        <p>Delete is final after this. Are you sure?</p>
+        <div class="flex-options">
+            <a href="delete.php?post=<?php echo $r['id']; ?>">Yes</a>
+            <p class="dont">No</p>
+        </div>
     </div>
 
    
@@ -198,7 +208,16 @@
           e.preventDefault();
       });
   </script>
-   
+   <script>
+       //for deleting posts
+       $(".hardDelete").click(function(e){
+           $(".alertDelete").fadeIn();
+       });
+
+       $(".dont").click(function(e){
+        $(".alertDelete").fadeOut();
+       });
+   </script>
 
    <script> 
       $(document).ready(function(){
