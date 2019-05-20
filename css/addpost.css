@@ -1,4 +1,11 @@
-
+.preview{
+  width: 600px;
+  max-height: 50%;
+  margin-left: 24%;
+}
+/* .hidden{
+  display: none;
+} */
  
     @media screen and (min-width: 492px) {
         body{

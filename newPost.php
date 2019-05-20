@@ -50,10 +50,11 @@
         <h1>Food up the Feed!</h1>
         <h2>Add some new content here</h2>
         <form action="" method="post" enctype="multipart/form-data">
+            <img class="preview hidden" src="#" alt="Your image" />
             <p>
-                <input class="addcontent" type="file" name="imageFile" id="file" data-multiple-caption="{count} files selected" multiple >
+                <input class="addcontent" type="file" name="imageFile" id="file" data-multiple-caption="{count} files selected" multiple onchange="readURL(this);" >
                 <label for="file">Choose a file</label>
-                <script>var inputs = document.querySelectorAll( '.inputfile' );
+                <!-- <script>var inputs = document.querySelectorAll( '.inputfile' );
  
                     Array.prototype.forEach.call( inputs, function( input ) {
                     var label = input.nextElementSibling,
@@ -62,7 +63,7 @@
                     input.addEventListener( 'change', function( e ) {
                         var fileName = '';
                         
-                        if ( this.files &amp;&amp; this.files.length > 1 ) {
+                        if ( this.files && this.files.length > 1 ) {
                         fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
                         } else {
                         fileName = e.target.value.split( '\\' ).pop();
@@ -74,7 +75,7 @@
                         label.innerHTML = labelVal;
                         }
                     });
-                    });</script>
+                    });</script> -->
             </p>
             <?php if (isset($newPostError)): ?>
                 <div class="form__error">
@@ -113,7 +114,24 @@
                 });
             }
             
-        });
+        })
+    </script>
+    <script type="text/javascript">
+    $('.preview').css('display','none');
+        function readURL(input) {
+            
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+                
+
+                reader.onload = function (e) {
+                    $('.preview').attr('src', e.target.result);
+                    $('.preview').css('display','block');
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
     </script>
 </body>
 </html>
