@@ -13,6 +13,7 @@
         private $description;
         private $userId;
         private $dateTime;
+        private $class;
 
         /**
          * Get the value of fileName.
@@ -174,6 +175,26 @@
             return $this;
         }
 
+        /**
+         * Get the value of class.
+         */
+        public function getClass()
+        {
+            return $this->class;
+        }
+
+        /**
+         * Set the value of class.
+         *
+         * @return self
+         */
+        public function setClass($class)
+        {
+            $this->class = $class;
+
+            return $this;
+        }
+
         public function uploadProfPic($userName)
         {
             if ($_SERVER['REQUEST_METHOD'] == 'POST') {
@@ -229,7 +250,7 @@
                         echo $lat;
                         try {
                             $conn = Db::getInstance();
-                            $stmnt = $conn->prepare("insert posts (`user_id`,`post_img_dir`,`post_description`,`date_created`, `color1`, `color2`, `color3`, `color4`, lat, `long`, city) VALUES (:userId, :dir,:descr, :time, :color1, :color2, :color3, :color4, :lat, :long, '$loc' )");
+                            $stmnt = $conn->prepare("insert posts (`user_id`,`post_img_dir`,`post_description`,`date_created`, `color1`, `color2`, `color3`, `color4`, lat, `long`, city, `class`) VALUES (:userId, :dir,:descr, :time, :color1, :color2, :color3, :color4, :lat, :long, '$loc', :class)");
                             $stmnt->bindParam(':userId', $this->userId);
                             $stmnt->bindParam(':dir', $newName);
                             $stmnt->bindParam(':lat', $lat);
@@ -240,6 +261,7 @@
                             $stmnt->bindParam(':color2', \League\ColorExtractor\Color::fromIntToHex($color2)); // kleuren omzetten naar hex en versturen
                             $stmnt->bindParam(':color3', \League\ColorExtractor\Color::fromIntToHex($color3)); // kleuren omzetten naar hex en versturen
                             $stmnt->bindParam(':color4', \League\ColorExtractor\Color::fromIntToHex($color4)); // kleuren omzetten naar hex en versturen
+                            $stmnt->bindParam(':class', $this->class);
                             $result = $stmnt->execute();
 
                             return $result;
