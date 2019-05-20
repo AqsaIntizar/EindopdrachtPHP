@@ -122,4 +122,15 @@
             }
             // return $stmnt->execute();
         }
+        // checks most liked
+        public static function checkMostLiked() {
+            $conn = Db::getInstance();
+            $stmnt = $conn->prepare('select post_id, count(*) as magnitude from likes where type = 1 group by post_id order by magnitude desc limit 1 ');
+            $stmnt->execute();
+
+            return $result = $stmnt->fetch(PDO::FETCH_ASSOC);
+        }
+
+
+
     }
