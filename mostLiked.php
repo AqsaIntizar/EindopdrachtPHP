@@ -29,7 +29,11 @@
         <h2>This is the most liked post</h2>
         <div class="feed">
             <div class="post post--home" id="<?php echo $r['id']; ?>">
-                    <a href="single.php?post=<?php echo $r['id']; ?>"><img class="postImg" src="images/posts/mini-<?php echo $r['post_img_dir']; ?>" alt=""></a>
+                <a class="postImgLink" href="single.php?post=<?php echo $r['id']; ?>">
+                    <figure class="imgFilter <?php echo $r['filter']; ?>" >
+                        <img src="images/posts/mini-<?php echo $r['post_img_dir']; ?>" alt="">
+                    </figure>
+                </a>
                     <div class="post_info">
                         <a href="profileDetails.php?id=<?php echo $r['user_id']; ?>" class="post__item"><span class="infoBlock"><strong><?php echo $r['username']; ?></strong></span></a>
                         <p class="description"><?php echo $r['post_description']; ?></p>
