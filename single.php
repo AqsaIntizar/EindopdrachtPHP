@@ -16,6 +16,7 @@
     } else {
         echo ':(';
     }
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -30,7 +31,9 @@
         <?php require_once 'nav.inc.php'; ?>
     </header>
 
-    <a href="" class="report">Report</a>    
+    <div class="report">
+        <a href="#" class="reportText" data-postid="<?php echo $r['id']; ?>">Report</a>  
+    </div>   
     
     <div class="singlePost" id="<?php echo $r['id']; ?>" data-id="<?php echo $r['id']; ?>">
         <div class="detail">
@@ -60,6 +63,19 @@
                         <span class="likesCnt" id="likes_<?php echo $r['id']; ?>" data-type="<?php echo $likeChecker; ?>"><?php echo $likes->cntLikes; ?></span> <span>mensen hebben dit geliked</span>
                     </div>
                     <!-- end Likes -->
+                    <div class="report">
+                        <a href="#" class="reportText" data-postid="<?php echo $r['id']; ?>">
+                        <?php
+                            if(Report::textReport($_SESSION['user']['id'], $r['id']))
+                            {
+                                echo "Undo";
+                            } else{
+                                echo "Report";
+                            }
+                        ?>
+
+                        </a>  
+                    </div> 
 
                     <form method="post" action="">
                         <input type="text" placeholder="Comment Here" class="comment" name="comment"/>
@@ -183,6 +199,36 @@
       });
   </script>
    
+
+   <script> 
+      $(document).ready(function(){
+        $(".reportText").on("click", function(e){
+            
+            var postId = $(this).data('postid');
+            var reportText = $(this);
+            console.log(postId);
+            
+            $.ajax({
+                method: "POST",
+                url: "ajax/report_post.php",
+                dataType: "json",
+                data: {
+                    postId: postId
+                }
+            }).done(function(res){
+                console.log(res);
+                if(res.status === "success"){
+                    reportText.text("Undo");
+                } 
+                
+            });
+            
+            e.preventDefault();
+        });
+        
+      });
+      
+    </script>
 
 
 </body>
