@@ -93,6 +93,24 @@ class Post
         $stmnt->execute();
     }
 
+    public static function changeDescription($postId)
+        {
+            //echo "test";
+            $myDescr = htmlspecialchars($_POST['myDescr'], ENT_QUOTES);
+
+            try {
+                $conn = Db::getInstance();
+                $stmntDesc = $conn->prepare('update posts SET post_description = :desc WHERE id = :postId');
+                $stmntDesc->bindParam(':desc', $myDescr);
+                $stmntDesc->bindParam(':postId', $postId);
+                $result = $stmntDesc->execute();
+
+                // return $result;
+            } catch (Throwable $t) {
+                echo $t;
+            }
+        }
+
     public static function timeAgo($timestamp)
     {
         date_default_timezone_set('Europe/Brussels');

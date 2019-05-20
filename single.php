@@ -36,11 +36,11 @@
     <a href="" class="report">Report</a>    
     
     <div class="singlePost" id="<?php echo $r['id']; ?>" data-id="<?php echo $r['id']; ?>">
-            <div class="edit" style="display:<?php echo $style; ?>">
+            <div class="editPost" style="display:<?php echo $style; ?>">
                 <p>Edit</p>
                 <div class="edit-dropdown">
                     <a class="hardDelete" href="#">Delete</a>
-                    <a href="#">Change description</a>
+                    <a href="editPost.php?post=<?php echo $r['id']; ?>">Change description</a>
                 </div>
             </div>
             <img class="postImg" src="images/posts/<?php echo $r['post_img_dir']; ?>" alt="">
