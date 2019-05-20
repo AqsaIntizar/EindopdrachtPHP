@@ -29,6 +29,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cssgram/0.1.10/cssgram.min.css">
     <link rel="stylesheet" href="css/style.css">
     <title>IncludeFood - Home</title>
     
@@ -46,7 +47,11 @@
         <?php foreach ($result as $r): ?>
             
             <div class="post post--home" id="<?php echo $r['id']; ?>">
-                <a href="single.php?post=<?php echo $r['id']; ?>"><img class="postImg" src="images/posts/mini-<?php echo $r['post_img_dir']; ?>" alt=""></a>
+                <a class="postImgLink" href="single.php?post=<?php echo $r['id']; ?>">
+                    <figure class="imgFilter <?php echo $r['filter']; ?>" >
+                        <img src="images/posts/mini-<?php echo $r['post_img_dir']; ?>" alt="">
+                    </figure>
+                </a>
                 <div class="colors-wrapper">
                     <a class="colors" href="index.php?color=<?php echo str_replace('#', '', $r['color1']); ?>" style="background-color:<?php echo $r['color1']; ?>"></a>
                     <a class="colors" href="index.php?color=<?php echo str_replace('#', '', $r['color2']); ?>" style="background-color:<?php echo $r['color2']; ?>"></a>

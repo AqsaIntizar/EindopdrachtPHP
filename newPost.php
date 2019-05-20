@@ -70,7 +70,7 @@
                 <a class="applyFilter" href="#"><img class="filters toaster" src="#" alt="Filters"></a>
                 <a class="applyFilter" href="#"><img class="filters valencia" src="#" alt="Filters"></a>
             </figure>
-            <input class="filterClass" type="hidden" name="filterClass" value="123">
+            <input class="filterClass" type="hidden" name="filterClass" value="none">
             <p>
                 <input class="addcontent" type="file" name="imageFile" id="file" data-multiple-caption="{count} files selected" multiple onchange="readURL(this);" >
                 <label for="file">Choose a file</label>
