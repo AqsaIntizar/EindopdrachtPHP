@@ -217,6 +217,8 @@
                     Image::resize($this->fileTempName, $extension, $newName, $this->targetDir);
 
                     if (move_uploaded_file($this->fileTempName, $this->targetDir.$newName)) {
+                        // corrigeren van gedraaide foto's
+                        Image::correctImageOrientation($this->targetDir.$newName);
                         // wanneer de foto verplaatst is wordt er een array met variable namen aangemaakt
                         $colorVars = array('color1', 'color2', 'color3', 'color4');
                         // kleuren extracten van de verplaatste foto -> returned een array van 4
