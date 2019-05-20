@@ -13,7 +13,7 @@
         private $description;
         private $userId;
         private $dateTime;
-        private $class;
+        private $filter;
 
         /**
          * Get the value of fileName.
@@ -178,9 +178,9 @@
         /**
          * Get the value of class.
          */
-        public function getClass()
+        public function getFilter()
         {
-            return $this->class;
+            return $this->filter;
         }
 
         /**
@@ -188,9 +188,9 @@
          *
          * @return self
          */
-        public function setClass($class)
+        public function setFilter($filter)
         {
-            $this->class = $class;
+            $this->filter = $filter;
 
             return $this;
         }
@@ -250,7 +250,7 @@
                         echo $lat;
                         try {
                             $conn = Db::getInstance();
-                            $stmnt = $conn->prepare("insert posts (`user_id`,`post_img_dir`,`post_description`,`date_created`, `color1`, `color2`, `color3`, `color4`, lat, `long`, city, `class`) VALUES (:userId, :dir,:descr, :time, :color1, :color2, :color3, :color4, :lat, :long, '$loc', :class)");
+                            $stmnt = $conn->prepare("insert posts (`user_id`,`post_img_dir`,`post_description`,`date_created`, `color1`, `color2`, `color3`, `color4`, lat, `long`, city, `filter`) VALUES (:userId, :dir,:descr, :time, :color1, :color2, :color3, :color4, :lat, :long, '$loc', :filter)");
                             $stmnt->bindParam(':userId', $this->userId);
                             $stmnt->bindParam(':dir', $newName);
                             $stmnt->bindParam(':lat', $lat);
@@ -261,7 +261,7 @@
                             $stmnt->bindParam(':color2', \League\ColorExtractor\Color::fromIntToHex($color2)); // kleuren omzetten naar hex en versturen
                             $stmnt->bindParam(':color3', \League\ColorExtractor\Color::fromIntToHex($color3)); // kleuren omzetten naar hex en versturen
                             $stmnt->bindParam(':color4', \League\ColorExtractor\Color::fromIntToHex($color4)); // kleuren omzetten naar hex en versturen
-                            $stmnt->bindParam(':class', $this->class);
+                            $stmnt->bindParam(':filter', $this->filter);
                             $result = $stmnt->execute();
 
                             return $result;

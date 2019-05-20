@@ -21,7 +21,7 @@
             $post->setTargetDir('images/posts/');
             $post->setDescription($_POST['description']);
             $post->setUserId($_SESSION['user']['id']);
-            $post->setClass($_POST['filterClass']);
+            $post->setFilter($_POST['filterClass']);
             date_default_timezone_set('Europe/Brussels'); //set timezone for correct date
             $post->setDateTime(date('Y-m-d H:i:s'));
             $location = new Location();
