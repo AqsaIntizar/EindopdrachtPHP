@@ -1,4 +1,19 @@
-
+.preview{
+  width: 100%;
+}
+.filterPre{
+  width: 500px;
+  max-height: 50%;
+  margin-left: 28%;
+}
+.filters{
+  width: 75px;
+  height: 75px;
+  background-size: contain;
+}
+.slide{
+  margin-left: 5%;
+}
  
     @media screen and (min-width: 492px) {
         body{
@@ -12,7 +27,6 @@
             color: white;
             font-size: 50px;
             text-align: center;
-            margin-right: 10%;
             letter-spacing: 2px;
             margin-top: 70px;
             padding-top: 30px;

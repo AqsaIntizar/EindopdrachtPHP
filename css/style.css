@@ -121,14 +121,18 @@ div.post {
     /* for testing */
     /* border: 1px solid blue; */
     text-align: center;
-    
+    margin-top: 20px;
     
 }
-.post img{
+.postImgLink{
     max-width: 100%;
-    padding-top: 20px;
+    margin-top: 20px;
+    margin-bottom: 10px;
+    display: inline-block;
 }
-
+.imgFilter{
+    height: 90%;
+}
 .post_info {
     display: flex;
     padding-bottom: 30px;

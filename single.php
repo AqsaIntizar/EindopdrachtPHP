@@ -19,14 +19,13 @@
 
     $style = User::canEdit($_SESSION['user']['id'], $r['user_id']);
 
-    
-
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cssgram/0.1.10/cssgram.min.css">
     <link rel="stylesheet" href="css/style.css">
     <title>IncludeFood - Details</title>
 </head>
@@ -47,7 +46,17 @@
                     <a href="editPost.php?post=<?php echo $r['id']; ?>">Change description</a>
                 </div>
             </div>
-            <img class="postImg" src="images/posts/<?php echo $r['post_img_dir']; ?>" alt="">
+        <div class="detail">
+            <figure class="imgFilter <?php echo $r['filter']; ?>" >
+                <img class="singleFilter" src="images/posts/<?php echo $r['post_img_dir']; ?>" alt="">
+            </figure>
+            <div class="colors-wrapper">
+                <a class="colors" href="colorsearch.php?color=<?php echo $r['color1']; ?>" style="background-color:<?php echo $r['color1']; ?>"></a>
+                <a class="colors" href="colorsearch.php?color=<?php echo $r['color2']; ?>" style="background-color:<?php echo $r['color2']; ?>"></a>
+                <a class="colors" href="colorsearch.php?color=<?php echo $r['color3']; ?>" style="background-color:<?php echo $r['color3']; ?>"></a>
+                <a class="colors" href="colorsearch.php?color=<?php echo $r['color4']; ?>" style="background-color:<?php echo $r['color4']; ?>"></a>
+            </div>
+            <!-- <img class="postImg" src="images/posts/<?php echo $r['post_img_dir']; ?>" alt=""> -->
             <p class="description"><?php  $hashtag = $r['post_description'];
                 $linked_string = preg_replace("/#([^\s]+)/", '<a href="search.php?searchResult=$1">#$1</a>', $hashtag);
                 echo $linked_string; ?></p>
@@ -70,11 +79,10 @@
                     <div class="report">
                         <a href="#" class="reportText" data-postid="<?php echo $r['id']; ?>">
                         <?php
-                            if(Report::textReport($_SESSION['user']['id'], $r['id']))
-                            {
-                                echo "Undo";
-                            } else{
-                                echo "Report";
+                            if (Report::textReport($_SESSION['user']['id'], $r['id'])) {
+                                echo 'Undo';
+                            } else {
+                                echo 'Report';
                             }
                         ?>
 

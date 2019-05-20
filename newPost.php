@@ -1,7 +1,6 @@
 <?php
-    ini_set('memory_limit', '256M'); 
+    ini_set('memory_limit', '512M');
     require_once 'bootstrap/bootstrap.php';
-    
 
     if (isset($_SESSION['user'])) {
         //logged in user
@@ -23,6 +22,7 @@
             $post->setTargetDir('images/posts/');
             $post->setDescription($_POST['description']);
             $post->setUserId($_SESSION['user']['id']);
+            $post->setFilter($_POST['filterClass']);
             date_default_timezone_set('Europe/Brussels'); //set timezone for correct date
             $post->setDateTime(date('Y-m-d H:i:s'));
             $location = new Location();
@@ -45,6 +45,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link rel="stylesheet" href="css/addpost.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cssgram/0.1.10/cssgram.min.css">
     <title>incFood</title>
 </head>
 <body>
@@ -52,10 +53,29 @@
         <h1>Food up the Feed!</h1>
         <h2>Add some new content here</h2>
         <form action="" method="post" enctype="multipart/form-data">
+            <figure class="hidden filterPre">
+                <img class="preview" src="#" alt="Your image" />
+            </figure>
+            <figure class="hidden slide">
+                <a class="applyFilter" href="#"><img class="filters none" src="#" alt="Filters"></a>
+                <a class="applyFilter" href="#"><img class="filters _1977" src="#" alt="Filters"></a>
+                <a class="applyFilter" href="#"><img class="filters brannan" src="#" alt="Filters"></a>
+                <a class="applyFilter" href="#"><img class="filters clarendon" src="#" alt="Filters"></a>
+                <a class="applyFilter" href="#"><img class="filters earlybird" src="#" alt="Filters"></a>
+                <a class="applyFilter" href="#"><img class="filters gingham" src="#" alt="Filters"></a>
+                <a class="applyFilter" href="#"><img class="filters inkwell" src="#" alt="Filters"></a>
+                <a class="applyFilter" href="#"><img class="filters kelvin" src="#" alt="Filters"></a>
+                <a class="applyFilter" href="#"><img class="filters maven" src="#" alt="Filters"></a>
+                <a class="applyFilter" href="#"><img class="filters nashville" src="#" alt="Filters"></a>
+                <a class="applyFilter" href="#"><img class="filters perpetua" src="#" alt="Filters"></a>
+                <a class="applyFilter" href="#"><img class="filters toaster" src="#" alt="Filters"></a>
+                <a class="applyFilter" href="#"><img class="filters valencia" src="#" alt="Filters"></a>
+            </figure>
+            <input class="filterClass" type="hidden" name="filterClass" value="none">
             <p>
-                <input class="addcontent" type="file" name="imageFile" id="file" data-multiple-caption="{count} files selected" multiple >
+                <input class="addcontent" type="file" name="imageFile" id="file" data-multiple-caption="{count} files selected" multiple onchange="readURL(this);" >
                 <label for="file">Choose a file</label>
-                <script>var inputs = document.querySelectorAll( '.inputfile' );
+                <!-- <script>var inputs = document.querySelectorAll( '.inputfile' );
  
                     Array.prototype.forEach.call( inputs, function( input ) {
                     var label = input.nextElementSibling,
@@ -64,7 +84,7 @@
                     input.addEventListener( 'change', function( e ) {
                         var fileName = '';
                         
-                        if ( this.files &amp;&amp; this.files.length > 1 ) {
+                        if ( this.files && this.files.length > 1 ) {
                         fileName = ( this.getAttribute( 'data-multiple-caption' ) || '' ).replace( '{count}', this.files.length );
                         } else {
                         fileName = e.target.value.split( '\\' ).pop();
@@ -76,7 +96,7 @@
                         label.innerHTML = labelVal;
                         }
                     });
-                    });</script>
+                    });</script> -->
             </p>
             <?php if (isset($newPostError)): ?>
                 <div class="form__error">
@@ -115,7 +135,38 @@
                 });
             }
             
-        });
+        })
+    </script>
+    <script type="text/javascript">
+    // hide figures by default
+    $('.hidden').css('display','none');
+    // show figure and filters on image selection
+        function readURL(input) {
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
+
+                reader.onload = function (e) {
+                    $('.preview').attr('src', e.target.result);
+                    $('.filters').attr('src', e.target.result);
+                    $('.preview').css('display','block');
+                    $('.hidden').css('display','block');
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
+        }
+    // on filter click apply filter on preview image
+    $('.applyFilter').on("click", (e)=>{
+        // get classname of the filter
+        // classname of filter will be in elementClasses[1]
+        let elementClasses = e.target.className.split(" ");
+        
+        // set filter class to preview element
+        $(".filterPre").attr("class", `hidden filterPre ${elementClasses[1]}`);
+        $(".filterClass").val(`${elementClasses[1]}`);
+        
+        e.preventDefault();
+    })
     </script>
 </body>
 </html>

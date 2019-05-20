@@ -5,7 +5,7 @@ class Post
     public static function getSinglePost($idSinglePost)
     {
         $conn = Db::getInstance();
-        $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir,post_description,username,date_created from posts, users where posts.user_id = users.id and posts.id = :idSinglePost and posts.statusReport = 0');
+        $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir,post_description,username,date_created, filter from posts, users where posts.user_id = users.id and posts.id = :idSinglePost and posts.statusReport = 0');
         $stmnt->bindValue(':idSinglePost', $idSinglePost, PDO::PARAM_INT);
         $stmnt->execute();
 
@@ -39,7 +39,7 @@ class Post
         }
 
         $conn = Db::getInstance();
-        $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir,post_description,username,color1,color2,color3,color4,date_created, lat, `long`, city from posts, users where posts.user_id = users.id and posts.statusReport = 0 ORDER BY id DESC LIMIT :itemCount');
+        $stmnt = $conn->prepare('select posts.* ,username from posts, users where posts.user_id = users.id and posts.statusReport = 0 ORDER BY id DESC LIMIT :itemCount');
         $stmnt->bindValue(':itemCount', $itemCount, PDO::PARAM_INT);
         $stmnt->execute();
 
@@ -78,7 +78,7 @@ class Post
             //echo $itemCount;
         }
         $conn = Db::getInstance();
-        $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir,post_description,username,date_created from posts, users where posts.user_id = users.id and posts.user_id = :id and posts.statusReport = 0 ORDER BY id DESC LIMIT :itemCount');
+        $stmnt = $conn->prepare('select posts.id, user_id, post_img_dir,post_description,username,date_created, filter from posts, users where posts.user_id = users.id and posts.user_id = :id and posts.statusReport = 0 ORDER BY id DESC LIMIT :itemCount');
         $stmnt->bindValue(':id', $usedId);
         $stmnt->bindValue(':itemCount', $itemCount, PDO::PARAM_INT);
         $stmnt->execute();
