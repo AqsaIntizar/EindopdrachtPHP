@@ -73,6 +73,15 @@
     </div>
     <script src="https://code.jquery.com/jquery-3.4.0.min.js" integrity="sha256-BJeo0qm959uMBGb65z40ejJYGSgR7REI4+CW1fNKwOg=" crossorigin="anonymous"></script>
     <script>
+        function whichPage() {
+            if (top.location.pathname === '/EindopdrachtPHP/index.php')
+                {
+                    return "index";
+                } else {
+                    return false;
+                }
+        }
+        let page = whichPage();
         $(".load").on("click", function(e){
 
             let counter = $(".post").length + 5;
@@ -81,7 +90,8 @@
                 method: "POST",
                 url: "ajax/load_more.php",
                 data: { 
-                    showitems: counter
+                    showitems: counter,
+                    page: page
                 },
                 dataType: 'json'
             })
