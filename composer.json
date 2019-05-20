@@ -1,5 +1,6 @@
 {
     "require": {
-        "league/color-extractor": "0.3.*"
+        "league/color-extractor": "0.3.*",
+        "ext-gd": "*"
     }
 }

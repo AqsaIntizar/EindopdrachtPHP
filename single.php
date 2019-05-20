@@ -48,12 +48,6 @@
                 </div>
             </div>
             <img class="postImg" src="images/posts/<?php echo $r['post_img_dir']; ?>" alt="">
-            <div class="colors-wrapper">
-                <a class="colors" href="colorsearch.php?color=<?php echo $r['color1']; ?>" style="background-color:<?php echo $r['color1']; ?>"></a>
-                <a class="colors" href="colorsearch.php?color=<?php echo $r['color2']; ?>" style="background-color:<?php echo $r['color2']; ?>"></a>
-                <a class="colors" href="colorsearch.php?color=<?php echo $r['color3']; ?>" style="background-color:<?php echo $r['color3']; ?>"></a>
-                <a class="colors" href="colorsearch.php?color=<?php echo $r['color4']; ?>" style="background-color:<?php echo $r['color4']; ?>"></a>
-            </div>
             <p class="description"><?php  $hashtag = $r['post_description'];
                 $linked_string = preg_replace("/#([^\s]+)/", '<a href="search.php?searchResult=$1">#$1</a>', $hashtag);
                 echo $linked_string; ?></p>
