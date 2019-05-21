@@ -186,4 +186,30 @@ class Post
             }
         }
     }
+
+    public static function getUniqueViews($visitorIp, $postId)
+    {
+        $conn = Db::getInstance();
+        $stmnt = $conn->prepare('select * from view_counter where ip_adress = :visitorIp and post_id = :postId');
+        $stmnt->bindValue(':visitorIp', $visitorIp);
+        $stmnt->bindParam(':postId', $postId);
+        $stmnt->execute();
+
+        if ($stmnt->rowCount() < 1)
+        {
+            $query = $conn->prepare('insert into view_counter (`post_id`,`ip_adress`,`visit_date`) VALUES (:postId, :visitorIp, :time)');
+            $query->bindValue(':visitorIp', $visitorIp);
+            $query->bindValue(':postId', $postId);
+            date_default_timezone_set('Europe/Brussels');
+            $current_time = date('Y-m-d H:i:s');
+            $query->bindValue(':time', $current_time);
+            $query->execute();
+        }
+
+        
+        $getStmnt = $conn->prepare('select * from view_counter where post_id = :postId');
+        $getStmnt->bindValue(':postId', $postId);
+        $getStmnt->execute();
+        return $getStmnt->rowCount();
+    }
 }

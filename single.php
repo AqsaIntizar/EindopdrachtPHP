@@ -33,10 +33,6 @@
     <header>
         <?php require_once 'nav.inc.php'; ?>
     </header>
-
-    <div class="report">
-        <a href="#" class="reportText" data-postid="<?php echo $r['id']; ?>">Report</a>  
-    </div>   
     
     <div class="singlePost" id="<?php echo $r['id']; ?>" data-id="<?php echo $r['id']; ?>">
             <div class="editPost" style="display:<?php echo $style; ?>">
@@ -103,8 +99,15 @@
                                     }
                                 }
                         ?>
-                    </ul>
-                </form>       
+                        </ul>
+                    </form>
+                    <p>Total views:</p>
+                    <p>
+                        <?php
+                            $visitor_ip = $_SERVER['REMOTE_ADDR'];                
+                            echo Post::getUniqueViews($visitor_ip, $r['id']);
+                        ?>
+                    </p>      
     </div>
 
     <div class="alertDelete">
