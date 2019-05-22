@@ -162,12 +162,17 @@
         {
             try {
                 $conn = Db::getInstance();
+                $username = htmlspecialchars($_POST['username']);
+                $email = htmlspecialchars($_POST['email']);
+                $firstname = htmlspecialchars($_POST['firstname']);
+                $lastname = htmlspecialchars($_POST['lastname']);
+
                 //var_dump($conn->errorCode());
                 $statement = $conn->prepare('INSERT INTO users (firstname, lastname, username, email, password, img_dir) values (:firstname, :lastname, :username, :email, :password, "default.png")');
-                $statement->bindParam(':email', $this->email);
-                $statement->bindParam(':firstname', $this->firstname);
-                $statement->bindParam(':lastname', $this->lastname);
-                $statement->bindParam(':username', $this->username);
+                $statement->bindParam(':email', $email);
+                $statement->bindParam(':firstname', $firstname);
+                $statement->bindParam(':lastname', $lastname);
+                $statement->bindParam(':username', $username);
                 $hash = password_hash($this->password, PASSWORD_BCRYPT);
                 $statement->bindParam(':password', $hash);
 
@@ -341,11 +346,12 @@
 
         public static function canEdit($sessionId, $userPostId)
         {
-            if($sessionId == $userPostId) {
-                $style = "block";
+            if ($sessionId == $userPostId) {
+                $style = 'block';
             } else {
-                $style = "none";
+                $style = 'none';
             }
+
             return $style;
             // get session user_id compare to user_id from post if true display block if false display none
         }

@@ -52,6 +52,7 @@
                         <img src="images/posts/mini-<?php echo $r['post_img_dir']; ?>" alt="">
                     </figure>
                 </a>
+                <p class="location"><?php echo $r['city']; ?></p>
                 <div class="colors-wrapper">
                     <a class="colors" href="index.php?color=<?php echo str_replace('#', '', $r['color1']); ?>" style="background-color:<?php echo $r['color1']; ?>"></a>
                     <a class="colors" href="index.php?color=<?php echo str_replace('#', '', $r['color2']); ?>" style="background-color:<?php echo $r['color2']; ?>"></a>
@@ -61,7 +62,6 @@
                 <div class="post_info">
                     <a href="profileDetails.php?id=<?php echo $r['user_id']; ?>" class="post__item"><span class="infoBlock"><strong><?php echo $r['username']; ?></strong></span></a>
                     <p class="description"><?php echo $r['post_description']; ?></p>
-                    <p class="location"><?php echo $r['city']; ?></p>
                 </div>
             </div>
 
