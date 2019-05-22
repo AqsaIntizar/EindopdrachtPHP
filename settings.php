@@ -80,11 +80,10 @@
                 <img class="currentPic" src="images/profilePics/<?php echo $result->img_dir; ?>">
                 <br><br>
                 <form action="" method="post" enctype="multipart/form-data">
-                    <p>
-                        File: <input type="file" name="imageFile">
-                    </p>
+                <input class="addcontent" type="file" name="imageFile" id="file" data-multiple-caption="{count} files selected" multiple onchange="readURL(this);" >
+                <label for="file">Choose a file</label>
                     <br>
-                    <input type="submit" name="uploadImage" value="Upload image">
+                    <input type="submit" name="uploadImage" value="Upload image" id="btn">
                 </form>
                 <hr>
             </div>
@@ -110,14 +109,15 @@
         <div class="setEmail">
             <div class="edit">
                 <h2>Change your email-address</h2>
-                <p>Your current email is: <?php echo $result->email; ?></p>
+                <p class="resultEmail">Your current email is: <?php echo $result->email; ?></p>
                 <form action="" method="post">
-                    <label for="password">Your password</label>
-                    <input type="password" id="password" name="password">
+                    <div class="signup">
+                    <input type="password" id="password" name="password" placeholder="password">
                     <br><br>
-                    <label for="email">Your new email-address</label>
                     <input type="text" id="newEmail" name="newEmail">
-                    <input type="submit" name="changeEmail" value="Change Email">
+                    </div>
+                    <input type="submit" name="changeEmail" value="Change Email" placeholder="new mail">
+                
                 </form>
                 <hr>
             </div>
@@ -129,16 +129,13 @@
             <div class="edit">
                 <h2>Change your password</h2>
                 <form action="" method="post">
-
-                    <label for="oldPassword">Old Password</label>
-                    <input type="password" id="oldPassword" name="oldPassword">
+                    <div class="signup">
+                    <input type="password" id="oldPassword" name="oldPassword" placeholder="Old password">
                     <br><br>
-                    <label for="newPassword">New Password</label>
-                    <input type="password" id="newPassword" name="newPassword">
+                    <input type="password" id="newPassword" name="newPassword" placeholder="New password">
                     <br><br>
-                    <label for="new_password_confirmation">Confirm your new password</label>
-		            <input type="password" id="new_password_confirmation" name="new_password_confirmation">
-
+		            <input type="password" id="new_password_confirmation" name="new_password_confirmation" placeholder="Password confirmation">
+</div>
                     <br><br>
                     <input type="submit" name="changePassword" value="Change Password">
                 </form>
