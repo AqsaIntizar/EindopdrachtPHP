@@ -81,7 +81,7 @@
   
     <script>
         function whichPage() {
-            if (top.location.pathname === '/EindopdrachtPHP/index.php')
+            if (top.location.pathname === '/index.php')
                 {
                     return "index";
                 } else {

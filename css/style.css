@@ -25,10 +25,11 @@ header{
 div.logo{
     width: 100px;
     height: 60px;
-    background-image: url('../images/logo.svg');
+    background-image: url('../images/logo.png');
     margin-left: 20px;
     margin-top: 15px;
     background-repeat: no-repeat;
+    background-size: contain;
 }
 nav{
     width: 100em;
