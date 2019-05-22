@@ -177,6 +177,15 @@ ul.navFlex li a {
 hr{
     margin-top: 20px;
 }
+a .infoBlock{
+color: green;
+
+
+}
+a{
+    text-decoration: none;
+    font-size: 20px;
+}
 
 /*end settings */
 
@@ -401,9 +410,10 @@ hr{
 
 .post--home {
     border-radius: 5px;
-    background-color: lightseagreen;
+    background-color: #4D4F51;
     margin: 20px;
 }
+
 
 /* end profile details */
 
