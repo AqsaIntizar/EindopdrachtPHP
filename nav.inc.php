@@ -6,7 +6,7 @@
         <li><a href="mostLiked.php" class="navLink">Most liked</a></li>
         <li><a href="hashtagFollow.php" class="navLink">Hashtags</a></li>
         <form class="search" action="search.php" method="get">
-            <input type="text" name="searchResult" placeholder="Search...">
+            <input type="text" name="searchResult" placeholder="Search..." class="search">
         </form>
         <li>
             <div class="dropdown">
