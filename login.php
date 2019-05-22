@@ -39,8 +39,11 @@
 		<input type="password" id="password" name="password" placeholder="password"><br>
 
         <input type="submit" value="Sign me up!" class="btn btn--primary">
+	<a href="register.php" class="registerLink">I still need a account!</a>
 </div>
+	
 	</form>
+	
 </body>
 </html>
 

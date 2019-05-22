@@ -123,6 +123,9 @@ ul.navFlex li a {
     background-color: #E2E2E2;
     width: 20%;
   }
+  .registerLink, .loginLink{
+    color: floralwhite;
+  }
   body{
       background-color: #252526;
   }
@@ -140,15 +143,11 @@ ul.navFlex li a {
     color: floralwhite;
 }
 
-.follow_{
+.follow,.unfollow{
     width: 70px;
     background-color: green;
     color: floralwhite;
-}
-.unfollow_{
-    width: 70px;
-    background-color: green;
-    color: floralwhite;
+    margin-bottom: 10px;
 }
 
 .error{

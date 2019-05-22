@@ -1,4 +1,4 @@
-<?php
+﻿<?php
     require_once 'bootstrap/bootstrap.php';
 
     if (isset($_SESSION['user'])) {
@@ -39,7 +39,7 @@
 
                 <div class="followers">
 
-                    <input type="button" value="Follow" class="follow_" id="follow_<?php echo $posFollow['id']; ?>" class="follow" />
+                    <input type="button" value="Follow" class="follow" id="follow_<?php echo $posFollow['id']; ?>" class="follow" />
                     <input type="button" value="Unfollow" id="unfollow_<?php echo $posFollow['id']; ?>" class="unfollow" style="display: none;"/> 
 
                     <br>
