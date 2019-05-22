@@ -98,6 +98,16 @@ ul.navFlex li a {
 .dropdown:hover .dropdown-content {display: block;}
 /* end header */
 
+/* start register */
+.signup{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+    align-content: center;
+  }
+
 /* start settings */
 .settings{
     width: 100vw;
