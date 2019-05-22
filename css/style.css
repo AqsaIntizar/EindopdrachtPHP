@@ -144,6 +144,12 @@ ul.navFlex li a {
     background-color: green;
     color: floralwhite;
 }
+.unfollow_{
+    width: 70px;
+    background-color: green;
+    color: floralwhite;
+}
+
 .error{
     text-align: center;
     background-color: firebrick;
