@@ -106,8 +106,27 @@ ul.navFlex li a {
     justify-content: center;
     align-items: center;
     align-content: center;
-  }
 
+  }
+  h2{
+      text-align: center;
+      margin-top: 50px;
+      margin-bottom: 40px;
+      color: green;
+      font-size: 40px;
+  }
+  input{
+    border-radius: 10px;
+    border: none;
+    padding: 7px;
+    background-color: #E2E2E2;
+    width: 20%;
+  }
+  body{
+      background-color: #252526;
+  }
+ 
+/* and register */
 /* start settings */
 .settings{
     width: 100vw;

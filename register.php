@@ -18,7 +18,7 @@
                     header('Location: index.php');
                 }
             } else {
-                $error = 'Your passwords are not secure or do not match.';
+                $error = 'Your passwords are not secure or do not match. password should have 8 charachters';
             }
         } catch (Exception $e) {
             $error = $e->getMessage();
@@ -33,7 +33,7 @@
   <title>IncludeFood - Register</title>
   <link rel="stylesheet" href="css/style.css">
 </head>
-<body>
+<body class="jo">
 	<form action="" method="post">
 		<h2>Sign up for an account</h2>
 		<?php if (isset($error)): ?>
@@ -44,23 +44,17 @@
 				</div>
                 <?php endif; ?>
 		<div class="signup">
-		<label for="firstanme">Firstname</label>
-		<input type="text" id="firstname" name="firstname"><br>
+		<input type="text" id="firstname" name="firstname" placeholder="Firstname"><br>
 			
-		<label for="lastname">Lastname</label>
-		<input type="text" id="lastname" name="lastname"><br>
+		<input type="text" id="lastname" name="lastname" placeholder="Lastname"><br>
 
-		<label for="username">Username</label>
-		<input type="text" id="username" name="username"><br>
+		<input type="text" id="username" name="username" placeholder="Username"><br>
 
-		<label for="email">Email</label>
-		<input type="text" id="email" name="email"><br>
+		<input type="text" id="email" name="email" placeholder="Email"><br>
 
-		<label for="password">Password</label>
-		<input type="password" id="password" name="password"><br>
+		<input type="password" id="password" name="password" placeholder="Password"><br>
 
-		<label for="password_confirmation">Confirm your password</label>
-		<input type="password" id="password_confirmation" name="password_confirmation"><br>
+		<input type="password" id="password_confirmation" name="password_confirmation" placeholder="password_confirmation"><br>
 
 		<input type="submit" value="Sign me up!" class="btn btn--primary">
         </div>
