@@ -39,7 +39,7 @@
 
                 <div class="followers">
 
-                    <input type="button" value="Follow" id="follow_<?php echo $posFollow['id']; ?>" class="follow" />
+                    <input type="button" value="Follow" class="follow_" id="follow_<?php echo $posFollow['id']; ?>" class="follow" />
                     <input type="button" value="Unfollow" id="unfollow_<?php echo $posFollow['id']; ?>" class="unfollow" style="display: none;"/> 
 
                     <br>

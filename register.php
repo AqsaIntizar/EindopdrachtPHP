@@ -38,8 +38,8 @@
 		<h2>Sign up for an account</h2>
 		<?php if (isset($error)): ?>
 				<div class="form__error">
-					<p>
-						💩 <?php echo $error; ?>
+					<p class="error">
+						 <?php echo $error; ?>
 					</p>
 				</div>
                 <?php endif; ?>

@@ -24,23 +24,22 @@
 
         <?php if (isset($_SESSION['error'])): ?>
         <div class="form__error">
-            <span>
+            <p class="error">
                 <?php
                     $error = $_SESSION['error'];
                     echo $error;
                 ?>
-            </span>
+            </p>
             
         </div>
         <?php endif; ?>
-				
-		<label for="username">Username</label>
-		<input type="text" id="username" name="username">
+		<div class="signup">
+		<input type="text" id="username" name="username" placeholder="username"><br>
 
-		<label for="password">Password</label>
-		<input type="password" id="password" name="password">
+		<input type="password" id="password" name="password" placeholder="password"><br>
 
-		<input type="submit" value="Sign me up!" class="btn btn--primary">
+        <input type="submit" value="Sign me up!" class="btn btn--primary">
+</div>
 	</form>
 </body>
 </html>
