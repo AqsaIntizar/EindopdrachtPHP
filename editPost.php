@@ -12,16 +12,16 @@
         $r = Post::getSinglePost($idSinglePost);
         $r = array_shift($r);
     } else {
-        echo ":("; 
+        echo ':(';
     }
 
      //Start save derscription
      if (isset($_POST['descrSave']) && !empty($_POST['myDescr'])) {
-        // $result = User::saveDiscription($userName);
-        Post::changeDescription($idSinglePost);
-        header('Location: single.php?post='.$idSinglePost);
-    }
-    
+         // $result = User::saveDiscription($userName);
+         Post::changeDescription($idSinglePost);
+         header('Location: single.php?post='.$idSinglePost);
+     }
+
 ?><!DOCTYPE html>
 <html lang="en">
 <head>
@@ -51,7 +51,7 @@
                 <form action="" method="post">
                     <textarea name="myDescr" id="myDescr" cols="55" rows="10" ></textarea>
                     <br><br>
-                    <input type="submit" name="descrSave" value="Save description" class="btn">
+                    <input type="submit" name="descrSave" value="Save description" class="btn_edit">
                 </form>
             </div>
         </div>
