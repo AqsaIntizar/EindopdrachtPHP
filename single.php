@@ -52,7 +52,7 @@
                 <a class="colors" href="colorsearch.php?color=<?php echo $r['color3']; ?>" style="background-color:<?php echo $r['color3']; ?>"></a>
                 <a class="colors" href="colorsearch.php?color=<?php echo $r['color4']; ?>" style="background-color:<?php echo $r['color4']; ?>"></a>
             </div>
-            <!-- <img class="postImg" src="images/posts/<?php echo $r['post_img_dir']; ?>" alt=""> -->
+            <!-- <img class="postImg" src="images/posts/<?php //echo $r['post_img_dir'];?>" alt=""> -->
             <p class="description"><?php  $hashtag = $r['post_description'];
                 $linked_string = preg_replace("/#([^\s]+)/", '<a href="search.php?searchResult=$1">#$1</a>', $hashtag);
                 echo $linked_string; ?></p>
@@ -104,7 +104,7 @@
                     <p>Total views:</p>
                     <p>
                         <?php
-                            $visitor_ip = $_SERVER['REMOTE_ADDR'];                
+                            $visitor_ip = $_SERVER['REMOTE_ADDR'];
                             echo Post::getUniqueViews($visitor_ip, $r['id']);
                         ?>
                     </p>      
@@ -196,7 +196,8 @@
           let that = $(this);
           let text = $(this).siblings(".comment").val();
           let currentForm = $(this).parent();
-          let postId = currentForm.parent().data("id");       
+          let detail = currentForm.parent();  
+          let postId = detail.parent().data('id');
           $.ajax({
               method: "POST",
               url: "ajax/save_comment.php",
@@ -208,7 +209,7 @@
           })
           .done( function( res ){
               if(res.status == "success"){
-                  //console.log("hier");
+                  console.log("hier");
                   let comment = res.data.comment;
                   let li = `<li style="display: hidden;">${comment}</li>`;
                   that.siblings(".comments").append(li);
