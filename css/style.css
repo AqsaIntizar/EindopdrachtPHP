@@ -8,6 +8,9 @@
    
     
  }
+ .info--name{
+     color: green;
+ }
 
 /* start header */
 header{
@@ -547,6 +550,7 @@ hr{
 
 .content--details{
     width: 75%;
+    background-color:#4D4F51;
 }
 
 .post--home {
@@ -554,7 +558,52 @@ hr{
     background-color: #4D4F51;
     margin: 20px;
 }
+.volg{
+    color: white;
+}
+.description2{
+    color: white;
+    margin-left: -240px;
+    margin-top: -20px;
+    margin-bottom: 40px;
+}
+.post__item2 .infoBlock2{
+    margin-left: -420px;
+    color: green;
+}
+.like2{
 
+    margin-top: -22px;
+    margin-left: -450px;
+    margin-bottom: 20px;
+}
+.time2{
+    color:grey;
+    margin-left: 380px;
+}
+.comment{
+    margin-left: 350px;
+    color: white;
 
+}
+.comments2{
+color: white;
+margin-left: 100px;
+}
+
+.textcomm{
+    margin-left: px;
+}
+.post2{
+    width: 50%;
+    background-color: #252526;
+    margin-left: 25%;
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+sub2{
+    width: 400px;
+}
 /* end profile details */
 

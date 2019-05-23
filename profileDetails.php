@@ -43,7 +43,7 @@
                     <input type="button" value="Unfollow" id="unfollow_<?php echo $posFollow['id']; ?>" class="unfollow" style="display: none;"/> 
 
                     <br>
-                    <span id="follows_<?php echo $posFollow['id']; ?>" data-type="<?php echo $followChecker; ?>"><?php echo $followers->cntFollowers; ?></span> <span>mensen volgen deze persoon.</span>
+                    <p class="volg" id="follows_<?php echo $posFollow['id']; ?>" data-type="<?php echo $followChecker; ?>"><?php echo $followers->cntFollowers; ?></p> <p class="volg">mensen volgen deze persoon.</p>
                 </div>
                 <!-- end Follow-->
             </div>
@@ -51,8 +51,8 @@
             <div class="underSide">
                 <!-- <a href="#">Posts</a>
                 <a href="#">Info</a> -->
-                <p><strong>Beschrijving: </strong></p>
-                <h5 class="description"><?php echo $posFollow['description']; ?></h5>
+                <p class="volg"><strong>Beschrijving: </strong></p>
+                <h5 class="description" class="volg"><?php echo $posFollow['description']; ?></h5>
             </div>
             
         </div>
@@ -64,50 +64,53 @@
                     $postId = $r['id'];
                     ?>
    
-                <div class="post" id="<?php echo $postId; ?>" data-id="<?php echo $postId; ?>">
+                <div class="post post2" id="<?php echo $postId; ?>" data-id="<?php echo $postId; ?>">
    
                     <a class="postImgLink" href="single.php?post=<?php echo $r['id']; ?>">
                         <figure class="imgFilter <?php echo $r['filter']; ?>" >
                             <img src="images/posts/mini-<?php echo $r['post_img_dir']; ?>" alt="">
                         </figure>
-                    </a>
-                <p class="description">
+                    </a><br>
+                    <p class= "time2"><strong><?php echo Post::timeAgo($r['date_created']); ?></strong></p>
+                     <!-- start Likes -->
+
+                <div class="like2">
+
+                <input type="button" value="Like" id="like_<?php echo $postId; ?>" class="like" />
+                <input type="button" value="Unlike" id="unlike_<?php echo $postId; ?>" class="unlike" style="display: none;"/> 
+
+                <?php
+                    $likes = Like::getLikes($postId);
+                    $likeChecker = Like::checkIfLiked($_SESSION['user']['id'], $postId);
+                ?>
+                <p class="likesCnt volg" id="likes_<?php echo $postId; ?>" data-type="<?php echo $likeChecker; ?>"><?php echo $likes->cntLikes; ?></p> <p class="volg"></p>
+                </div>
+                <!-- end Likes -->
+                    <a href="profileDetails.php?id=<?php echo $r['user_id']; ?>" class="post__item2"><span class="infoBlock2"><strong><?php echo $r['username']; ?></strong></span></a>
+                <p class="description2">
                     <?php
                         $hashtag = $r['post_description'];
                         $linked_string = preg_replace("/#([^\s]+)/", '<a href="search.php?searchResult=$1">#$1</a>', $hashtag);
                         echo $linked_string;
                     ?>
                 </p>
-                <p><strong><?php echo Post::timeAgo($r['date_created']); ?></strong></p>
-                <a href="profileDetails.php?id=<?php echo $r['user_id']; ?>" class="post__item"><span class="infoBlock"><strong><?php echo $r['username']; ?></strong></span></a>
+                
+               
                 <!--<p><strong><a href="#"><?php //echo $r['username'];?></a> </strong></p>-->
                 
-                 <!-- start Likes -->
-
-                <div class="likes">
-
-                    <input type="button" value="Like" id="like_<?php echo $postId; ?>" class="like" />
-                    <input type="button" value="Unlike" id="unlike_<?php echo $postId; ?>" class="unlike" style="display: none;"/> 
-
-                    <?php
-                        $likes = Like::getLikes($postId);
-                        $likeChecker = Like::checkIfLiked($_SESSION['user']['id'], $postId);
-                    ?>
-                    <span class="likesCnt" id="likes_<?php echo $postId; ?>" data-type="<?php echo $likeChecker; ?>"><?php echo $likes->cntLikes; ?></span> <span>mensen hebben dit geliked</span>
-                </div>
-                <!-- end Likes -->
+                
                 
                 <form method="post" action="">
-                    <input type="text" placeholder="Comment Here" class="comment" name="comment"/>
-                    <input type="submit" value="Post comment" class="btnSub" />
+                    <input type="text" placeholder="Comment Here" class="textcomm" name="comment"/>
+                    <input type="submit" value="Post" class="btnSub sub2" />
 
-                    <ul class="comments">
+                    <ul class="comments2">
                         <?php
                             //echo $r['id'];
                             $comments = Comment::getAll($postId);
                             if (is_array($comments) || is_object($comments)) {
                                 foreach ($comments as $c) {
-                                    echo '<li>'.htmlspecialchars($c['text'], ENT_QUOTES).'</li>';
+                                    echo '<li class="comment">'.htmlspecialchars($c['text'], ENT_QUOTES).'</li>';
                                 }
                             }
 
