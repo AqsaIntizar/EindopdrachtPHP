@@ -84,7 +84,7 @@
          
 
                     <form method="post" action="">
-                        <input type="text" placeholder="Comment Here" class="comment3" name="comment"/>
+                        <input type="text" placeholder="Comment Here" class="comment" id="comments" name="comment"/>
                         <input type="submit" value="Post comment" class="btnSub" />
 
                         <ul class="comments">

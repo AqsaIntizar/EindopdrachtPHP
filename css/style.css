@@ -584,14 +584,10 @@ hr{
 .comment3{
     margin-left: 250px;
 }
-.comment{
-    margin-left: 30px;
-    color: white;
 
-}
-.comments2{
+#comments{
 color: white;
-margin-left: 100px;
+margin-left: 230px;
 }
 
 .post2{
