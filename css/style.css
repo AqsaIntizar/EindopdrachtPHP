@@ -450,6 +450,9 @@ font-size: 20px;
 .colors-wrapper{
     width: 70%;
     height: 65px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     margin: 0 auto;
 }
 .colors{
