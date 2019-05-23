@@ -582,7 +582,7 @@ hr{
     margin-left: 380px;
 }
 .comment{
-    margin-left: 350px;
+    margin-left: 30px;
     color: white;
 
 }
@@ -591,16 +591,13 @@ color: white;
 margin-left: 100px;
 }
 
-.textcomm{
-    margin-left: px;
-}
 .post2{
     width: 50%;
     background-color: #252526;
     margin-left: 25%;
     padding: 20px;
     border-radius: 10px;
-    margin-bottom: 20px;
+    margin-bottom: 30px;
 }
 sub2{
     width: 400px;
