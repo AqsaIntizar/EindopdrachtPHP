@@ -94,8 +94,9 @@
         <div class="setDescr">
             <div class="edit">
                 <h2>Change your description</h2>
-                <p><?php echo $result->description; ?></p>
+                
                 <form action="" method="post">
+		    <p class="myDicription"><?php echo $result->description; ?></p>
                     <textarea name="myDiscr" id="myDiscr" cols="55" rows="10" ></textarea>
                     <br><br>
                     <input type="submit" name="descrSave" value="Save description">
