@@ -71,6 +71,7 @@
                         ?>
                         <span class="likesCnt" id="likes_<?php echo $r['id']; ?>" data-type="<?php echo $likeChecker; ?>"><?php echo $likes->cntLikes; ?></span> <span>mensen hebben dit geliked</span>
                     </div>
+
                     <!-- end Likes -->
                     <div class="report">
                         <a href="#" class="reportText" data-postid="<?php echo $r['id']; ?>">
