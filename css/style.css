@@ -289,6 +289,17 @@ a{
     color: white;
     margin-top: 3px;
 }
+#editPost{
+    width:10%;
+    margin-left: 45%;
+    background-color: black;
+    border: 1px solid green;
+    color: green;
+}
+a span{
+    text-align: center;
+}
+
 
 /* Start css for feed */
 div.homepage {
@@ -356,7 +367,43 @@ div.post {
     cursor: pointer;
     text-align: center;
 }
-
+.post__item .infoBlock{
+margin-left: 25%;
+font-weight: 600;
+font-size: 20px;
+}
+.desDetail{
+    margin-left: 38%;
+    margin-top: -20px;
+}
+.likes{
+    margin-top: -40px;
+    margin-left: 225px;
+    margin-bottom: 20px;
+}
+.reportText{
+    font-weight: 600;
+    color: firebrick;
+    margin-left: 67%;
+}
+.time{
+    font-weight: 600;
+    text-align: end;
+    margin-top: 10px;
+    margin-right: 230px;
+    margin-bottom: 20px;
+    color: grey;
+}
+.btnSub{
+    margin-left: 0px;
+}
+.comment{
+    margin-left: 230px;
+}
+.comments{
+    margin-left: 14%;
+   color: white;
+}
 .edit-dropdown {
     display: none;
     position: absolute;
@@ -394,12 +441,15 @@ div.post {
     background-color:  #4D4F51;
     margin-left: 25%;
 }
+.visitors{
+    color: white;
+    text-align: end;
+    margin-right: 230px;
+    
+}
 .colors-wrapper{
     width: 70%;
     height: 65px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
     margin: 0 auto;
 }
 .colors{

@@ -35,45 +35,15 @@
     </header>
     
     <div class="singlePost" id="<?php echo $r['id']; ?>" data-id="<?php echo $r['id']; ?>">
-            <div class="editPost" style="display:<?php echo $style; ?>">
-                <p>Edit</p>
+            <div class="editPost" id="editPost" style="display:<?php echo $style; ?>">
+                <p class = "edit-btn">Edit</p>
                 <div class="edit-dropdown">
                     <a class="hardDelete" href="#">Delete</a>
                     <a href="editPost.php?post=<?php echo $r['id']; ?>">Change description</a>
                 </div>
             </div>
         <div class="detail">
-            <figure class="imgFilter <?php echo $r['filter']; ?>" >
-                <img class="singleFilter" src="images/posts/<?php echo $r['post_img_dir']; ?>" alt="">
-            </figure>
-            <div class="colors-wrapper">
-                <a class="colors" href="colorsearch.php?color=<?php echo $r['color1']; ?>" style="background-color:<?php echo $r['color1']; ?>"></a>
-                <a class="colors" href="colorsearch.php?color=<?php echo $r['color2']; ?>" style="background-color:<?php echo $r['color2']; ?>"></a>
-                <a class="colors" href="colorsearch.php?color=<?php echo $r['color3']; ?>" style="background-color:<?php echo $r['color3']; ?>"></a>
-                <a class="colors" href="colorsearch.php?color=<?php echo $r['color4']; ?>" style="background-color:<?php echo $r['color4']; ?>"></a>
-            </div>
-            <!-- <img class="postImg" src="images/posts/<?php //echo $r['post_img_dir'];?>" alt=""> -->
-            <a href="profileDetails.php?id=<?php echo $r['user_id']; ?>" class="post__item"><span class="infoBlock"><strong><?php echo $r['username']; ?></strong></span></a>
-            <p class="description"><?php  $hashtag = $r['post_description'];
-                $linked_string = preg_replace("/#([^\s]+)/", '<a href="search.php?searchResult=$1">#$1</a>', $hashtag);
-                echo $linked_string; ?></p>
-            <p><strong><?php echo Post::timeAgo($r['date_created']); ?></strong></p>
-            <!--<p><strong><a href="#"><?php //echo $r['username'];?></a> </strong></p>-->
-                    <!-- start Likes -->
-                    <div class="likes">
-
-                        <input type="button" value="Like" id="like_<?php echo $r['id']; ?>" class="like" />
-                        <input type="button" value="Unlike" id="unlike_<?php echo $r['id']; ?>" class="unlike" style="display: none;"/> 
-
-                        <?php
-                            $likes = Like::getLikes($r['id']);
-                            $likeChecker = Like::checkIfLiked($_SESSION['user']['id'], $r['id']);
-                        ?>
-                        <span class="likesCnt" id="likes_<?php echo $r['id']; ?>" data-type="<?php echo $likeChecker; ?>"><?php echo $likes->cntLikes; ?></span> <span>mensen hebben dit geliked</span>
-                    </div>
-
-                    <!-- end Likes -->
-                    <div class="report">
+        <div class="report">
                         <a href="#" class="reportText" data-postid="<?php echo $r['id']; ?>">
                         <?php
                             if (Report::textReport($_SESSION['user']['id'], $r['id'])) {
@@ -84,10 +54,37 @@
                         ?>
 
                         </a>  
-                    </div> 
+                    </div>
+            <figure class="imgFilter <?php echo $r['filter']; ?>" >
+                <img class="singleFilter" src="images/posts/<?php echo $r['post_img_dir']; ?>" alt="">
+            </figure>
+            <p class="time"><?php echo Post::timeAgo($r['date_created']); ?></p>
+            <!-- start Likes -->
+            <div class="likes">
+
+            <input type="button" value="Like" id="like_<?php echo $r['id']; ?>" class="like" />
+            <input type="button" value="Unlike" id="unlike_<?php echo $r['id']; ?>" class="unlike" style="display: none;"/> 
+
+            <?php
+                $likes = Like::getLikes($r['id']);
+                $likeChecker = Like::checkIfLiked($_SESSION['user']['id'], $r['id']);
+            ?>
+            <span class="likesCnt" id="likes_<?php echo $r['id']; ?>" data-type="<?php echo $likeChecker; ?>"><?php echo $likes->cntLikes; ?></span> <span>mensen hebben dit geliked</span>
+            </div>
+
+            <!-- end Likes -->
+            <!-- <img class="postImg" src="images/posts/<?php //echo $r['post_img_dir'];?>" alt=""> -->
+            <a href="profileDetails.php?id=<?php echo $r['user_id']; ?>" class="post__item"><span class="infoBlock"><?php echo $r['username']; ?></span></a>
+            <p class="description desDetail"><?php  $hashtag = $r['post_description'];
+                $linked_string = preg_replace("/#([^\s]+)/", '<a href="search.php?searchResult=$1">#$1</a>', $hashtag);
+                echo $linked_string; ?></p>
+            
+            <!--<p><strong><a href="#"><?php //echo $r['username'];?></a> </strong></p>-->
+                    
+         
 
                     <form method="post" action="">
-                        <input type="text" placeholder="Comment Here" class="comment" name="comment"/>
+                        <input type="text" placeholder="Comment Here" class="comment" name="comment" class="comment"/>
                         <input type="submit" value="Post comment" class="btnSub" />
 
                         <ul class="comments">
@@ -96,14 +93,14 @@
                                 $comments = Comment::getAll($r['id']);
                                 if (is_array($comments) || is_object($comments)) {
                                     foreach ($comments as $c) {
-                                        echo '<li>'.htmlspecialchars($c['text'], ENT_QUOTES).'</li>';
+                                        echo '<li class="comments">'.htmlspecialchars($c['text'], ENT_QUOTES).'</li>';
                                     }
                                 }
                         ?>
                         </ul>
                     </form>
-                    <p>Total views:</p>
-                    <p>
+                    <p class= "visitors">Total views:</p>
+                    <p class= "visitors">
                         <?php
                             $visitor_ip = $_SERVER['REMOTE_ADDR'];
                             echo Post::getUniqueViews($visitor_ip, $r['id']);
