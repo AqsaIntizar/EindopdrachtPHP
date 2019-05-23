@@ -55,10 +55,10 @@
 		<input type="password" id="password" name="password" placeholder="Password"><br>
 
 		<input type="password" id="password_confirmation" name="password_confirmation" placeholder="password_confirmation"><br>
-
-		<input type="submit" value="Sign me up!" class="btn btn--primary">
+        </div>
+		<input type="submit" value="Sign me up!" class="btn btn--primary"><br>
 		
-		<a href="login.php" class="loginLink">I already have an account!</a>
+		<a href="login.php" class="registerLink">I already have an account!</a>
         </div>
 	</form>
 	
