@@ -53,11 +53,11 @@
                 <a class="colors" href="colorsearch.php?color=<?php echo $r['color4']; ?>" style="background-color:<?php echo $r['color4']; ?>"></a>
             </div>
             <!-- <img class="postImg" src="images/posts/<?php //echo $r['post_img_dir'];?>" alt=""> -->
+            <a href="profileDetails.php?id=<?php echo $r['user_id']; ?>" class="post__item"><span class="infoBlock"><strong><?php echo $r['username']; ?></strong></span></a>
             <p class="description"><?php  $hashtag = $r['post_description'];
                 $linked_string = preg_replace("/#([^\s]+)/", '<a href="search.php?searchResult=$1">#$1</a>', $hashtag);
                 echo $linked_string; ?></p>
             <p><strong><?php echo Post::timeAgo($r['date_created']); ?></strong></p>
-            <a href="profileDetails.php?id=<?php echo $r['user_id']; ?>" class="post__item"><span class="infoBlock"><strong><?php echo $r['username']; ?></strong></span></a>
             <!--<p><strong><a href="#"><?php //echo $r['username'];?></a> </strong></p>-->
                     <!-- start Likes -->
                     <div class="likes">

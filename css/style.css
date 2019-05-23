@@ -274,9 +274,21 @@ a{
       margin-top: 20px;
       margin-bottom: 60px;
   }
+  .location{
+      color: white;
+  }
+  .btn_edit{
+      width: 180px;
+      margin-left: 150px;
+  }
 
 
 /*end settings */
+/*start details */
+.description{
+    color: white;
+    margin-top: 3px;
+}
 
 /* Start css for feed */
 div.homepage {
@@ -371,29 +383,16 @@ div.post {
 
 .singlePost {
     padding-top: 90px;
-    min-height: 100%;
-    background-color: lightseagreen;
-    padding-bottom: 90px;
-    text-align: left;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-}
-
-.description-post {
-    display: flex;
-    justify-content: flex-start;
-}
-
-.description-post p, .description-post a {
-    margin-left: 50px;
+    background-color:  #4D4F51;
+    width: 60%;
+    margin-left: 20%;
+    
 }
 
 .singlePost img {
-    min-height: 450px;
-    max-width: 50%;
-    max-height: 65vh;
-    max-width: 90%;
+    width: 50%;
+    background-color:  #4D4F51;
+    margin-left: 25%;
 }
 .colors-wrapper{
     width: 70%;
